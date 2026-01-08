@@ -18,8 +18,8 @@ interface CustomButtonProps {
 const CustomButton: React.FC<CustomButtonProps> = ({
   title,
   onPress,
-  backgroundColor = "bg-pure-blue",
-  textColor = "text-white",
+  backgroundColor = "bg-yellow-100",
+  textColor = "text-black",
   width = 318, // number in pixels
   height = 60,
   borderRadius = 10,
