@@ -33,19 +33,20 @@ const LoginScreen = () => {
       </TouchableOpacity> */}
 
       {/* Header */}
-      <View className="pb-5 pr-15">
-        <Text className="mt-20 text-[70px] font-black text-[#FFEF9A]"
+      <View className="pb-10 pr-10">
+        <Text className="mt-20 text-[75px] font-black text-[#FFEF9A]"
           style={{
             // Mimicking the thick black outline and shadow
             textShadowColor: '#000000',
-            textShadowOffset: { width: 3, height: 3 },
-            textShadowRadius: 8,
+            textShadowOffset: { width: 4, height: 4 },
+            textShadowRadius: 1,
             fontFamily: 'System', // Use a rounded font like 'Fredoka' or 'Nunito' if available
             letterSpacing: 1,
           }}>
           LOGIN
         </Text>
-        <Text className="text-[#553A00] text-left px-6 text-[18px]"
+
+        <Text className="text-[#553A00] text-[19px]"
           style={{
             fontFamily: 'Poppins-Bold', // Ensure this matches your linked font name
             fontWeight: '700',          // Explicitly set bold if Poppins-Bold isn't loaded
@@ -62,6 +63,7 @@ const LoginScreen = () => {
         placeholder="Username"
         textContentType="username"
         // inputName="Username"
+        iconName="user"
         value={username}
         onChangeText={setUsername}
       />
@@ -69,27 +71,28 @@ const LoginScreen = () => {
         placeholder="Password"
         secureTextEntry
         // inputName="Password"
+        iconName="lock"
         value={password}
         onChangeText={setPassword}
       />
 
       {/* Forgot Password */}
       <TouchableOpacity
-        className="self-end mr-[20px] mb-20" onPress={() => router.push("/forgetpass")}>
-        <Text className="text-pure-gray-2 font-semibold">Forgot Password?</Text>
+        className="self-end mr-[20px]" onPress={() => router.push("/forgetpass")}>
+        <Text className="text-white font-bold mt-3 mb-10">Forgot Password?</Text>
       </TouchableOpacity>
 
       {/* Login Button */}
       <CustomButton
-        title={loading ? "Logging in..." : "Login"}
+        title={loading ? "Logging in..." : "Sign In"}
         onPress={handleLogin}
       />
 
       {/* Sign Up */}
-      <View className="flex-row mt-6">
-        <Text className="text-pure-gray-2">Don’t have an account? </Text>
+      <View className="flex-row mt-4">
+        <Text className="text-white">Don’t have an account? </Text>
         <TouchableOpacity onPress={() => router.push("/signup")}>
-          <Text className="text-pure-blue font-semibold">Sign up</Text>
+          <Text className="text-white font-bold">Sign up</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

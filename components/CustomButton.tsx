@@ -18,25 +18,29 @@ interface CustomButtonProps {
 const CustomButton: React.FC<CustomButtonProps> = ({
   title,
   onPress,
-  backgroundColor = "bg-yellow-100",
+  backgroundColor = "#FFEF9A",
   textColor = "text-black",
-  width = 318, // number in pixels
-  height = 60,
-  borderRadius = 10,
+  width = 300, // number in pixels
+  height = 50,
+  borderRadius = 16,
   fontSize = 18,
   fontWeight = "700",
   containerStyle,
   textStyle,
 }) => {
+
+  const isHex = backgroundColor.startsWith('#');
+
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.8}
-      className={`items-center justify-center ${backgroundColor} ${containerStyle}`}
+      className={`items-center justify-center border-2 border-black ${!isHex ? backgroundColor : ''} ${containerStyle || ''}`}
       style={{
-        width,       // ✅ number
-        height,      // ✅ number
-        borderRadius // ✅ number
+        width,
+        height,
+        borderRadius,
+        backgroundColor: isHex ? backgroundColor : undefined,
       }}
     >
       <Text
