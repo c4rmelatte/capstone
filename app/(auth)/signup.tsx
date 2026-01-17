@@ -1,52 +1,75 @@
 // app/login.tsx
 import CustomButton from "@/components/CustomButton";
 import CustomTextInput from "@/components/CustomTextInput";
-import { Ionicons } from "@expo/vector-icons";
+import Images from "@/constants/images";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 
 const LoginScreen = () => {
   const router = useRouter();
 
   return (
-    <View className="flex-1 bg-white items-center pt-44 px-6 relative">
-      {/* Back Arrow */}
-      <TouchableOpacity onPress={() => router.back()} className="absolute left-6 top-24">
-        <Ionicons name="arrow-back" size={28} color="#38BDF8" />
-      </TouchableOpacity>
+        <ImageBackground
+          source={Images.Loginbg}
+          resizeMode="cover"
+          className="flex-1 items-center"
+        >
 
-      {/* Title */}
-      <View className="pb-10">
-        <Text className="text-[20px] font-bold text-left text-pure-blue mb-2 px-6">
-          Create Your Account
-        </Text>
-        <Text className="text-[#625D5D] text-left mb-8 px-6 text-[14px]">
-          Please fill in your email and password to login to your account.
-        </Text>
-      </View>
+        <View className="items-center mt-10">
+          {/* Back Arrow */}
+          {/* <TouchableOpacity onPress={() => router.back()} className="absolute left-6 top-20">
+            <Ionicons name="arrow-back" size={28} color="#38BDF8" />
+          </TouchableOpacity> */}
 
-      {/* Inputs */}
-      <CustomTextInput placeholder="Name" keyboardType="default" inputName="Name" />
-      <CustomTextInput placeholder="Email" keyboardType="email-address" inputName="Email" />
-      <CustomTextInput placeholder="Password" secureTextEntry inputName="Password" />
-      <CustomTextInput
-        placeholder="Confirm Password"
-        secureTextEntry
-        inputName="Confirm Password"
-      />
-      <View className="h-6" />
-      {/* Login Button */}
-      <CustomButton title="Create An Account" onPress={() => {}} />
+          {/* Title */}
+          <View className="pb-5 items-center">
+            <Text className="mt-44 text-[70px] font-black text-[#FFEF9A]"
+            style={{
+            // Mimicking the thick black outline and shadow
+            textShadowColor: '#000000',
+            textShadowOffset: { width: 4, height: 4 },
+            textShadowRadius: 1,
+            fontFamily: 'System', // Use a rounded font like 'Fredoka' or 'Nunito' if available
+            letterSpacing: 1,
+          }}
+          >
+              REGISTER
+            </Text>
+            <Text className="text-[#553A00] text-center text-[17px]"
+                      style={{
+            fontFamily: 'Poppins-Bold', 
+            fontWeight: '700',          
+            textShadowColor: 'rgba(0, 0, 0, 0.25)',
+            textShadowOffset: { width: 0, height: 2 },
+            textShadowRadius: 4, // Blur: 4
+          }}>
+              Time to get inky — it’s time to study!
+            </Text>
+          </View>
 
-      {/* Sign Up Link */}
-      <View className="flex-row mt-6">
-        <Text className="text-pure-gray-2">Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => router.push("/login")}>
-          <Text className="text-pure-blue font-semibold">Sign In</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          {/* Inputs */}
+          <View className="gap-0">
+            <CustomTextInput placeholder="Full Name" keyboardType="default" />
+            <CustomTextInput placeholder="Email Address" keyboardType="email-address" />
+            <CustomTextInput placeholder="Username" textContentType="username" />
+            <CustomTextInput placeholder="Password" secureTextEntry/>
+            <CustomTextInput placeholder="Confirm Password" secureTextEntry/>
+          </View>
+
+          <View className="h-8" />
+          {/* Login Button */}
+          <CustomButton title="Sign Up" onPress={() => {}} />
+
+          {/* Sign Up Link */}
+          <View className="flex-row mt-4">
+            <Text className="text-white">Already a buddy? </Text>
+            <TouchableOpacity onPress={() => router.push("/login")}>
+              <Text className="text-white font-bold">Sign In</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+    </ImageBackground>
   );
 };
 
