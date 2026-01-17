@@ -1,7 +1,7 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
-import { Image, Text } from "react-native";
+import { Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Splash = () => {
@@ -22,15 +22,12 @@ const Splash = () => {
   }, [user, loading]);
 
   return (
-    <SafeAreaView className="flex-1 items-center justify-center bg-pure-blue">
+    <SafeAreaView className="flex-1 items-center justify-center">
       <Image
         source={require("../assets/images/splash.png")}
         className="w-393 h-852"
         resizeMode="contain"
       />
-      <Text className="text-3xl font-bold text-white" style={{ fontFamily: "PollerOneRegular" }}>
-        Pure Drip
-      </Text>
     </SafeAreaView>
   );
 };

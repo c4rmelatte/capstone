@@ -1,20 +1,19 @@
 import CustomButton from "@/components/CustomButton";
 import CustomTextInput from "@/components/CustomTextInput";
+import Images from "@/constants/images";
 import { useAuth } from "@/hooks/useAuth";
-import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, ImageBackground, Text, TouchableOpacity, View } from "react-native";
-import Images from "@/constants/images";
 
 const LoginScreen = () => {
   const { login, loading } = useAuth();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      await login(email, password);
+      await login(username, password);
       Alert.alert("Success", "Logged in successfully!");
       router.replace("/(tabs)/home");
     } catch (err: any) {
@@ -60,16 +59,16 @@ const LoginScreen = () => {
 
       {/* Inputs */}
       <CustomTextInput
-        placeholder="Email"
-        keyboardType="email-address"
-        inputName="Email"
-        value={email}
-        onChangeText={setEmail}
+        placeholder="Username"
+        textContentType="username"
+        // inputName="Username"
+        value={username}
+        onChangeText={setUsername}
       />
       <CustomTextInput
         placeholder="Password"
         secureTextEntry
-        inputName="Password"
+        // inputName="Password"
         value={password}
         onChangeText={setPassword}
       />

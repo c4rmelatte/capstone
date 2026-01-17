@@ -1,7 +1,7 @@
+import Images from "@/constants/images";
+import { router } from "expo-router";
 import React, { useEffect, useRef } from "react";
 import { Animated, ImageBackground } from "react-native";
-import { router } from "expo-router";
-import Images from "@/constants/images";
 
 const WelcomeScreen = () => {
   const opacity = useRef(new Animated.Value(1)).current;
@@ -20,7 +20,7 @@ const WelcomeScreen = () => {
   return (
     <Animated.View style={{ flex: 1, opacity }}>
       <ImageBackground
-        source={Images.Image_BG}
+        source={Images.Image_BG}  // stuby pusit picture intro
         resizeMode="cover"
         style={{ flex: 1 }}
       />
