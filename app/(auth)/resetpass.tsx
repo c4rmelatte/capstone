@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import Images from "@/constants/images";
+import CustomButton from "@/components/CustomButton";
 
 const ResetPasswordScreen = () => {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]); // 6-digit OTP
@@ -50,6 +51,7 @@ const ResetPasswordScreen = () => {
     const handleVerify = () => {
         const enteredOtp = otp.join("");
         console.log("Entered OTP:", enteredOtp);
+         router.push("/changepass")
         // Add verification logic here
     };
 
@@ -133,27 +135,12 @@ const ResetPasswordScreen = () => {
                     </View>
 
                     {/* Verify OTP Button */}
-                    <TouchableOpacity
+                    <CustomButton
+                        title="VERIFY OTP"
                         onPress={handleVerify}
-                        style={{
-                            backgroundColor: "#FFEF9A",
-                            borderRadius: 14,
-                            height: 48,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginBottom: 16,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                color: "black",
-                                fontWeight: "700",
-                                fontSize: 16,
-                            }}
-                        >
-                            VERIFY OTP
-                        </Text>
-                    </TouchableOpacity>
+                        containerStyle="mb-4" // margin-bottom: 16 in Tailwind
+                    />
+
 
                     {/* Back to Login */}
                     <TouchableOpacity
@@ -164,7 +151,6 @@ const ResetPasswordScreen = () => {
                             style={{
                                 color: "black",
                                 fontWeight: "600",
-                                textDecorationLine: "underline",
                                 fontSize: 14,
                             }}
                         >

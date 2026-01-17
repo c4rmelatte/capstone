@@ -3,6 +3,7 @@ import { ImageBackground, Text, View, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import Images from "@/constants/images";
 import CustomTextInput from "@/components/CustomTextInput"; // Use imported component
+import CustomButton from "@/components/CustomButton";
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState("");
@@ -75,29 +76,12 @@ const ForgotPasswordScreen = () => {
         />
 
         {/* Send OTP Button */}
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/resetpass")
-          }}
-          style={{
-            backgroundColor: "#FFEF9A",
-            borderRadius: 14,
-            height: 48,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 8,
-          }}
-        >
-          <Text
-            style={{
-              color: "black",
-              fontWeight: "700",
-              fontSize: 16,
-            }}
-          >
-            SEND EMAIL OTP
-          </Text>
-        </TouchableOpacity>
+        <CustomButton
+          title="SEND EMAIL OTP"
+          onPress={() => router.push("/resetpass")}
+          containerStyle="mt-2" // Tailwind margin-top: 8
+        />
+
 
         {/* Back to Login */}
         <TouchableOpacity
@@ -108,7 +92,6 @@ const ForgotPasswordScreen = () => {
             style={{
               color: "black",
               fontWeight: "600",
-              textDecorationLine: "underline",
               fontSize: 14,
             }}
           >
