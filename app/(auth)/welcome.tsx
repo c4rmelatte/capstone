@@ -13,7 +13,7 @@ const WelcomeScreen = () => {
       delay: 1000, 
       useNativeDriver: true,
     }).start(() => {
-      router.replace("/login");
+      router.replace("/introduction/welcomeIntroduction");
     });
   }, []);
 
