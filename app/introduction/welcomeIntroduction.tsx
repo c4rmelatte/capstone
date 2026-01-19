@@ -92,7 +92,7 @@ logoImage: {
 
 bottomContainer: {
   width: '100%',
-  height: height * 0.35, // match remaining screen height
+  height: height * 0.29, // match remaining screen height
   justifyContent: "flex-end", // push content to bottom
   paddingHorizontal: width * 0.06,
   paddingBottom: height * 0.05, // space from bottom
