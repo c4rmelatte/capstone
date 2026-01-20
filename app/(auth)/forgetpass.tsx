@@ -1,78 +1,9 @@
 import React, { useState } from "react";
-import {
-  ImageBackground,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { ImageBackground, Text, View, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import Images from "@/constants/images";
-
-const CustomTextInput = ({
-  placeholder,
-  value,
-  onChangeText,
-  secureTextEntry = false,
-  icon,
-}: {
-  placeholder: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  secureTextEntry?: boolean;
-  icon?: React.ComponentProps<typeof Ionicons>["name"];
-}) => {
-  const [hidePassword, setHidePassword] = useState(secureTextEntry);
-
-  return (
-    <View style={{ width: "100%", marginBottom: 16, paddingHorizontal: 0 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          backgroundColor: "white",
-          borderRadius: 20,
-          paddingHorizontal: 16,
-          height: 48,
-        }}
-      >
-        {/* Left Icon */}
-        {icon && (
-          <Ionicons
-            name={icon}
-            size={20}
-            color="#9CA3AF"
-            style={{ marginRight: 8 }}
-          />
-        )}
-
-        {/* Text Input */}
-        <TextInput
-          style={{ flex: 1, fontSize: 14, color: "black" }}
-          placeholder={placeholder}
-          placeholderTextColor="#9CA3AF"
-          secureTextEntry={hidePassword}
-          value={value}
-          onChangeText={onChangeText}
-          autoCapitalize="none"
-          keyboardType={placeholder.toLowerCase().includes("email") ? "email-address" : "default"}
-        />
-
-        {/* Password Eye Toggle */}
-        {secureTextEntry && (
-          <TouchableOpacity onPress={() => setHidePassword(!hidePassword)}>
-            <Ionicons
-              name={hidePassword ? "eye-off-outline" : "eye-outline"}
-              size={20}
-              color="#9CA3AF"
-            />
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
-  );
-};
+import CustomTextInput from "@/components/CustomTextInput"; // Use imported component
+import CustomButton from "@/components/CustomButton";
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState("");
@@ -139,35 +70,18 @@ const ForgotPasswordScreen = () => {
         {/* Email Input */}
         <CustomTextInput
           placeholder="Enter your email address"
-          icon="mail-outline"
+          iconName="mail"
           value={email}
           onChangeText={setEmail}
         />
 
         {/* Send OTP Button */}
-        <TouchableOpacity
-          onPress={() => {
-            /* Your OTP sending logic here */
-          }}
-          style={{
-            backgroundColor: "#FFEF9A",
-            borderRadius: 14,
-            height: 48,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 8,
-          }}
-        >
-          <Text
-            style={{
-              color: "black",
-              fontWeight: "700",
-              fontSize: 16,
-            }}
-          >
-            SEND EMAIL OTP
-          </Text>
-        </TouchableOpacity>
+        <CustomButton
+          title="SEND EMAIL OTP"
+          onPress={() => router.push("/resetpass")}
+          containerStyle="mt-2" // Tailwind margin-top: 8
+        />
+
 
         {/* Back to Login */}
         <TouchableOpacity
@@ -178,7 +92,6 @@ const ForgotPasswordScreen = () => {
             style={{
               color: "black",
               fontWeight: "600",
-              textDecorationLine: "underline",
               fontSize: 14,
             }}
           >
