@@ -1,109 +1,61 @@
 import React from "react";
-import { Text, Image, View, Dimensions, StyleSheet } from "react-native";
+import { Text, Image, View, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
-import YellowButton from "@/components/YellowButton";
 import Images from "@/constants/images";
 
 const { height, width } = Dimensions.get("window");
 
-// Optional: scale function for responsive font sizes
-const scaleFont = (size: number): number => (size * width) / 375; // 375 is iPhone X width baseline
-
 export default function CardIntroduction() {
   const router = useRouter();
 
+  const LOGO_WIDTH = width * 0.9;
+
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-[#FFF9E5]">
 
       {/* Top Part - Yellow Wave + Logo */}
-      <View style={styles.topContainer}>
+      <View className="w-full relative" style={{ height: height * 0.7 }}>
         <Image 
           source={Images.FlashcardWaveBg}
-          style={styles.waveImage}
+          className="absolute top-0 left-0 w-full h-full"
           resizeMode="stretch"
         />
-        <View style={styles.logoContainer}>
+
+        <View 
+          className="flex-1 justify-center items-center"
+          style={{ marginBottom: height * 0.1 }}
+        >
           <Image
             source={Images.FlashLearn}
-            style={styles.logoImage}
+            style={{ width: LOGO_WIDTH, height: LOGO_WIDTH }}
             resizeMode="contain"
           />
         </View>
       </View>
 
       {/* Bottom Part - Text + Button */}
-      <View style={styles.bottomContainer}>
-        <Text style={styles.title}>Flash & Learn</Text>
-        <Text style={styles.description}>
+      <View 
+        className="flex-1 justify-start px-[6%]"
+      >
+        <Text 
+          className="text-black font-semibold mb-[1.5%]" 
+          style={{ fontSize: (30 * width) / 375 }}
+        >
+          Flash & Learn
+        </Text>
+        <Text
+          className="text-black text-justify"
+          style={{ fontSize: (18 * width) / 375, lineHeight: (24 * width) / 375 }}
+        >
           Turn your lessons into quick, easy-to-review cards. Master concepts faster and smarter!
         </Text>
-        
+
+        {/* Example button usage */}
+        {/* <View className="items-center mt-4">
+          <YellowButton title="Get Started" onPress={() => router.push("/next")} />
+        </View> */}
       </View>
 
     </View>
   );
 }
-const LOGO_WIDTH = width * 0.9;
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF9E5",
-  },
-
-  topContainer: {
-    width: "100%",
-    height: height * 0.7, // more balanced across devices
-    position: "relative",
-  },
-
-  waveImage: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    zIndex: 0,
-  },
-
-  logoContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1,
-    marginBottom: height * 0.1,
-  },
-
-logoImage: {
-  width: LOGO_WIDTH,
-  height: LOGO_WIDTH, // keeps it visually balanced
-  resizeMode: "contain",
-},
-
-bottomContainer: {
-  flex: 1,
-  justifyContent: "flex-start",
-  paddingHorizontal: width * 0.06,
-  paddingTop: height * 0.0,
-},
-
-  title: {
-    fontSize: scaleFont(30),
-    fontWeight: "600",
-    color: "black",
-    marginBottom: height * 0.015,
-  },
-
-  description: {
-    fontSize: scaleFont(18),
-    color: "black",
-    lineHeight: scaleFont(24),
-    textAlign: "justify",
-  },
-
-  buttonWrapper: {
-    alignItems: "center",
-  },
-});

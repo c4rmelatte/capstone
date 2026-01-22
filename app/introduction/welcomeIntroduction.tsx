@@ -1,123 +1,73 @@
 import React from "react";
-import { Text, Image, View, Dimensions, StyleSheet } from "react-native";
+import { Text, Image, View, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
-import YellowButton from "@/components/YellowButton";
+import CustomButton from "@/components/CustomButton";
 import Images from "@/constants/images";
 
 const { height, width } = Dimensions.get("window");
 
-// Optional: scale function for responsive font sizes
-const scaleFont = (size: number): number => (size * width) / 375; // 375 is iPhone X width baseline
+const scaleFont = (size: number) => (size * width) / 375;
 
 export default function WelcomeIntroduction() {
   const router = useRouter();
 
-  return (
-    <View style={styles.container}>
+  const handleNextPage = () => {
+    router.push("/introduction/introductionFlow");
+  };
 
-      {/* Top Part - Yellow Wave + Logo */}
-      <View style={styles.topContainer}>
-        <Image 
+  return (
+    <View className="flex-1 bg-[#7abbaf]">
+
+      {/* Top Section */}
+      <View className="w-full relative" style={{ height: height * 0.7 }}>
+        <Image
           source={Images.YellowWaveIntro}
-          style={styles.waveImage}
           resizeMode="stretch"
+          className="absolute top-0 left-0 w-full h-full"
         />
-        <View style={styles.logoContainer}>
+
+        <View className="flex-1 justify-center items-center z-10" style={{ marginBottom: height * 0.1 }}>
           <Image
             source={Images.StubyLogo}
-            style={styles.logoImage}
             resizeMode="contain"
+            style={{ width: width * 0.9, height: width * 0.9 }}
           />
         </View>
       </View>
 
-      <View style={styles.bottomContainer}>
-        <View style={styles.textWrapper}>
-          <Text style={styles.title}>WELCOME</Text>
-          <Text style={styles.description}>
-            Welcome to STUBY – your smart study buddy for better learning. Whether you're prepping for exams, organizing notes, or exploring new techniques, STUBY brings it all together in one simple app. Let’s start your journey to better study habits today!
+      {/* Bottom Section */}
+      <View
+        className="w-full justify-end px-6"
+        style={{ height: height * 0.29, paddingBottom: height * 0.05 }}
+      >
+        <View className="mb-6">
+          <Text
+            className="text-white font-semibold mb-3"
+            style={{ fontSize: scaleFont(30) }}
+          >
+            WELCOME
+          </Text>
+
+          <Text
+            className="text-white text-justify"
+            style={{
+              fontSize: scaleFont(18),
+              lineHeight: scaleFont(24),
+            }}
+          >
+            Welcome to STUBY – your smart study buddy for better learning.
+            Whether you're prepping for exams, organizing notes, or exploring
+            new techniques, STUBY brings it all together in one simple app.
+            Let’s start your journey to better study habits today!
           </Text>
         </View>
 
-        <View style={styles.buttonWrapper}>
-          <YellowButton
-            title="Go to Next"
-            onPress={() => router.replace("/introduction/introductionFlow")}
-          />
-        </View>
+        <CustomButton
+          title="Go to Next"
+          onPress={handleNextPage}
+        />
       </View>
-
 
     </View>
   );
 }
-const LOGO_WIDTH = width * 0.9;
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#7abbaf",
-  },
-
-  topContainer: {
-    width: "100%",
-    height: height * 0.7, // more balanced across devices
-    position: "relative",
-  },
-
-  waveImage: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    zIndex: 0,
-  },
-
-  logoContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1,
-    marginBottom: height * 0.1,
-  },
-
-logoImage: {
-  width: LOGO_WIDTH,
-  height: LOGO_WIDTH, // keeps it visually balanced
-  resizeMode: "contain",
-},
-
-bottomContainer: {
-  width: '100%',
-  height: height * 0.29, // match remaining screen height
-  justifyContent: "flex-end", // push content to bottom
-  paddingHorizontal: width * 0.06,
-  paddingBottom: height * 0.05, // space from bottom
-},
-textWrapper: {
-  justifyContent: "flex-start", // texts start at top of bottomContainer
-  marginBottom: height * 0.03, // spacing before button
-},
-
-
-  title: {
-    fontSize: scaleFont(30),
-    fontWeight: "600",
-    color: "white",
-    marginBottom: height * 0.015,
-  },
-
-  description: {
-    fontSize: scaleFont(18),
-    color: "white",
-    lineHeight: scaleFont(24),
-    textAlign: "justify",
-  },
-
-  buttonWrapper: {
-    alignItems: "center",
-  },
-});

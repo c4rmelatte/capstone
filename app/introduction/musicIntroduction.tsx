@@ -1,108 +1,59 @@
 import React from "react";
-import { Text, Image, View, Dimensions, StyleSheet } from "react-native";
+import { Text, Image, View, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
-import YellowButton from "@/components/YellowButton";
 import Images from "@/constants/images";
 
 const { height, width } = Dimensions.get("window");
 
-// Optional: scale function for responsive font sizes
-const scaleFont = (size: number): number => (size * width) / 375; // 375 is iPhone X width baseline
+const scaleFont = (size: number) => (size * width) / 375;
 
 export default function MusicIntroduction() {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-[#FFF9E5]">
 
-      {/* Top Part - Yellow Wave + Logo */}
-      <View style={styles.topContainer}>
-        <Image 
+      {/* Top Section */}
+      <View className="w-full relative" style={{ height: height * 0.7 }}>
+        <Image
           source={Images.MusicWaveBg}
-          style={styles.waveImage}
           resizeMode="stretch"
+          className="absolute top-0 left-0 w-full h-full"
         />
-        <View style={styles.logoContainer}>
+
+        <View
+          className="flex-1 justify-center items-center z-10"
+          style={{ marginBottom: height * 0.1 }}
+        >
           <Image
             source={Images.FocusBeats}
-            style={styles.logoImage}
             resizeMode="contain"
+            style={{ width: width * 0.9, height: width * 0.9 }}
           />
         </View>
       </View>
 
-      {/* Bottom Part - Text + Button */}
-      <View style={styles.bottomContainer}>
-        <Text style={styles.title}>Focus Beats</Text>
-        <Text style={styles.description}>
-          Boost your focus with curated study tunes designed to keep you calm and productive. Find your perfect rhythm for learning!
+      {/* Bottom Section */}
+      <View className="flex-1 px-6 justify-start">
+        <Text
+          className="font-semibold text-black mb-3"
+          style={{ fontSize: scaleFont(30) }}
+        >
+          Focus Beats
         </Text>
-        
+
+        <Text
+          className="text-black text-justify"
+          style={{
+            fontSize: scaleFont(18),
+            lineHeight: scaleFont(24),
+          }}
+        >
+          Boost your focus with curated study tunes designed to keep you calm
+          and productive. Find your perfect rhythm for learning!
+        </Text>
       </View>
 
     </View>
   );
 }
-const LOGO_WIDTH = width * 0.9;
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF9E5",
-  },
-
-  topContainer: {
-    width: "100%",
-    height: height * 0.7, // more balanced across devices
-    position: "relative",
-  },
-
-  waveImage: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    zIndex: 0,
-  },
-
-  logoContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1,
-    marginBottom: height * 0.1,
-  },
-
-logoImage: {
-  width: LOGO_WIDTH,
-  height: LOGO_WIDTH, // keeps it visually balanced
-  resizeMode: "contain",
-},
-
-bottomContainer: {
-  flex: 1,
-  justifyContent: "flex-start",
-  paddingHorizontal: width * 0.06,
-},
-
-  title: {
-    fontSize: scaleFont(30),
-    fontWeight: "600",
-    color: "black",
-    marginBottom: height * 0.015,
-  },
-
-  description: {
-    fontSize: scaleFont(18),
-    color: "black",
-    lineHeight: scaleFont(24),
-    textAlign: "justify",
-  },
-
-  buttonWrapper: {
-    alignItems: "center",
-  },
-});
