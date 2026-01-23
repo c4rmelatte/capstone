@@ -15,7 +15,6 @@ const LoginScreen = () => {
     try {
       await login(username, password);
       Alert.alert("Success", "Logged in successfully!");
-      router.replace("/introduction/welcomeIntroduction");
     } catch (err: any) {
       Alert.alert("Error", err.message);
     }
