@@ -15,7 +15,7 @@ const LoginScreen = () => {
     try {
       await login(username, password);
       Alert.alert("Success", "Logged in successfully!");
-      router.replace("/(tabs)/home");
+     // router.replace("/(tabs)/home");
     } catch (err: any) {
       Alert.alert("Error", err.message);
     }
@@ -85,7 +85,7 @@ const LoginScreen = () => {
       {/* Login Button */}
       <CustomButton
         title={loading ? "Logging in..." : "Sign In"}
-        onPress={handleLogin}
+        onPress={() => router.push("/(tabs)/dashboard")}
       />
 
       {/* Sign Up */}
