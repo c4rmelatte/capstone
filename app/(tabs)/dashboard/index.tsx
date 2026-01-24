@@ -48,63 +48,117 @@ const Dashboard = () => {
     const unfinishedCount = todos.filter(t => !t.completed).length;
 
     return (
-        <ImageBackground
-            source={Images.Dashboard}
-            className="flex-1"
-            resizeMode="cover"
-        >
+        <ImageBackground source={Images.Dashboard} className="flex-1">
             <StatusBar style="light" />
 
-            <View className="flex-1 px-5 pt-20">
-                {/* ---------------- TO-DO CARD ---------------- */}
-                <View className="mb-10">
-                    <Text className="text-[#F5CE8E] font-extrabold mb-2 text-xl tracking-wide">
+            {/* MAIN CONTAINER */}
+            <View
+                className="flex-1"
+                style={{
+                    paddingHorizontal: "5%",
+                    paddingTop: "15%",
+                }}
+            >
+                {/* ---------------- TO-DO ---------------- */}
+                <View style={{ marginBottom: "8%" }}>
+                    <Text className="text-[#F5CE8E] font-extrabold mb-2 text-xl">
                         TO-DO
                     </Text>
 
-                    <View className="bg-[#FFF6E5] rounded-2xl px-5 py-5 flex-row">
-                        <View className="w-28 items-center">
+                    <View
+                        style={{
+                            backgroundColor: "#FFF6E5",
+                            borderRadius: 20,
+                            padding: "1%",
+                            flexDirection: "row",
+                        }}
+                    >
+                        {/* LEFT */}
+                        <View style={{ width: "30%", position: "relative" }}>
                             <Image
                                 source={Images.Puset}
-                                className="w-24 h-24"
+                                style={{
+                                    width: "80%",
+                                    aspectRatio: 1,
+                                    marginLeft: "8%", 
+                                }}
                                 resizeMode="contain"
                             />
 
-                            <View className="flex-row items-center mt-8">
-                                <View className="bg-[#C9B6F3] w-7 h-7 rounded-full items-center justify-center">
-                                    <Text className="text-white font-bold text-sm">
-                                        {unfinishedCount}
-                                    </Text>
+                            {/* Unfinished counter */}
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    marginTop: 10,
+                                    justifyContent: "flex-start", 
+                                    paddingLeft: "20%", 
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        width: "25%",
+                                        aspectRatio: 1,
+                                        borderRadius: 999,
+                                        backgroundColor: "#C9B6F3",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Text className="text-white font-bold text-sm">{unfinishedCount}</Text>
                                 </View>
-                                <Text className="ml-2 text-gray-700 text-sm">Unfinished</Text>
+
+                                <Text style={{ marginLeft: 6, color: "#555", fontWeight: "700", fontSize: 12 }}>
+                                    Unfinished
+                                </Text>
                             </View>
                         </View>
 
-                        <View className="flex-1 pl-16">
+                        {/* RIGHT */}
+                        <View style={{ width: "70%", paddingLeft: "20%", marginTop: "5%" }}>
                             {todos.map(item => (
                                 <TouchableOpacity
                                     key={item.id}
-                                    activeOpacity={0.7}
                                     onPress={() => toggleTodo(item.id)}
-                                    className="flex-row items-center mb-3"
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        marginBottom: "10%",
+                                    }}
                                 >
-                                    {/* CHECK CIRCLE */}
                                     <View
-                                        className={`w-5 h-5 rounded-full mr-3 items-center justify-center ${
-                                            item.completed ? "bg-[#6FAE9A]" : "border border-[#6FAE9A]"
-                                        }`}
+                                        style={{
+                                            width: "6%",
+                                            aspectRatio: 1,
+                                            borderRadius: 999,
+                                            marginRight: "4%",
+                                            backgroundColor: item.completed
+                                                ? "#6FAE9A"
+                                                : "transparent",
+                                            borderWidth: item.completed ? 0 : 1,
+                                            borderColor: "#6FAE9A",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        }}
                                     >
                                         {item.completed && (
-                                            <View className="w-2 h-2 bg-white rounded-full" />
+                                            <View
+                                                style={{
+                                                    width: "50%",
+                                                    aspectRatio: 1,
+                                                    borderRadius: 999,
+                                                    backgroundColor: "#fff",
+                                                }}
+                                            />
                                         )}
                                     </View>
 
-                                    {/* TASK TEXT */}
                                     <Text
                                         numberOfLines={1}
-                                        className={`text-sm flex-1 ${
-                                            item.completed ? "text-gray-400 line-through" : "text-gray-800"
-                                        }`}
+                                        className={`text-sm flex-1 ${item.completed
+                                            ? "text-gray-400 line-through"
+                                            : "text-gray-800"
+                                            }`}
                                     >
                                         {item.title}
                                     </Text>
@@ -115,21 +169,22 @@ const Dashboard = () => {
                 </View>
 
                 {/* ---------------- QUICK ACCESS ---------------- */}
-                <View className="mb-8 mt-8">
-                    <Text className="font-bold mb-3 text-black text-lg">Quick Access</Text>
+                <View style={{ marginTop: "5%" }}>
+                    <Text className="font-bold mb-3 text-black text-lg">
+                        Quick Access
+                    </Text>
+
                     <View className="flex-row justify-between">
                         {quickAccess.map(item => (
                             <TouchableOpacity
-                                key={item.id} // <-- added key
-                                activeOpacity={0.8}
-                                style={{ backgroundColor: item.bgColor }}
-                                className="w-14 h-14 rounded-full items-center justify-center"
-                                onPress={() => {
-                                    if(item.label === "Pomodoro") {
-                                       // router.push("/(tabs)/pomodoro");
-                                    } else {
-                                        console.log(`${item.label} pressed`);
-                                    }
+                                key={item.id}
+                                style={{
+                                    width: "16%",
+                                    aspectRatio: 1,
+                                    borderRadius: 999,
+                                    backgroundColor: item.bgColor,
+                                    alignItems: "center",
+                                    justifyContent: "center",
                                 }}
                             >
                                 <Text className="text-white font-bold text-lg">
@@ -140,19 +195,41 @@ const Dashboard = () => {
                     </View>
                 </View>
 
-                {/* ---------------- RECENTS CONTAINER ---------------- */}
-                <View className="mb-6">
-                    <Text className="font-bold mb-3 text-black text-lg">Recents</Text>
+                {/* ---------------- RECENTS ---------------- */}
+                <View style={{ marginTop: "5%" }}>
+                    <Text className="font-bold mb-3 text-black text-lg">
+                        Recents
+                    </Text>
+
                     {recents.map(item => (
                         <TouchableOpacity
                             key={item.id}
-                            activeOpacity={0.8}
-                            className="bg-[#F8EBD4] rounded-xl p-5 mb-4 flex-row items-center"
+                            style={{
+                                backgroundColor: "#F8EBD4",
+                                borderRadius: 16,
+                                padding: "5%",
+                                marginBottom: "5%",
+                                flexDirection: "row",
+                                alignItems: "center",
+                            }}
                         >
-                            <View className="w-14 h-14 bg-[#4E9C8F] rounded-lg mr-4" />
+                            <View
+                                style={{
+                                    width: "16%",
+                                    aspectRatio: 1,
+                                    borderRadius: 12,
+                                    marginRight: "5%",
+                                    backgroundColor: "#4E9C8F",
+                                }}
+                            />
+
                             <View>
-                                <Text className="font-bold text-lg">{item.title}</Text>
-                                <Text className="text-gray-500 text-sm">{item.count}</Text>
+                                <Text className="font-bold text-lg">
+                                    {item.title}
+                                </Text>
+                                <Text className="text-gray-500 text-sm">
+                                    {item.count}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     ))}
