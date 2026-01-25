@@ -15,7 +15,7 @@ const LoginScreen = () => {
     try {
       await login(username, password);
       Alert.alert("Success", "Logged in successfully!");
-     // router.replace("/(tabs)/home");
+      // router.replace("/(tabs)/home");
     } catch (err: any) {
       Alert.alert("Error", err.message);
     }
@@ -34,26 +34,30 @@ const LoginScreen = () => {
 
       {/* Header */}
       <View className="pb-10 pr-10">
-        <Text className="mt-20 text-[75px] font-black text-[#FFEF9A]"
+        <Text
+          className="mt-20 text-[75px] font-black text-[#FFEF9A]"
           style={{
             // Mimicking the thick black outline and shadow
-            textShadowColor: '#000000',
+            textShadowColor: "#000000",
             textShadowOffset: { width: 4, height: 4 },
             textShadowRadius: 1,
-            fontFamily: 'System', // Use a rounded font like 'Fredoka' or 'Nunito' if available
+            fontFamily: "System", // Use a rounded font like 'Fredoka' or 'Nunito' if available
             letterSpacing: 1,
-          }}>
+          }}
+        >
           LOGIN
         </Text>
 
-        <Text className="text-[#553A00] text-[19px]"
+        <Text
+          className="text-[#553A00] text-[19px]"
           style={{
-            fontFamily: 'Poppins-Bold', // Ensure this matches your linked font name
-            fontWeight: '700',          // Explicitly set bold if Poppins-Bold isn't loaded
-            textShadowColor: 'rgba(0, 0, 0, 0.25)', // Color #000000 at 25%
+            fontFamily: "Poppins-Bold", // Ensure this matches your linked font name
+            fontWeight: "700", // Explicitly set bold if Poppins-Bold isn't loaded
+            textShadowColor: "rgba(0, 0, 0, 0.25)", // Color #000000 at 25%
             textShadowOffset: { width: 0, height: 2 }, // X: 0, Y: 4
             textShadowRadius: 4, // Blur: 4
-          }}>
+          }}
+        >
           Excited to see you again, buddy!
         </Text>
       </View>
@@ -77,15 +81,14 @@ const LoginScreen = () => {
       />
 
       {/* Forgot Password */}
-      <TouchableOpacity
-        className="self-end mr-[20px]" onPress={() => router.push("/forgetpass")}>
+      <TouchableOpacity className="self-end mr-[20px]" onPress={() => router.push("/forgetpass")}>
         <Text className="text-white font-bold mt-3 mb-10">Forgot Password?</Text>
       </TouchableOpacity>
 
       {/* Login Button */}
       <CustomButton
         title={loading ? "Logging in..." : "Sign In"}
-        onPress={() => router.push("/(tabs)/dashboard")}
+        onPress={() => router.push("/(tabs)/todo")}
       />
 
       {/* Sign Up */}
