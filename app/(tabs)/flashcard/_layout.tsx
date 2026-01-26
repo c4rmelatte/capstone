@@ -4,8 +4,8 @@ export default function FlashCardLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
-      <Stack.Screen name="product" />
-      
+      <Stack.Screen name="createFlashcardFolder" />
+
     </Stack>
   );
 }
