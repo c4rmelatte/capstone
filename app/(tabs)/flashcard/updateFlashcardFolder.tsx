@@ -1,7 +1,7 @@
 import GreenButton from "@/components/GreenButton";
 import Images from "@/constants/images";
 import { router, useLocalSearchParams } from "expo-router";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   KeyboardAvoidingView,
@@ -33,10 +33,14 @@ const UpdateFlashcardFolder = () => {
     if (params?.coverPhoto) setCoverPhoto(params.coverPhoto);
   }, [params?.id]);
 
+  // 🎨 PICK IMAGE
   const pickImage = async () => {
     const permission =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permission.granted) return;
+    if (!permission.granted) {
+      alert("Permission required to access photos.");
+      return;
+    }
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -48,8 +52,12 @@ const UpdateFlashcardFolder = () => {
     }
   };
 
+  // ✅ UPDATE + GO BACK (NO STACKING)
   const handleUpdate = () => {
-    if (!title.trim()) return;
+    if (!title.trim()) {
+      alert("Please enter a flashcard title.");
+      return;
+    }
 
     router.replace({
       pathname: "/flashcard",
@@ -63,39 +71,89 @@ const UpdateFlashcardFolder = () => {
   };
 
   return (
-    <ImageBackground source={Images.FlashcardBg} className="flex-1">
+    <ImageBackground
+      source={Images.FlashcardBg}
+      resizeMode="cover"
+      className="flex-1"
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         className="flex-1"
-        style={{ paddingHorizontal: width * 0.06, paddingTop: height * 0.1 }}
+        style={{
+          paddingHorizontal: width * 0.06,
+          paddingTop: height * 0.1,
+        }}
       >
-        <Text className="text-2xl font-bold text-center mb-6">
-          Update Flashcard
-        </Text>
+        {/* HEADER */}
+        <View
+          style={{ marginBottom: height * 0.05 }}
+          className="flex-row items-center justify-center relative"
+        >
+          <TouchableOpacity
+            onPress={() => router.back()}
+            className="absolute left-0"
+          >
+            <Text className="text-2xl font-bold">{`<`}</Text>
+          </TouchableOpacity>
 
+          <Text className="text-2xl font-bold">
+            Update Flashcard Deck
+          </Text>
+        </View>
+
+        {/* COVER PHOTO */}
         <TouchableOpacity
+          activeOpacity={0.85}
           onPress={pickImage}
-          style={{ height: height * 0.24 }}
-          className="rounded-2xl bg-gray-400 items-center justify-center mb-6"
+          style={{
+            height: height * 0.24,
+            marginBottom: height * 0.04,
+          }}
+          className="w-full rounded-2xl bg-gray-400/80 overflow-hidden items-center justify-center"
         >
           {coverPhoto ? (
-            <Image source={{ uri: coverPhoto }} className="w-full h-full" />
+            <Image
+              source={{ uri: coverPhoto }}
+              resizeMode="cover"
+              className="w-full h-full"
+            />
           ) : (
-            <Feather name="plus" size={28} />
+            <>
+              <View className="w-12 h-12 rounded-full bg-gray-300 items-center justify-center">
+                <Feather name="plus" size={24} color="#555" />
+              </View>
+              <Text className="mt-3 font-semibold text-white">
+                Add Cover Photo
+              </Text>
+            </>
           )}
         </TouchableOpacity>
 
-        <Text className="font-semibold mb-2">Flashcard Title</Text>
+        {/* TITLE LABEL */}
+        <Text
+          style={{ marginBottom: height * 0.01 }}
+          className="text-base font-semibold text-black"
+        >
+          Flashcard Title
+        </Text>
 
-        <View className="bg-white border-2 border-black rounded-full px-5 h-14 justify-center">
+        {/* INPUT */}
+        <View
+          style={{ height: height * 0.06 }}
+          className="bg-white rounded-full border-2 border-black px-4 justify-center"
+        >
           <TextInput
             value={title}
             onChangeText={setTitle}
-            className="font-bold"
+            className="font-bold text-black"
           />
         </View>
 
-        <View className="flex-row justify-end mt-6">
+        {/* UPDATE BUTTON */}
+        <View
+          style={{ marginTop: height * 0.03 }}
+          className="flex-row justify-end"
+        >
           <GreenButton
             title="Update"
             onPress={handleUpdate}

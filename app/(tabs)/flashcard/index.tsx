@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Dimensions,
-  ImageBackground,
-  ScrollView,
-} from "react-native";
 import AddFloatingButton from "@/components/AddFloatingButton";
 import FlashcardFolder from "@/components/FlashcardFolder";
 import Images from "@/constants/images";
 import { router, useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Dimensions, ImageBackground, ScrollView, Text, View } from "react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -33,16 +27,14 @@ const FlashCard = () => {
   useEffect(() => {
     if (!params?.id) return;
 
-    setFlashcards(prev => {
-      if (prev.some(card => card.id === params.id)) return prev;
+    setFlashcards((prev) => {
+      if (prev.some((card) => card.id === params.id)) return prev;
 
       return [
         {
           id: params.id as string,
           text: params.title as string,
-          image: params.coverPhoto
-            ? { uri: params.coverPhoto as string }
-            : null,
+          image: params.coverPhoto ? { uri: params.coverPhoto as string } : null,
         },
         ...prev,
       ];
@@ -51,23 +43,19 @@ const FlashCard = () => {
 
   // ✅ DELETE
   const handleDelete = (id: string) => {
-    setFlashcards(prev => prev.filter(card => card.id !== id));
+    setFlashcards((prev) => prev.filter((card) => card.id !== id));
   };
 
   // ✅ EDIT (navigate)
   const handleEdit = (id: string) => {
-    router.push({
+    router.replace({
       pathname: "/flashcard/updateFlashcardFolder",
       params: { editId: id },
     });
   };
 
   return (
-    <ImageBackground
-      source={Images.FlashcardBg}
-      resizeMode="cover"
-      className="flex-1 pt-20"
-    >
+    <ImageBackground source={Images.FlashcardBg} resizeMode="cover" className="flex-1 pt-20">
       <Text
         className="text-2xl font-bold mb-6 text-white text-center"
         style={{
@@ -80,7 +68,7 @@ const FlashCard = () => {
       </Text>
 
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-        {flashcards.map(card => (
+        {flashcards.map((card) => (
           <View
             key={card.id}
             className="overflow-hidden rounded-2xl shadow-md mb-4"
@@ -97,9 +85,7 @@ const FlashCard = () => {
         ))}
       </ScrollView>
 
-      <AddFloatingButton
-        onPress={() => router.push("/flashcard/createFlashcardFolder")}
-      />
+      <AddFloatingButton onPress={() => router.replace("/flashcard/createFlashcardFolder")} />
     </ImageBackground>
   );
 };

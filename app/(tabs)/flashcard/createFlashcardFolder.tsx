@@ -92,7 +92,7 @@ router.replace({
           </TouchableOpacity>
 
           <Text className="text-2xl font-bold" key={`title-Flashcard-${Date.now()}`}>
-            Flashcard
+            Create Flashcard Deck
           </Text>
         </View>
 
@@ -144,13 +144,13 @@ router.replace({
         {/* TEXT INPUT */}
         <View
           style={{ height: height * 0.06 }}
-          className="bg-white rounded-full border-2 border-black px-5 justify-center"
+          className="bg-white rounded-full border-2 border-black px-4 justify-center"
           key={`input-Flashcard-${Date.now()}`}
         >
           <TextInput
             value={title}
             onChangeText={setTitle}
-            className="font-bold text-base text-black"
+            className="font-bold text-black"
             key={`textinput-Flashcard-${Date.now()}`}
           />
         </View>
