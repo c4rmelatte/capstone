@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
+    Dimensions,
+    ImageBackground,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 interface FlashcardFolderProps {
@@ -30,11 +30,7 @@ const FlashcardFolder: React.FC<FlashcardFolderProps> = ({
   const Container = (image ? ImageBackground : View) as React.ComponentType<any>;
 
   return (
-    <Container
-      source={image || undefined}
-      resizeMode="cover"
-      style={styles.container}
-    >
+    <Container source={image || undefined} resizeMode="cover" style={styles.container}>
       {image && <View style={styles.overlay} />}
 
       {/* TOP GREEN BAR */}
@@ -42,11 +38,11 @@ const FlashcardFolder: React.FC<FlashcardFolderProps> = ({
 
       {/* 3 DOTS */}
       <View style={styles.topRightButtons}>
-        {[0, 1, 2].map(i => (
+        {[0, 1, 2].map((i) => (
           <TouchableOpacity
             key={i}
             style={styles.circle}
-            onPress={() => setPopupVisible(v => !v)}
+            onPress={() => setPopupVisible((v) => !v)}
           />
         ))}
 
