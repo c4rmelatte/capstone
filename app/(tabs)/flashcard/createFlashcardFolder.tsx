@@ -40,8 +40,8 @@ const CreateFlashcardFolder = () => {
       />
 
       {/* Save Button */}
-      <View className="mt-6">
-        <GreenButton title="Save" onPress={handleSave} />
+      <View className="mt-2">
+        <GreenButton title="Save" onPress={handleSave}  />
       </View>
     </KeyboardAvoidingView>
   );
