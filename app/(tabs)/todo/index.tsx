@@ -3,6 +3,7 @@ import Images from "@/constants/images";
 import { StatusBar } from "expo-status-bar";
 import { Plus, SquarePen, Trash2 } from "lucide-react-native";
 import React, { useState } from "react";
+import AddFloatingButton from "@/components/AddFloatingButton";
 
 import {
   FlatList,
@@ -157,15 +158,8 @@ const ToDo: React.FC = () => {
       </View>
 
       {/* FLOATING ADD BUTTON */}
-      <TouchableOpacity
-        onPress={addTodoItem}
-        activeOpacity={0.85}
-        className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10
-                   w-16 h-16 rounded-full bg-[#F5CE8E]
-                   items-center justify-center shadow-lg"
-      >
-        <Plus size={32} color="black" />
-      </TouchableOpacity>
+<AddFloatingButton onPress={addTodoItem} />
+
     </ImageBackground>
   );
 };
