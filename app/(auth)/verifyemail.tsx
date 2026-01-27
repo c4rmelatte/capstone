@@ -13,7 +13,7 @@ import { router } from "expo-router";
 import Images from "@/constants/images";
 import CustomButton from "@/components/CustomButton";
 
-const ResetPasswordScreen = () => {
+const VerifyEmailScreen = () => {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]); // 6-digit OTP
     const inputsRef = useRef<(TextInput | null)[]>([]); // Allow nulls
 
@@ -49,11 +49,14 @@ const ResetPasswordScreen = () => {
     };
 
     const handleVerify = () => {
-        const enteredOtp = otp.join("");
-        console.log("Entered OTP:", enteredOtp);
-         router.push("/changepass")
-        // Add verification logic here
-    };
+    const enteredOtp = otp.join("");
+    console.log("Entered OTP:", enteredOtp);
+
+    alert("Verification successful!");
+    router.push("/login");
+
+    // Add verification logic here
+};
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -85,7 +88,7 @@ const ResetPasswordScreen = () => {
                             marginBottom: 12,
                         }}
                     >
-                        Reset Password
+                        Verify Email
                     </Text>
 
                     <Text
@@ -96,7 +99,7 @@ const ResetPasswordScreen = () => {
                             marginBottom: 24,
                         }}
                     >
-                        Enter the 6-digit OTP you received via email to reset your password.
+                        Please check your email for the OTP to verify your account.
                     </Text>
 
                     {/* 6 Individual OTP Inputs */}
@@ -140,27 +143,10 @@ const ResetPasswordScreen = () => {
                         onPress={handleVerify}
                         containerStyle="mb-4" // margin-bottom: 16 in Tailwind
                     />
-
-
-                    {/* Back to Login */}
-                    <TouchableOpacity
-                        onPress={() => router.back()}
-                        style={{ alignItems: "center" }}
-                    >
-                        <Text
-                            style={{
-                                color: "black",
-                                fontWeight: "600",
-                                fontSize: 14,
-                            }}
-                        >
-                            Back To Login
-                        </Text>
-                    </TouchableOpacity>
                 </View>
             </ImageBackground>
         </TouchableWithoutFeedback>
     );
 };
 
-export default ResetPasswordScreen;
+export default VerifyEmailScreen;

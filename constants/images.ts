@@ -8,7 +8,13 @@ import Slide1 from "../assets/images/slide1.png";
 import Slide2 from "../assets/images/slide2.png";
 import Slide3 from "../assets/images/slide3.png";
 import Loginbg from "../assets/images/bglogin.png";
+import Check from "../assets/images/checked.png";
+import Dashboard from "../assets/images/dashboard.png";
+import Puset from "../assets/images/puset.png"
+import PomodoroBg from "../assets/images/pomodoro.png"
 
 
-const Images = { Slide1, Slide2, Slide3, Image_BG, Item1, Item2, Item3, Item4, Banner, Loginbg };
+
+const Images = { Slide1, Slide2, Slide3, Image_BG, Item1, Item2, Item3, Item4, Banner, Loginbg, Check, Dashboard, Puset, PomodoroBg };
+
 export default Images;

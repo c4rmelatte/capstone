@@ -50,16 +50,16 @@ const LoginScreen = () => {
 
           {/* Inputs */}
           <View className="gap-0">
-            <CustomTextInput placeholder="Full Name" keyboardType="default" />
-            <CustomTextInput placeholder="Email Address" keyboardType="email-address" />
-            <CustomTextInput placeholder="Username" textContentType="username" />
-            <CustomTextInput placeholder="Password" secureTextEntry/>
-            <CustomTextInput placeholder="Confirm Password" secureTextEntry/>
+            <CustomTextInput placeholder="Full Name" iconName="user" keyboardType="default" />
+            <CustomTextInput placeholder="Email Address" iconName="mail" keyboardType="email-address" />
+            <CustomTextInput placeholder="Username" iconName="user" textContentType="username" />
+            <CustomTextInput placeholder="Password" iconName="lock" secureTextEntry/>
+            <CustomTextInput placeholder="Confirm Password" iconName="lock" secureTextEntry/>
           </View>
 
           <View className="h-8" />
           {/* Login Button */}
-          <CustomButton title="Sign Up" onPress={() => {}} />
+          <CustomButton title="Sign Up" onPress={() => router.push("/verifyemail")} />
 
           {/* Sign Up Link */}
           <View className="flex-row mt-4">
