@@ -33,8 +33,8 @@ const FlashcardItems = () => {
       {/* HEADER */}
       <View className="flex-row items-center justify-between px-4 mb-6 relative">
         {/* Back Button */}
-        <TouchableOpacity onPress={() => router.back()} className="absolute left-0">
-          <Text className="text-2xl font-bold text-white">{`<`}</Text>
+        <TouchableOpacity onPress={() => router.back()} >
+          <Text className="text-2xl font-bold text-white">{` <`}</Text>
         </TouchableOpacity>
 
         {/* Folder Name */}
@@ -71,7 +71,7 @@ const FlashcardItems = () => {
       </ScrollView>
 
       {/* FLOATING BUTTON */}
-      <AddFloatingButton onPress={() => router.push("/(tabs)/flashcard/createFlashcardFolder")} />
+      <AddFloatingButton onPress={() => router.push("/(tabs)/flashcard/createFlashcardItem")} />
     </ImageBackground>
   );
 };

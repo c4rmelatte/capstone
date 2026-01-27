@@ -50,7 +50,7 @@ const CreateFlashcardFolder = () => {
 
     // Generate a unique ID for this folder
     const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000);
-router.replace({
+router.push({
   pathname: "/flashcard",
   params: {
     id: uniqueId,
@@ -78,23 +78,19 @@ router.replace({
         key={`keyboard-Flashcard-${Date.now()}`}
       >
         {/* HEADER */}
-        <View
-          style={{ marginBottom: height * 0.05 }}
-          className="flex-row items-center justify-center relative"
-          key={`header-Flashcard-${Date.now()}`}
-        >
-          <TouchableOpacity
-            onPress={() => router.back()}
-            className="absolute left-0"
-            key={`back-button-Flashcard-${Date.now()}`}
-          >
-            <Text className="text-2xl font-bold">{`<`}</Text>
-          </TouchableOpacity>
+    <View className="flex-row items-center justify-center mb-12 relative">
+      {/* Back Button */}
+      <TouchableOpacity
+        onPress={() => router.back()}
+        className="absolute left-0 p-2"
+      >
+        <Text className="text-2xl font-bold">{`<`}</Text>
+      </TouchableOpacity>
 
-          <Text className="text-2xl font-bold" key={`title-Flashcard-${Date.now()}`}>
-            Create Flashcard Deck
-          </Text>
-        </View>
+      {/* Title */}
+      <Text className="text-2xl font-bold">Create Flashcard Deck</Text>
+    </View>
+
 
         {/* ADD COVER PHOTO */}
         <TouchableOpacity

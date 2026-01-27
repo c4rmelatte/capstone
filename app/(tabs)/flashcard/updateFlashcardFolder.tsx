@@ -59,7 +59,7 @@ const UpdateFlashcardFolder = () => {
       return;
     }
 
-    router.replace({
+    router.push({
       pathname: "/flashcard",
       params: {
         id: params.id,
@@ -85,20 +85,11 @@ const UpdateFlashcardFolder = () => {
         }}
       >
         {/* HEADER */}
-        <View
-          style={{ marginBottom: height * 0.05 }}
-          className="flex-row items-center justify-center relative"
-        >
-          <TouchableOpacity
-            onPress={() => router.back()}
-            className="absolute left-0"
-          >
-            <Text className="text-2xl font-bold">{`<`}</Text>
+        <View className="flex-row items-center justify-center mb-12 relative">
+          <TouchableOpacity onPress={() => router.back()} className="absolute left-0 p-2">
+            <Text className="text-2xl text-white font-bold">{`<`}</Text>
           </TouchableOpacity>
-
-          <Text className="text-2xl font-bold">
-            Update Flashcard Deck
-          </Text>
+          <Text className="text-2xl font-bold text-white">Update Flashcard Deck</Text>
         </View>
 
         {/* COVER PHOTO */}
