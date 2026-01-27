@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Delete, Pencil } from "lucide-react-native";
 
 interface FlashcardFolderProps {
   folderId: string;

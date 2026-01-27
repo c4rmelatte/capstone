@@ -5,6 +5,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Dimensions, ImageBackground, ScrollView, Text, View } from "react-native";
 
+
 const { width } = Dimensions.get("window");
 
 const FlashCard = () => {
