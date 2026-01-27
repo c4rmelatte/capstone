@@ -4,18 +4,25 @@ import Images from "@/constants/images";
 import { router } from "expo-router";
 import React from "react";
 import { Dimensions, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { ArrowLeft, Pencil } from "lucide-react-native";
+import { Pencil } from "lucide-react-native";
 
 const { width } = Dimensions.get("window");
 
 const FlashcardItems = () => {
+  // Sample flashcards
   const flashcards = [
     { id: "1", question: "What is the chemical formula of water?", answer: "H2O" },
     { id: "2", question: "What process do plants use to make food using sunlight?", answer: "Photosynthesis" },
     { id: "3", question: "What force pulls objects toward the center of the Earth?", answer: "Gravity" },
   ];
 
-  const folderName = "Science"; // use const for folder name
+  const folderName = "Science"; // Folder name
+
+  // Function to edit flashcard items (navigate)
+  const editFlashcardItems = () => {
+    console.log("Edit folder clicked:", folderName);
+    router.push("/(tabs)/flashcard/updateFlashcardItem");
+  };
 
   return (
     <ImageBackground
@@ -24,10 +31,10 @@ const FlashcardItems = () => {
       className="flex-1 pt-20"
     >
       {/* HEADER */}
-      <View className="flex-row items-center justify-between px-4 mb-6">
+      <View className="flex-row items-center justify-between px-4 mb-6 relative">
         {/* Back Button */}
-        <TouchableOpacity onPress={() => router.back()}>
-          <ArrowLeft size={28} color="white" />
+        <TouchableOpacity onPress={() => router.back()} className="absolute left-0">
+          <Text className="text-2xl font-bold text-white">{`<`}</Text>
         </TouchableOpacity>
 
         {/* Folder Name */}
@@ -43,7 +50,7 @@ const FlashcardItems = () => {
         </Text>
 
         {/* Edit Icon */}
-        <TouchableOpacity onPress={() => console.log("Edit folder")}>
+        <TouchableOpacity onPress={editFlashcardItems}>
           <Pencil size={28} color="white" />
         </TouchableOpacity>
       </View>
@@ -64,7 +71,7 @@ const FlashcardItems = () => {
       </ScrollView>
 
       {/* FLOATING BUTTON */}
-      {/* <AddFloatingButton onPress={() => router.push("/createFlashcardItem")} /> */}
+      <AddFloatingButton onPress={() => router.push("/(tabs)/flashcard/createFlashcardFolder")} />
     </ImageBackground>
   );
 };

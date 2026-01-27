@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Delete, Pencil } from "lucide-react-native";
+import EditDeletePopUp from "./EditDeletePopUp";
 
 interface FlashcardFolderProps {
   folderId: string;
@@ -24,8 +24,10 @@ const FlashcardFolderCard: React.FC<FlashcardFolderProps> = ({
   onFolderDelete,
 }) => {
   const [popupVisible, setPopupVisible] = useState(false);
+
   const containerProps: any = {
-    className: "flex-1 bg-[#FFF9E5] rounded-2xl items-center justify-center overflow-hidden",
+    className:
+      "flex-1 bg-[#FFF9E5] rounded-2xl items-center justify-center overflow-hidden p-3",
   };
   if (image) {
     containerProps.source = image;
@@ -37,54 +39,40 @@ const FlashcardFolderCard: React.FC<FlashcardFolderProps> = ({
     containerProps,
     <>
       {/* IMAGE OVERLAY */}
-      {image && (
-        <View className="absolute inset-0 bg-white/30" />
-      )}
+      {image && <View className="absolute inset-0 bg-white/30" />}
 
       {/* TOP GREEN BAR */}
-      <View className="absolute top-0 left-0 right-0 h-[20%] bg-[#39675F] z-10" />
+  {/* TOP GREEN BAR */}
+<View className="absolute top-0 left-0 right-0 h-[20%] bg-[#39675F] z-10 flex-row justify-end items-center px-2">
+  {/* 3 DOTS inside the green */}
+  {[0, 1, 2].map((i) => (
+    <TouchableOpacity
+      key={i}
+      onPress={() => setPopupVisible((v) => !v)}
+      className="w-2 h-2 rounded-full bg-white mx-[2px]"
+    />
+  ))}
+</View>
 
-      {/* 3 DOTS + POPUP */}
-      <View className="absolute top-2 right-2 flex-row z-20">
-        {[0, 1, 2].map((i) => (
-          <TouchableOpacity
-            key={i}
-            onPress={() => setPopupVisible((v) => !v)}
-            className="w-2 h-2 rounded-full bg-white mx-[2px]"
-          />
-        ))}
+{/* Popup inside yellow at very top-right */}
+{popupVisible && (
+  <View className="absolute top-2 right-2 z-20">
+    <EditDeletePopUp
+      onEdit={() => {
+        onFolderEdit(folderId);
+        setPopupVisible(false);
+      }}
+      onDelete={() => {
+        onFolderDelete(folderId);
+        setPopupVisible(false);
+      }}
+    />
+  </View>
+)}
 
-        {popupVisible && (
-          <View className="absolute top-4 right-0 bg-white rounded-lg p-2 shadow-lg">
-            <TouchableOpacity
-              className="py-1"
-              onPress={() => {
-                onFolderEdit(folderId);
-                setPopupVisible(false);
-              }}
-            >
-              <Text className="text-blue-500 font-semibold">
-                Edit
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              className="py-1"
-              onPress={() => {
-                onFolderDelete(folderId);
-                setPopupVisible(false);
-              }}
-            >
-              <Text className="text-red-500 font-semibold">
-                Delete
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
 
       {/* TITLE */}
-      <Text className="text-lg font-bold text-[#553A00] text-center z-10 px-2">
+      <Text className="text-lg font-bold text-[#553A00] text-center px-2">
         {text}
       </Text>
     </>

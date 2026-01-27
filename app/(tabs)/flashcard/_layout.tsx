@@ -10,5 +10,11 @@ export default function FlashCardLayout() {
       <Stack.Screen name="updateFlashcardItem" />
 
     </Stack>
+
+    //hirarchy 
+
+    //index mga flashcard folder
+    //flashcard items eh ung mga laman ng folder
+    
   );
 }
