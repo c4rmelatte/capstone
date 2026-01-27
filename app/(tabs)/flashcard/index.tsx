@@ -1,5 +1,5 @@
 import AddFloatingButton from "@/components/AddFloatingButton";
-import FlashcardFolder from "@/components/FlashcardFolder";
+import FlashcardFolderCard from "@/components/FlashcardFolderCard";
 import Images from "@/constants/images";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -74,12 +74,12 @@ const FlashCard = () => {
             className="overflow-hidden rounded-2xl shadow-md mb-4"
             style={{ width: width * 0.9, height: 180 }}
           >
-            <FlashcardFolder
+            <FlashcardFolderCard
               folderId={card.id}
               text={card.text}
               image={card.image}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
+              onFolderEdit={handleEdit}
+              onFolderDelete={handleDelete}
             />
           </View>
         ))}
