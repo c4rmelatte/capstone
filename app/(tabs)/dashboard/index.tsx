@@ -66,7 +66,7 @@ const Dashboard = () => {
             {/* LEFT */}
             <View style={{ width: "30%", position: "relative" }}>
               <LottieView
-                source={require("../../assets/animations/Stuby.json")}
+                source={require("../../../assets/animations/Stuby.json")}
                 autoPlay
                 loop
                 style={{ width: "80%", aspectRatio: 1, marginLeft: "8%" }}
