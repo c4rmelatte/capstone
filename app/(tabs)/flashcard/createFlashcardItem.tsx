@@ -85,5 +85,6 @@ const CreateFlashcardItem = () => {
     </ImageBackground>
   );
 };
+//
 
 export default CreateFlashcardItem;
