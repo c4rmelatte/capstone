@@ -69,7 +69,7 @@ const Dashboard = () => {
                 source={require("../../../assets/animations/Stuby.json")}
                 autoPlay
                 loop
-                style={{ width: "80%", aspectRatio: 1, marginLeft: "8%" }}
+                style={{ width: "150%", aspectRatio: 1, marginLeft: "8%" }}
                 resizeMode="contain"
               />
 
