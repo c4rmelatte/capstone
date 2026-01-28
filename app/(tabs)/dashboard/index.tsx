@@ -29,6 +29,7 @@ const recents = [
 
 /* ---------------- DASHBOARD ---------------- */
 const Dashboard = () => {
+  const navigation = useNavigation(); // ✅ PUT IT HERE
   const [todos, setTodos] = useState(initialTodos);
 
   const toggleTodo = (id: string) => {
@@ -43,6 +44,19 @@ const Dashboard = () => {
     <ImageBackground source={Images.Dashboard} className="flex-1">
       <StatusBar style="light" />
 
+      {/* ☰ DRAWER BUTTON */}
+      <TouchableOpacity
+        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        style={{
+          position: "absolute",
+          top: "6%",
+          left: "5%",
+          zIndex: 10,
+        }}
+      >
+        <Ionicons name="menu" size={30} color="#fff" />
+      </TouchableOpacity>
+
       {/* MAIN CONTAINER */}
       <View
         className="flex-1"
@@ -53,7 +67,7 @@ const Dashboard = () => {
       >
         {/* ---------------- TO-DO ---------------- */}
         <View style={{ marginBottom: "8%" }}>
-          <Text className="text-[#F5CE8E] font-extrabold mb-2 text-xl">TO-DO</Text>
+          <Text className="text-[#F5CE8E] font-extrabold mb-2 text-xl self-end">TO-DO</Text>
 
           <View
             style={{
