@@ -85,7 +85,7 @@ const LoginScreen = () => {
       {/* Login Button */}
       <CustomButton
         title={loading ? "Logging in..." : "Sign In"}
-        onPress={() => router.push("/(tabs)/flashcard/flashcardItems")}
+        onPress={() => router.push("/(tabs)/dashboard")}
       />
 
       {/* Sign Up */}
