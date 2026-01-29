@@ -13,7 +13,6 @@ export default function RootLayout() {
     PollerOneRegular: require("../assets/fonts/PollerOne-Regular.ttf"),
     RubicItalic: require("../assets/fonts/Rubik-Italic-VariableFont_wght.ttf"),
     RubicVarient: require("../assets/fonts/Rubik-VariableFont_wght.ttf"),
-    "Fredoka-SemiBold": require("../assets/fonts/Fredoka_Expanded-SemiBold.ttf"),
   });
   useEffect(() => {
     if (fontsLoaded) {
