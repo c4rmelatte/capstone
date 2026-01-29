@@ -3,7 +3,14 @@ import FlashcardItemCard from "@/components/FlashcardItemCard";
 import Images from "@/constants/images";
 import { router } from "expo-router";
 import React from "react";
-import { Dimensions, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Pencil } from "lucide-react-native";
 
 const { width } = Dimensions.get("window");
@@ -16,9 +23,8 @@ const FlashcardItems = () => {
     { id: "3", question: "What force pulls objects toward the center of the Earth?", answer: "Gravity" },
   ];
 
-  const folderName = "Science"; // Folder name
+  const folderName = "Science";
 
-  // Function to edit flashcard items (navigate)
   const editFlashcardItems = () => {
     console.log("Edit folder clicked:", folderName);
     router.push("/(tabs)/flashcard/updateFlashcardItem");
@@ -32,12 +38,10 @@ const FlashcardItems = () => {
     >
       {/* HEADER */}
       <View className="flex-row items-center justify-between px-4 mb-6 relative">
-        {/* Back Button */}
-        <TouchableOpacity onPress={() => router.back()} >
+        <TouchableOpacity onPress={() => router.back()}>
           <Text className="text-2xl font-bold text-white">{` <`}</Text>
         </TouchableOpacity>
 
-        {/* Folder Name */}
         <Text
           className="text-4xl font-bold text-white text-center flex-1"
           style={{
@@ -49,29 +53,41 @@ const FlashcardItems = () => {
           {folderName}
         </Text>
 
-        {/* Edit Icon */}
-        <TouchableOpacity onPress={editFlashcardItems}>
-          <Pencil size={28} color="white" />
+        <TouchableOpacity >
+          <Pencil size={28} color="white" onPress={() =>
+          router.push("/(tabs)/flashcard/updateFlashcardItem")
+        }/>
         </TouchableOpacity>
       </View>
 
       {/* FLASHCARDS */}
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
         {flashcards.map((card, index) => (
-          <FlashcardItemCard
+          <TouchableOpacity
             key={card.id}
-            folderId={card.id}
-            questionNumber={index + 1}
-            question={card.question}
-            answer={card.answer}
-            onItemEdit={() => console.log("Edit card:", card.id)}
-            onDelete={() => console.log("Delete card:", card.id)}
-          />
+            activeOpacity={0.85}
+            onPress={() =>
+              console.log("Flashcard clicked from map:", card.id)
+            }
+          >
+            <FlashcardItemCard
+              folderId={card.id}
+              questionNumber={index + 1}
+              question={card.question}
+              answer={card.answer}
+              onItemEdit={() => console.log("Edit card:", card.id)}
+              onDelete={() => console.log("Delete card:", card.id)}
+            />
+          </TouchableOpacity>
         ))}
       </ScrollView>
 
       {/* FLOATING BUTTON */}
-      <AddFloatingButton onPress={() => router.push("/(tabs)/flashcard/createFlashcardItem")} />
+      <AddFloatingButton
+        onPress={() =>
+          router.push("/(tabs)/flashcard/createFlashcardItem")
+        }
+      />
     </ImageBackground>
   );
 };

@@ -84,7 +84,7 @@ router.push({
         onPress={() => router.back()}
         className="absolute left-0 p-2"
       >
-        <Text className="text-2xl font-bold">{`<`}</Text>
+        <Text className="text-2xl font-bold text-white">{`<`}</Text>
       </TouchableOpacity>
 
       {/* Title */}

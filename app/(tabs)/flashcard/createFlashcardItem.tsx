@@ -1,8 +1,20 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Dimensions, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import { router } from "expo-router";
 import Images from "@/constants/images";
-
-const { width } = Dimensions.get("window");
+import GreenButton from "@/components/GreenButton";
+import AddFloatingButton from "@/components/AddFloatingButton";
 
 const CreateFlashcardItem = () => {
   const [question, setQuestion] = useState("");
@@ -10,7 +22,14 @@ const CreateFlashcardItem = () => {
 
   const handleSave = () => {
     console.log("Saved Flashcard:", { question, answer });
-    // Add your save logic here
+    Alert.alert("Saved", "Flashcard saved successfully!");
+  };
+
+  const handleAddFlashcardItem = () => {
+    console.log("Flashcard Added:", { question, answer });
+    Alert.alert("Added", "Flashcard added successfully!");
+    setQuestion("");
+    setAnswer("");
   };
 
   return (
@@ -19,72 +38,90 @@ const CreateFlashcardItem = () => {
       resizeMode="cover"
       className="flex-1"
     >
-      <ScrollView contentContainerStyle={{ alignItems: "center", paddingVertical: 20 }}>
-        {/* Flashcard Container */}
-        <View
-          style={{ width: width * 0.9, height: 220 }}
-          className="overflow-hidden rounded-2xl shadow-md"
-        >
-          {/* Top 70% Green */}
-          <View className="h-[70%] w-full bg-[#39675F] flex justify-center items-center px-4">
-            <View className="w-full h-full bg-[#39675F] rounded-xl p-3 justify-center">
-              <Text className="text-white text-lg font-bold mb-2">Question</Text>
-              <TextInput
-                value={question}
-                onChangeText={setQuestion}
-                placeholder="Type your question here..."
-                placeholderTextColor="#FFF9E5"
-                className="text-[#FFF9E5] text-xl font-bold"
-                style={{
-                  width: "100%",
-                  borderWidth: 1,
-                  borderColor: "#FFF9E5",
-                  borderRadius: 10,
-                  padding: 8,
-                  textAlignVertical: "top",
-                  textAlign: "left",
-                }}
-                multiline
+      {/* DISMISS KEYBOARD ON TAP */}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View className="flex-1">
+          {/* TOP CONTROLS */}
+          <View className="absolute top-10 left-0 right-0 z-10 px-4">
+            {/* BACK BUTTON */}
+            <TouchableOpacity onPress={() => router.back()}>
+              <Text className="text-2xl mt-9 font-bold text-white">{`<`}</Text>
+            </TouchableOpacity>
+
+            {/* SAVE BUTTON */}
+            <View className="mt-3 flex-row justify-end">
+              <GreenButton
+                title="Save"
+                onPress={handleSave}
+                widthPercent={0.25}
+                heightPercent={0.05}
               />
             </View>
           </View>
 
-          {/* Bottom 30% Yellow */}
-          <View className="h-[30%] w-full bg-[#FFF9E5] flex justify-center items-center px-4">
-            <View className="w-full h-full bg-[#FFF9E5] rounded-xl p-3 justify-center">
-              <Text className="text-[#39675F] text-base font-bold mb-1">Answer</Text>
-              <TextInput
-                value={answer}
-                onChangeText={setAnswer}
-                placeholder="Type your answer here..."
-                placeholderTextColor="#79D0C1"
-                className="text-[#79D0C1] text-base font-semibold"
-                style={{
-                  width: "100%",
-                  borderWidth: 1,
-                  borderColor: "#79D0C1",
-                  borderRadius: 10,
-                  padding: 8,
-                  textAlignVertical: "top",
-                  textAlign: "left",
-                }}
-                multiline
-              />
+          {/* MAIN CONTENT */}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            className="flex-1 justify-center items-center"
+          >
+            {/* FLASHCARD */}
+            <View className="h-[50%] w-[90%] rounded-2xl overflow-hidden shadow-lg">
+              {/* QUESTION */}
+              <View className="h-[65%] bg-[#39675F] px-4 py-4">
+                <Text className="text-white text-3xl font-bold mb-2">
+                  Question
+                </Text>
+                <TextInput
+                  value={question}
+                  onChangeText={setQuestion}
+                  placeholder="Type your question here..."
+                  placeholderTextColor="#9C8A5D"
+                  multiline
+                  textAlignVertical="top"
+                  className="
+                    flex-1
+                    bg-[#FFF9E5]
+                    text-[#553A00]
+                    text-base
+                    font-semibold
+                    rounded-xl
+                    p-4
+                  "
+                />
+              </View>
+
+              {/* ANSWER */}
+              <View className="h-[35%] bg-[#FFF9E5] px-4 py-3">
+                <Text className="text-[#39675F] text-3xl font-bold mb-1">
+                  Answer
+                </Text>
+                <TextInput
+                  value={answer}
+                  onChangeText={setAnswer}
+                  placeholder="Type your answer here..."
+                  placeholderTextColor="#CFE9E4"
+                  multiline
+                  textAlignVertical="top"
+                  className="
+                    flex-1
+                    bg-[#79D0C1]
+                    text-[#083D36]
+                    text-sm
+                    font-semibold
+                    rounded-xl
+                    p-3
+                  "
+                />
+              </View>
             </View>
-          </View>
+          </KeyboardAvoidingView>
+
+          {/* FLOATING ADD BUTTON */}
+          <AddFloatingButton onPress={handleAddFlashcardItem} />
         </View>
-
-        {/* Save Button */}
-        <TouchableOpacity
-          onPress={handleSave}
-          className="bg-[#39675F] rounded-xl py-3 px-6 mt-6"
-        >
-          <Text className="text-white font-bold text-lg text-center">Save</Text>
-        </TouchableOpacity>
-      </ScrollView>
+      </TouchableWithoutFeedback>
     </ImageBackground>
   );
 };
-//
 
 export default CreateFlashcardItem;
