@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import EditDeletePopUp from "./EditDeletePopUp";
 
 interface FlashcardFolderProps {
@@ -13,7 +8,7 @@ interface FlashcardFolderProps {
   image?: any;
   onFolderEdit: (id: string) => void;
   onFolderDelete: (id: string) => void;
-  onFolderPress: (id: string) => void; 
+  onFolderPress: (id: string) => void;
 }
 
 const FlashcardFolderCard: React.FC<FlashcardFolderProps> = ({
@@ -27,8 +22,7 @@ const FlashcardFolderCard: React.FC<FlashcardFolderProps> = ({
   const [popupVisible, setPopupVisible] = useState(false);
 
   const containerProps: any = {
-    className:
-      "flex-1 bg-[#FFF9E5] rounded-2xl items-center justify-center overflow-hidden p-3",
+    className: "flex-1 bg-[#FFF9E5] rounded-2xl items-center justify-center overflow-hidden p-3",
   };
 
   if (image) {
@@ -78,9 +72,7 @@ const FlashcardFolderCard: React.FC<FlashcardFolderProps> = ({
           )}
 
           {/* TITLE */}
-          <Text className="text-lg font-bold text-[#553A00] text-center px-2">
-            {text}
-          </Text>
+          <Text className="text-2xl font-bold text-[#553A00] px-2">{text}</Text>
         </>
       )}
     </TouchableOpacity>
