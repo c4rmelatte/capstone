@@ -1,8 +1,11 @@
+import { useNavigation } from "expo-router";
 import Images from "@/constants/images";
 import { StatusBar } from "expo-status-bar";
 import LottieView from "lottie-react-native";
 import React, { useState } from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import { DrawerActions } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
 
 /* ---------------- MOCK DATA ---------------- */
 const initialTodos = [
