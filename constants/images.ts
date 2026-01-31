@@ -6,6 +6,7 @@ import Item1 from "../assets/images/item1.png";
 import Item2 from "../assets/images/item2.png";
 import Item3 from "../assets/images/item3.png";
 import Item4 from "../assets/images/item4.png";
+import notepadBg from "../assets/images/notepadBg.png";
 import Image_BG from "../assets/images/pageuno.png";
 import PomodoroBg from "../assets/images/pomodoro.png";
 import Puset from "../assets/images/puset.png";
@@ -28,6 +29,7 @@ const Images = {
   Dashboard,
   Puset,
   PomodoroBg,
+  notepadBg,
 };
 
 export default Images;
