@@ -1,24 +1,18 @@
-import { Ionicons } from "@expo/vector-icons"; // For the menu icon
-import { DrawerActions } from "@react-navigation/native";
 import { useNavigation } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import AppHeader from "../../../components/AppHeader";
 
-export default function Todolist() {
+export default function Notepad() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      {/* ☰ MENU BUTTON */}
-      <TouchableOpacity
-        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-        style={styles.menuButton}
-      >
-        <Ionicons name="menu" size={30} color="#4E9C8F" />
-      </TouchableOpacity>
+      {/* 1. Add the AppHeader component */}
+      <AppHeader />
 
       <View style={styles.content}>
-        <Text style={styles.title}>To Do List Screen</Text>
-        <Text style={styles.subtitle}>Time to get things done! 📋</Text>
+        <Text style={styles.title}>Notepad Screen</Text>
+        <Text style={styles.subtitle}>Time to take some notes! 📝</Text>
       </View>
     </View>
   );
