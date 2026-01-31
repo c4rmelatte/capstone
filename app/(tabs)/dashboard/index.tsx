@@ -1,10 +1,11 @@
-import Images from "@/constants/images";
-import { Ionicons } from "@expo/vector-icons"; // For the menu icon
-import { DrawerActions } from "@react-navigation/native";
 import { useNavigation } from "expo-router";
+import Images from "@/constants/images";
 import { StatusBar } from "expo-status-bar";
+import LottieView from "lottie-react-native";
 import React, { useState } from "react";
-import { Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import { DrawerActions } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
 
 /* ---------------- MOCK DATA ---------------- */
 const initialTodos = [
@@ -81,13 +82,11 @@ const Dashboard = () => {
           >
             {/* LEFT */}
             <View style={{ width: "30%", position: "relative" }}>
-              <Image
-                source={Images.Puset}
-                style={{
-                  width: "80%",
-                  aspectRatio: 1,
-                  marginLeft: "8%",
-                }}
+              <LottieView
+                source={require("../../../assets/animations/Stuby.json")}
+                autoPlay
+                loop
+                style={{ width: "150%", aspectRatio: 1, marginLeft: "8%" }}
                 resizeMode="contain"
               />
 
