@@ -66,7 +66,7 @@ export default function TodolistScreen() {
       <AppHeader />
 
       {/* MAIN CONTAINER */}
-      <View className="flex-1 px-4 sm:px-8 mt-6 ">
+      <View className="flex-1 px-4 sm:px-8 mt-8 ">
         {/* TITLE */}
         <Text
           className="text-[#FDE6B1] text-4xl font-[900] text-center tracking-[4px]"
