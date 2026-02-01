@@ -1,15 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-  Dimensions,
-} from "react-native";
-import Svg, { Circle } from "react-native-svg";
-import { router } from "expo-router";
 import Images from "@/constants/images";
+import React, { useEffect, useRef, useState } from "react";
+import { Dimensions, Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import Svg, { Circle } from "react-native-svg";
+import AppHeader from "../../../components/AppHeader";
 
 const { width } = Dimensions.get("window");
 const circleSize = width * 0.6;
@@ -30,7 +23,7 @@ const times = {
 };
 
 const Pomodoro = () => {
-  const [mode, setMode] = useState<typeof MODE[keyof typeof MODE]>(MODE.POMODORO);
+  const [mode, setMode] = useState<(typeof MODE)[keyof typeof MODE]>(MODE.POMODORO);
   const [secondsLeft, setSecondsLeft] = useState(times[MODE.POMODORO]);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -77,7 +70,9 @@ const Pomodoro = () => {
   }, [isRunning]);
 
   const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60).toString().padStart(2, "0");
+    const m = Math.floor(seconds / 60)
+      .toString()
+      .padStart(2, "0");
     const s = (seconds % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
   };
@@ -86,11 +81,8 @@ const Pomodoro = () => {
   const strokeDashoffset = circumference * (1 - progress);
 
   return (
-    <ImageBackground
-      source={Images.PomodoroBg}
-      className="flex-1"
-      resizeMode="cover"
-    >
+    <ImageBackground source={Images.PomodoroBg} className="flex-1" resizeMode="cover">
+      <AppHeader />
       <View className="flex-1 items-center pt-[15%] px-[10%]">
         {/* Title */}
         <Text className="text-[36px] font-extrabold text-[#1D1D1D] mb-[5%] tracking-[2px]">
@@ -161,11 +153,7 @@ const Pomodoro = () => {
           </Svg>
 
           {/* Image inside ring */}
-          <Image
-            source={Images.Puset}
-            className="w-[60%] h-[60%]"
-            resizeMode="contain"
-          />
+          <Image source={Images.Puset} className="w-[60%] h-[60%]" resizeMode="contain" />
         </View>
 
         {/* Timer text */}
