@@ -15,16 +15,18 @@ import Slide3 from "../assets/images/slide3.png";
 
 //accept changes add ni nina cute pasama
 
-import TimeFocus from "../assets/images/timefocus.png";
+import TimeFocus from "../assets/images/timeFocus.png";
 import PomodoroWaveBg from "../assets/images/pomodoroWaveBg.png";
 import FlashcardWaveBg from "../assets/images/flashcardWaveBg.png";
-import FlashLearn from "../assets/images/flashlearn.png";
+import FlashLearn from "../assets/images/flashLearn.png";
 import MusicWaveBg from "../assets/images/musicWaveBg.png";
-import FocusBeats from "../assets/images/focusbeats.png";
+import FocusBeats from "../assets/images/focusBeats.png";
 import NotesWaveBg from "../assets/images/notesWaveBg.png";
-import QuickNotes from "../assets/images/quicknotes.png";
+import QuickNotes from "../assets/images/quickNotes.png";
 import ToDoWaveBg from "../assets/images/toDoWaveBg.png";
-import TaskReady from "../assets/images/taskready.png";
+import TaskReady from "../assets/images/taskReady.png";
+
+import ToDoBg from "../assets/images/todoBg.png";
 
 const Images = {
   Slide1,
@@ -51,6 +53,7 @@ const Images = {
   QuickNotes,
   ToDoWaveBg,
   TaskReady,
+  ToDoBg,
 };
 
 export default Images;
