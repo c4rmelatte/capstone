@@ -1,3 +1,17 @@
+import { Drawer } from "expo-router/drawer";
+import CustomDrawer from "../../components/CustomDrawer";
+
+export default function TabsLayout() {
+  return (
+    <Drawer
+      drawerContent={(props) => <CustomDrawer {...props} />}
+      screenOptions={{
+        headerShown: false, // This MUST be false for your custom header to show
+      }}
+    />
+  );
+}
+
 // import { Tabs } from "expo-router";
 // import { Heart, Home, ShoppingCart, User } from "lucide-react-native";
 // import { View } from "react-native";
@@ -44,7 +58,7 @@
 //       <Tabs.Screen name="home" />
 //       <Tabs.Screen name="cart" />
 //       <Tabs.Screen name="favourite" />
-//       <Tabs.Screen name="profile" /> 
+//       <Tabs.Screen name="profile" />
 //     </Tabs>
 //   );
 // }
