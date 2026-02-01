@@ -1,21 +1,22 @@
+import React, { useEffect, useState } from "react";
+import { Text, View, Dimensions, ImageBackground, ScrollView } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+
+import AppHeader from "../../../components/AppHeader";
 import AddFloatingButton from "@/components/AddFloatingButton";
 import FlashcardFolderCard from "@/components/FlashcardFolderCard";
 import Images from "@/constants/images";
-import { router, useLocalSearchParams } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { Dimensions, ImageBackground, ScrollView, Text, View } from "react-native";
-
 
 const { width } = Dimensions.get("window");
 
-const FlashCard = () => {
+export default function Flashcard() {
   const params = useLocalSearchParams();
 
-  const [flashcards, setFlashcards] = useState([
+  const [flashcardFolders, setFlashcardFolders] = useState([
     {
       id: "1",
       text: "FlashCard Content 1",
-      image: Images.MusicBg,
+      image: Images.Slide1,
     },
     {
       id: "2",
@@ -24,71 +25,87 @@ const FlashCard = () => {
     },
   ]);
 
-  // ✅ ADD NEW FLASHCARD ON TOP
+  const handleFolderPress = (folderId: string) => {
+  console.log("Folder pressed:", folderId);
+  //  navigate 
+};
+
+  // ADD NEW FLASHCARD FOLDER ON TOP
   useEffect(() => {
     if (!params?.id) return;
 
-    setFlashcards((prev) => {
-      if (prev.some((card) => card.id === params.id)) return prev;
+    setFlashcardFolders((prev) => {
+      if (prev.some((folder) => folder.id === params.id)) return prev;
 
       return [
         {
           id: params.id as string,
           text: params.title as string,
-          image: params.coverPhoto ? { uri: params.coverPhoto as string } : null,
+          image: params.coverPhoto
+            ? { uri: params.coverPhoto as string }
+            : null,
         },
         ...prev,
       ];
     });
   }, [params?.id]);
 
-  // ✅ DELETE
-  const handleDelete = (id: string) => {
-    setFlashcards((prev) => prev.filter((card) => card.id !== id));
+  // DELETE FLASHCARD FOLDER
+  const handleDeleteFolder = (folderId: string) => {
+    setFlashcardFolders((prev) =>
+      prev.filter((folder) => folder.id !== folderId)
+    );
   };
 
-  // ✅ EDIT (navigate)
-  const handleEdit = (id: string) => {
+  // EDIT FLASHCARD FOLDER
+  const handleEditFolder = (folderId: string) => {
     router.replace({
       pathname: "/flashcard/updateFlashcardFolder",
-      params: { editId: id },
+      params: { editId: folderId },
     });
   };
 
   return (
-    <ImageBackground source={Images.FlashcardBg} resizeMode="cover" className="flex-1 pt-20">
-      <Text
-        className="text-2xl font-bold mb-6 text-white text-center"
-        style={{
-          textShadowColor: "#000",
-          textShadowOffset: { width: 2, height: 2 },
-          textShadowRadius: 2,
-        }}
-      >
-        FlashCard Screen
-      </Text>
+    <ImageBackground
+      source={Images.FlashcardBg }  className="flex-1" resizeMode="cover"
+    >
+      <AppHeader />
+
+          <Text
+            className="text-[#FDE6B1] mt-8 mb-8 text-4xl font-[900] text-center tracking-[4px]"
+            style={{
+              textShadowColor: "rgba(0, 0, 0, 0.4)",
+              textShadowOffset: { width: 2, height: 2 },
+              textShadowRadius: 4,
+            }}
+          >
+            FLASHCARD
+          </Text>
 
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-        {flashcards.map((card) => (
+        {flashcardFolders.map((folder) => (
           <View
-            key={card.id}
+            key={folder.id}
             className="overflow-hidden rounded-2xl shadow-md mb-4"
             style={{ width: width * 0.9, height: 180 }}
           >
             <FlashcardFolderCard
-              folderId={card.id}
-              text={card.text}
-              image={card.image}
-              onFolderEdit={handleEdit}
-              onFolderDelete={handleDelete}
+              folderId={folder.id}
+              text={folder.text}
+              image={folder.image}
+              onFolderEdit={handleEditFolder}
+              onFolderDelete={handleDeleteFolder}
+              onFolderPress={handleFolderPress}
             />
           </View>
         ))}
       </ScrollView>
 
-      <AddFloatingButton onPress={() => router.replace("/flashcard/createFlashcardFolder")} />
+      <AddFloatingButton
+        onPress={() =>
+          router.replace("/flashcard/createFlashcardFolder")
+        }
+      />
     </ImageBackground>
   );
-};
-
-export default FlashCard;
+}
