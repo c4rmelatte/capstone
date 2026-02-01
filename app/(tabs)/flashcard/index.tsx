@@ -9,26 +9,21 @@ import Images from "@/constants/images";
 
 const { width } = Dimensions.get("window");
 
-export default function Flashcard() {
+export default function FlashcardFolder() {
   const params = useLocalSearchParams();
 
   const [flashcardFolders, setFlashcardFolders] = useState([
-    {
-      id: "1",
-      text: "FlashCard Content 1",
-      image: Images.Slide1,
-    },
-    {
-      id: "2",
-      text: "FlashCard Content 2",
-      image: null,
-    },
+    { id: "1", text: "FlashCard Content 1", image: Images.Slide1 },
+    { id: "2", text: "FlashCard Content 2", image: null },
   ]);
 
+  // Which folder's popup is currently open
+  const [popupVisibleFolderId, setPopupVisibleFolderId] = useState<string | null>(null);
+
   const handleFolderPress = (folderId: string) => {
-  console.log("Folder pressed:", folderId);
-  //  navigate 
-};
+    console.log("Folder pressed:", folderId);
+    // navigate to folder cards
+  };
 
   // ADD NEW FLASHCARD FOLDER ON TOP
   useEffect(() => {
@@ -52,9 +47,8 @@ export default function Flashcard() {
 
   // DELETE FLASHCARD FOLDER
   const handleDeleteFolder = (folderId: string) => {
-    setFlashcardFolders((prev) =>
-      prev.filter((folder) => folder.id !== folderId)
-    );
+    setFlashcardFolders((prev) => prev.filter((folder) => folder.id !== folderId));
+    if (popupVisibleFolderId === folderId) setPopupVisibleFolderId(null);
   };
 
   // EDIT FLASHCARD FOLDER
@@ -63,24 +57,23 @@ export default function Flashcard() {
       pathname: "/flashcard/updateFlashcardFolder",
       params: { editId: folderId },
     });
+    setPopupVisibleFolderId(null);
   };
 
   return (
-    <ImageBackground
-      source={Images.FlashcardBg }  className="flex-1" resizeMode="cover"
-    >
+    <ImageBackground source={Images.FlashcardBg} className="flex-1" resizeMode="cover">
       <AppHeader />
 
-          <Text
-            className="text-[#FDE6B1] mt-8 mb-8 text-4xl font-[900] text-center tracking-[4px]"
-            style={{
-              textShadowColor: "rgba(0, 0, 0, 0.4)",
-              textShadowOffset: { width: 2, height: 2 },
-              textShadowRadius: 4,
-            }}
-          >
-            FLASHCARD
-          </Text>
+      <Text
+        className="text-[#FDE6B1] mt-8 mb-8 text-4xl font-[900] text-center tracking-[4px]"
+        style={{
+          textShadowColor: "rgba(0, 0, 0, 0.4)",
+          textShadowOffset: { width: 2, height: 2 },
+          textShadowRadius: 4,
+        }}
+      >
+        FLASHCARD
+      </Text>
 
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
         {flashcardFolders.map((folder) => (
@@ -93,6 +86,8 @@ export default function Flashcard() {
               folderId={folder.id}
               text={folder.text}
               image={folder.image}
+              isPopupVisible={popupVisibleFolderId === folder.id}
+              setPopupVisibleFolder={setPopupVisibleFolderId}
               onFolderEdit={handleEditFolder}
               onFolderDelete={handleDeleteFolder}
               onFolderPress={handleFolderPress}
@@ -102,9 +97,7 @@ export default function Flashcard() {
       </ScrollView>
 
       <AddFloatingButton
-        onPress={() =>
-          router.replace("/flashcard/createFlashcardFolder")
-        }
+        onPress={() => router.replace("/flashcard/createFlashcardFolder")}
       />
     </ImageBackground>
   );

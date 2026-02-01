@@ -15,6 +15,8 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import AppHeader from "@/components/AppHeader";
+import { ChevronLeft } from "lucide-react-native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -50,7 +52,7 @@ const CreateFlashcardFolder = () => {
 
     // Generate a unique ID for this folder
     const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000);
-router.push({
+  router.push({
   pathname: "/flashcard",
   params: {
     id: uniqueId,
@@ -68,28 +70,23 @@ router.push({
       className="flex-1"
       key={`background-Flashcard-${Date.now()}`}
     >
+      <AppHeader />
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         className="flex-1"
         style={{
           paddingHorizontal: width * 0.06,
-          paddingTop: height * 0.1,
         }}
         key={`keyboard-Flashcard-${Date.now()}`}
       >
         {/* HEADER */}
-    <View className="flex-row items-center justify-center mb-12 relative">
-      {/* Back Button */}
-      <TouchableOpacity
-        onPress={() => router.back()}
-        className="absolute left-0 p-2"
-      >
-        <Text className="text-2xl font-bold text-white">{`<`}</Text>
-      </TouchableOpacity>
-
-      {/* Title */}
-      <Text className="text-2xl font-bold">Create Flashcard Deck</Text>
-    </View>
+        <View className="flex-row items-center mt-8 justify-center mb-12 relative">
+          <TouchableOpacity onPress={() => router.back()} className="absolute left-0 p-2">
+           <ChevronLeft size={28} color="#ffffff" />
+          </TouchableOpacity>
+          <Text className="text-2xl font-bold text-[#FDE6B1]">Create Flashcard Deck</Text>
+        </View>
 
 
         {/* ADD COVER PHOTO */}

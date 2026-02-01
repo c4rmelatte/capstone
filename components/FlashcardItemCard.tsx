@@ -20,7 +20,17 @@ const FlashcardItemCard: React.FC<FlashcardItemProps> = ({
   return (
     <View
       className="overflow-hidden rounded-2xl shadow-md mb-4"
-      style={{ width: width * 0.9, height: 150 }}
+      
+
+       style={{
+              width: width * 0.9, 
+              height: 150,
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 5 },
+              shadowOpacity: 0.3,
+              shadowRadius: 10,
+              
+            }}
     >
       {/* Top 20% Green */}
       <View className="h-[70%] w-full bg-[#39675F] flex flex-col justify-center items-start px-4">

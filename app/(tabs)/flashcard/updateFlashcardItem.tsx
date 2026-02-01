@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import Images from "@/constants/images";
+import { ChevronLeft } from "lucide-react-native";
 import GreenButton from "@/components/GreenButton";
 
 const UpdateFlashcardItem = () => {
@@ -40,7 +41,7 @@ const UpdateFlashcardItem = () => {
           <View className="absolute top-10 left-0 right-0 z-10 px-4">
             {/* BACK BUTTON */}
             <TouchableOpacity onPress={() => router.back()}>
-              <Text className="text-2xl mt-9 font-bold text-white">{`<`}</Text>
+              <ChevronLeft size={28} color="#ffffff" />
             </TouchableOpacity>
 
             {/* UPDATE BUTTON */}

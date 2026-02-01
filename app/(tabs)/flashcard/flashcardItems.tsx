@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Pencil } from "lucide-react-native";
+import { Pencil, Play, ChevronLeft } from "lucide-react-native"; // <-- Added Play icon
+import AppHeader from "@/components/AppHeader";
 
 const { width } = Dimensions.get("window");
 
@@ -23,6 +24,10 @@ const FlashcardItems = () => {
     { id: "3", question: "What force pulls objects toward the center of the Earth?", answer: "Gravity" },
   ];
 
+  const handlePlayFlashcard = () => {
+    console.log("Play flashcard session started");
+  }
+
   const folderName = "Science";
 
   const editFlashcardItems = () => {
@@ -31,32 +36,31 @@ const FlashcardItems = () => {
   };
 
   return (
-    <ImageBackground
-      source={Images.FlashcardBg}
-      resizeMode="cover"
-      className="flex-1 pt-20"
-    >
+    <ImageBackground source={Images.FlashcardBg} className="flex-1" resizeMode="cover">
+      <AppHeader/>
       {/* HEADER */}
-      <View className="flex-row items-center justify-between px-4 mb-6 relative">
+      <View className="flex-row items-center justify-between px-6 mt-7 mb-6 relative">
         <TouchableOpacity onPress={() => router.back()}>
-          <Text className="text-2xl font-bold text-white">{` <`}</Text>
+         <ChevronLeft size={28} color="#ffffff" />
         </TouchableOpacity>
 
         <Text
-          className="text-4xl font-bold text-white text-center flex-1"
-          style={{
-            textShadowColor: "#000",
-            textShadowOffset: { width: 2, height: 2 },
-            textShadowRadius: 2,
-          }}
+          className="text-4xl font-bold text-[#FDE6B1] text-center flex-1"
         >
           {folderName}
         </Text>
 
-        <TouchableOpacity >
-          <Pencil size={28} color="white" onPress={() =>
-          router.push("/(tabs)/flashcard/updateFlashcardItem")
-        }/>
+        <TouchableOpacity onPress={editFlashcardItems}>
+          <Pencil size={28} color="white" />
+        </TouchableOpacity>
+      </View>
+
+      {/* ICON BELOW HEADER */}
+      <View className="flex-row justify-end px-6 mb-4">
+        <TouchableOpacity onPress={handlePlayFlashcard}>
+         <View className="bg-[#FFF9E5] rounded-3xl p-3">
+          <Play size={32}  />
+        </View>
         </TouchableOpacity>
       </View>
 
@@ -84,9 +88,7 @@ const FlashcardItems = () => {
 
       {/* FLOATING BUTTON */}
       <AddFloatingButton
-        onPress={() =>
-          router.push("/(tabs)/flashcard/createFlashcardItem")
-        }
+        onPress={() => router.push("/(tabs)/flashcard/createFlashcardItem")}
       />
     </ImageBackground>
   );

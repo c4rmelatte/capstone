@@ -1,20 +1,23 @@
+import AddFloatingButton from "@/components/AddFloatingButton";
+import AppHeader from "@/components/AppHeader";
+import GreenButton from "@/components/GreenButton";
+import Images from "@/constants/images";
+import { router } from "expo-router";
+
+import { ChevronLeft } from "lucide-react-native";
 import React, { useState } from "react";
 import {
-  View,
+  Alert,
+  ImageBackground,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   Text,
   TextInput,
   TouchableOpacity,
-  ImageBackground,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
   TouchableWithoutFeedback,
-  Keyboard,
+  View,
 } from "react-native";
-import { router } from "expo-router";
-import Images from "@/constants/images";
-import GreenButton from "@/components/GreenButton";
-import AddFloatingButton from "@/components/AddFloatingButton";
 
 const CreateFlashcardItem = () => {
   const [question, setQuestion] = useState("");
@@ -33,19 +36,15 @@ const CreateFlashcardItem = () => {
   };
 
   return (
-    <ImageBackground
-      source={Images.FlashcardBg}
-      resizeMode="cover"
-      className="flex-1"
-    >
-      {/* DISMISS KEYBOARD ON TAP */}
+    <ImageBackground source={Images.FlashcardBg} className="flex-1" resizeMode="cover">
+      <AppHeader />
+
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View className="flex-1">
-          {/* TOP CONTROLS */}
           <View className="absolute top-10 left-0 right-0 z-10 px-4">
             {/* BACK BUTTON */}
             <TouchableOpacity onPress={() => router.back()}>
-              <Text className="text-2xl mt-9 font-bold text-white">{`<`}</Text>
+              <ChevronLeft size={28} color="#ffffff" />
             </TouchableOpacity>
 
             {/* SAVE BUTTON */}
@@ -68,9 +67,8 @@ const CreateFlashcardItem = () => {
             <View className="h-[50%] w-[90%] rounded-2xl overflow-hidden shadow-lg">
               {/* QUESTION */}
               <View className="h-[65%] bg-[#39675F] px-4 py-4">
-                <Text className="text-white text-3xl font-bold mb-2">
-                  Question
-                </Text>
+                <Text className="text-white text-3xl font-bold mb-2">Question</Text>
+
                 <TextInput
                   value={question}
                   onChangeText={setQuestion}
@@ -92,9 +90,7 @@ const CreateFlashcardItem = () => {
 
               {/* ANSWER */}
               <View className="h-[35%] bg-[#FFF9E5] px-4 py-3">
-                <Text className="text-[#39675F] text-3xl font-bold mb-1">
-                  Answer
-                </Text>
+                <Text className="text-[#39675F] text-3xl font-bold mb-1">Answer</Text>
                 <TextInput
                   value={answer}
                   onChangeText={setAnswer}
