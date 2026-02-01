@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { Plus, SquarePen, Trash2 } from "lucide-react-native";
 import React, { useState } from "react";
 import AddFloatingButton from "@/components/AddFloatingButton";
+import AppHeader from "../../../components/AppHeader";
 
 import {
   FlatList,
@@ -65,6 +66,7 @@ const ToDo: React.FC = () => {
   return (
     <ImageBackground source={Images.TodoBg} resizeMode="cover" className="flex-1">
       <StatusBar style="dark" />
+<AppHeader />
 
       {/* MAIN CONTAINER */}
       <View className="flex-1 px-4 sm:px-8 pt-[15%]">
