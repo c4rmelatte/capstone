@@ -33,6 +33,14 @@ const AddFloatingButton: React.FC<AddFloatingButtonProps> = ({
           bottom: 24,
           right: 24,
           elevation: 6, // Android shadow
+
+            
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 5 },
+              shadowOpacity: 0.3,
+              shadowRadius: 10,
+              
+            
         },
         style,
       ]}

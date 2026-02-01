@@ -123,7 +123,13 @@ const UpdateFlashcardFolder = () => {
 
         {/* INPUT */}
         <View
-          style={{ height: height * 0.06 }}
+          style={{ height: height * 0.06,
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 5 },
+              shadowOpacity: 0.3,
+              shadowRadius: 10,
+              
+            }}
           className="bg-white rounded-full border-2 border-black px-4 justify-center"
         >
           <TextInput value={title} onChangeText={setTitle} className="font-bold text-black" />
