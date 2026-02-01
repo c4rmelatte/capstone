@@ -1,11 +1,6 @@
-import GreenButton from "@/components/GreenButton";
-import Images from "@/constants/images";
 import { StatusBar } from "expo-status-bar";
-import { Plus, SquarePen, Trash2 } from "lucide-react-native";
+import { SquarePen, Trash2 } from "lucide-react-native";
 import React, { useState } from "react";
-import AddFloatingButton from "@/components/AddFloatingButton";
-import AppHeader from "../../../components/AppHeader";
-
 import {
   FlatList,
   ImageBackground,
@@ -17,6 +12,11 @@ import {
   View,
 } from "react-native";
 
+import AddFloatingButton from "@/components/AddFloatingButton";
+import GreenButton from "@/components/GreenButton";
+import Images from "@/constants/images";
+import AppHeader from "../../../components/AppHeader";
+
 interface Todo {
   id: string;
   task: string;
@@ -25,7 +25,7 @@ interface Todo {
 
 const pastelColors = ["#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9", "#BAE1FF", "#E0BAFF"];
 
-const ToDo: React.FC = () => {
+export default function TodolistScreen() {
   const [todos, setTodos] = useState<Todo[]>([
     { id: "1", task: "Learn React Native", done: false },
     { id: "2", task: "Build a TODO app", done: false },
@@ -37,7 +37,6 @@ const ToDo: React.FC = () => {
 
   /* ---------- Actions ---------- */
 
-  //pag ciniclick ung to do item para maedit
   const toggleDone = (id: string) => {
     setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
   };
@@ -61,21 +60,26 @@ const ToDo: React.FC = () => {
     setEditingId(newTodo.id);
   };
 
-  /* ---------- Render ---------- */
-
   return (
     <ImageBackground source={Images.TodoBg} resizeMode="cover" className="flex-1">
       <StatusBar style="dark" />
-<AppHeader />
+      <AppHeader />
 
       {/* MAIN CONTAINER */}
-      <View className="flex-1 px-4 sm:px-8 pt-[15%]">
+      <View className="flex-1 px-4 sm:px-8 mt-6 ">
         {/* TITLE */}
-        <Text className="text-3xl sm:text-5xl font-extrabold text-gray-900 mb-6 text-center">
+        <Text
+          className="text-[#FDE6B1] text-4xl font-[900] text-center tracking-[4px]"
+          style={{
+            textShadowColor: "rgba(0, 0, 0, 0.4)",
+            textShadowOffset: { width: 2, height: 2 },
+            textShadowRadius: 4,
+          }}
+        >
           TO-DO LIST
         </Text>
 
-        {/* EDIT / SAVE (FIXED HEIGHT — NO JUMP) */}
+        {/* EDIT / SAVE */}
         <View className="flex-row w-full justify-end items-center h-12 mb-4">
           {!isEditing ? (
             <TouchableOpacity className="mr-[2%]" onPress={() => setIsEditing(true)}>
@@ -91,7 +95,7 @@ const ToDo: React.FC = () => {
           )}
         </View>
 
-        {/* LIST (KEYBOARD ONLY AFFECTS THIS) */}
+        {/* LIST */}
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : undefined}
           className="flex-1"
@@ -146,7 +150,7 @@ const ToDo: React.FC = () => {
                     </TouchableOpacity>
                   )}
 
-                  {/* DELETE (ONLY IN EDIT MODE) */}
+                  {/* DELETE */}
                   {isEditing && (
                     <TouchableOpacity onPress={() => deleteTodo(item.id)} className="ml-2">
                       <Trash2 size={21} color="red" />
@@ -160,10 +164,7 @@ const ToDo: React.FC = () => {
       </View>
 
       {/* FLOATING ADD BUTTON */}
-<AddFloatingButton onPress={addTodoItem} />
-
+      <AddFloatingButton onPress={addTodoItem} />
     </ImageBackground>
   );
-};
-
-export default ToDo;
+}
