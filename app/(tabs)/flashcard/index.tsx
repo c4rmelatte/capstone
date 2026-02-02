@@ -1,39 +1,104 @@
-import { StyleSheet, Text, View } from "react-native";
-// 1. Import your custom header
-import AppHeader from "../../../components/AppHeader";
+import React, { useEffect, useState } from "react";
+import { Text, View, Dimensions, ImageBackground, ScrollView } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
 
-export default function Flashcard() {
+import AppHeader from "../../../components/AppHeader";
+import AddFloatingButton from "@/components/AddFloatingButton";
+import FlashcardFolderCard from "@/components/FlashcardFolderCard";
+import Images from "@/constants/images";
+
+const { width } = Dimensions.get("window");
+
+export default function FlashcardFolder() {
+  const params = useLocalSearchParams();
+
+  const [flashcardFolders, setFlashcardFolders] = useState([
+    { id: "1", text: "FlashCard Content 1", image: Images.Slide1 },
+    { id: "2", text: "FlashCard Content 2", image: null },
+  ]);
+
+  // Which folder's popup is currently open
+  const [popupVisibleFolderId, setPopupVisibleFolderId] = useState<string | null>(null);
+
+  const handleFolderPress = (folderId: string) => {
+    console.log("Folder pressed:", folderId);
+    // navigate to folder cards
+  };
+
+  // ADD NEW FLASHCARD FOLDER ON TOP
+  useEffect(() => {
+    if (!params?.id) return;
+
+    setFlashcardFolders((prev) => {
+      if (prev.some((folder) => folder.id === params.id)) return prev;
+
+      return [
+        {
+          id: params.id as string,
+          text: params.title as string,
+          image: params.coverPhoto
+            ? { uri: params.coverPhoto as string }
+            : null,
+        },
+        ...prev,
+      ];
+    });
+  }, [params?.id]);
+
+  // DELETE FLASHCARD FOLDER
+  const handleDeleteFolder = (folderId: string) => {
+    setFlashcardFolders((prev) => prev.filter((folder) => folder.id !== folderId));
+    if (popupVisibleFolderId === folderId) setPopupVisibleFolderId(null);
+  };
+
+  // EDIT FLASHCARD FOLDER
+  const handleEditFolder = (folderId: string) => {
+    router.replace({
+      pathname: "/flashcard/updateFlashcardFolder",
+      params: { editId: folderId },
+    });
+    setPopupVisibleFolderId(null);
+  };
+
   return (
-    <View style={styles.container}>
-      {/* 2. Add the Header at the very top */}
+    <ImageBackground source={Images.FlashcardBg} className="flex-1" resizeMode="cover">
       <AppHeader />
 
-      <View style={styles.content}>
-        <Text style={styles.title}>Flashcard Screen</Text>
-        <Text style={styles.subtitle}>Time to ace those exams! 🧠</Text>
-      </View>
-    </View>
+      <Text
+        className="text-[#FDE6B1] mt-8 mb-8 text-4xl font-[900] text-center tracking-[4px]"
+        style={{
+          textShadowColor: "rgba(0, 0, 0, 0.4)",
+          textShadowOffset: { width: 2, height: 2 },
+          textShadowRadius: 4,
+        }}
+      >
+        FLASHCARD
+      </Text>
+
+      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+        {flashcardFolders.map((folder) => (
+          <View
+            key={folder.id}
+            className="overflow-hidden rounded-2xl shadow-md mb-4"
+            style={{ width: width * 0.9, height: 180 }}
+          >
+            <FlashcardFolderCard
+              folderId={folder.id}
+              text={folder.text}
+              image={folder.image}
+              isPopupVisible={popupVisibleFolderId === folder.id}
+              setPopupVisibleFolder={setPopupVisibleFolderId}
+              onFolderEdit={handleEditFolder}
+              onFolderDelete={handleDeleteFolder}
+              onFolderPress={handleFolderPress}
+            />
+          </View>
+        ))}
+      </ScrollView>
+
+      <AddFloatingButton
+        onPress={() => router.replace("/flashcard/createFlashcardFolder")}
+      />
+    </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF6E5",
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "800",
-    color: "#4E9C8F",
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#555",
-    marginTop: 8,
-  },
-});
