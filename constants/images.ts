@@ -27,6 +27,8 @@ import QuickNotes from "../assets/images/quickNotes.png";
 import ToDoWaveBg from "../assets/images/toDoWaveBg.png";
 import TaskReady from "../assets/images/taskReady.png";
 
+import FlashcardBg from "../assets/images/flashcardBg.png";
+
 import ToDoBg from "../assets/images/todoBg.png";
 
 const Images = {
@@ -55,6 +57,7 @@ const Images = {
   ToDoWaveBg,
   TaskReady,
   ToDoBg,
+  FlashcardBg,
 };
 
 export default Images;
