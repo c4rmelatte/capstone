@@ -12,6 +12,7 @@ import Puset from "../assets/images/puset.png";
 import Slide1 from "../assets/images/slide1.png";
 import Slide2 from "../assets/images/slide2.png";
 import Slide3 from "../assets/images/slide3.png";
+import TodoBg from "../assets/images/todoBg.png";
 
 //accept changes add ni nina cute pasama
 
