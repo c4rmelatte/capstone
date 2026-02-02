@@ -61,7 +61,7 @@ export default function TodolistScreen() {
   };
 
   return (
-    <ImageBackground source={Images.TodoBg} resizeMode="cover" className="flex-1">
+    <ImageBackground source={Images.ToDoBg} resizeMode="cover" className="flex-1">
       <StatusBar style="dark" />
       <AppHeader />
 
