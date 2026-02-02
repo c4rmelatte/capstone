@@ -1,11 +1,20 @@
 import { Stack } from "expo-router";
-import React from "react";
 
-export default function FlashcardLayout() {
+export default function FlashCardLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      {/* This refers to index.tsx in the same folder */}
       <Stack.Screen name="index" />
+      <Stack.Screen name="createFlashcardFolder" />
+      <Stack.Screen name="updateFlashcardFolder" />
+      <Stack.Screen name="createFlashcardItem" />
+      <Stack.Screen name="updateFlashcardItem" />
+
     </Stack>
+
+    //hirarchy 
+
+    //index mga flashcard folder
+    //flashcard items eh ung mga laman ng folder
+    
   );
 }
