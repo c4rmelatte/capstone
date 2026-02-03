@@ -33,6 +33,7 @@ import FlashcardBg from "../assets/images/flashcardBg.png";
 import ToDoBg from "../assets/images/todoBg.png";
 
 import ProfileBg from "../assets/images/profileBg.png";
+import DefaultProfile from "../assets/images/defaultProfile.png"
 
 const Images = {
   Slide1,
@@ -61,7 +62,8 @@ const Images = {
   TaskReady,
   ToDoBg,
   FlashcardBg,
-  ProfileBg
+  ProfileBg,
+  DefaultProfile
 };
 
 export default Images;

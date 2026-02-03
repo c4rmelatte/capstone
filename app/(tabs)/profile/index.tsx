@@ -20,7 +20,7 @@ import { router } from "expo-router";
 // constants
 const name = "Nina Carmela";
 const username = "ninacarmela";
-const profileImage = Images.FocusBeats; 
+const profileImage = Images.DefaultProfile; 
 const memberSince = "August 2025";
 
 // console log functions
@@ -85,7 +85,7 @@ const Profile = () => {
     {/* profile section */}
     <View className="items-center" style={{ paddingHorizontal: "6%", marginTop: "8%" }}>
       {/* profile image */}
-      <View className="border-4 border-[#502707] rounded-full p-1 overflow-hidden">
+      <View className="border-4 border-[#502707] rounded-full  overflow-hidden">
         <Image
           source={profileImage}
           className="rounded-full"
