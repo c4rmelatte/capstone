@@ -97,7 +97,7 @@ export default function FlashcardFolder() {
       </ScrollView>
 
       <AddFloatingButton
-        onPress={() => router.replace("/flashcard/createFlashcardFolder")}
+        onPress={() => router.push("/flashcard/createFlashcardFolder")}
       />
     </ImageBackground>
   );

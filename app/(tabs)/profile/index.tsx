@@ -11,13 +11,13 @@ const MEMBER_SINCE = "August 2025";
 
 const Profile = () => {
   return (
-    <ImageBackground source={Images.ProfileBg} resizeMode="cover" className="flex-1">
+    <ImageBackground source={Images.ProfileBg}  className="flex-1 h-20">
       <StatusBar style="light" />
       <AppHeader />
 
       {/* top dots aligned right using flex */}
       <View className="flex-row justify-end px-6 mt-4">
-        {[0, 1, 2].map((i) => (
+        {[0, 1, 2].map((i) => ( 
           <TouchableWithoutFeedback key={i} onPress={() => {}}>
             <View
               className="w-2 h-2 rounded-full bg-white ml-2"
