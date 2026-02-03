@@ -53,7 +53,7 @@ export default function FlashcardFolder() {
 
   // EDIT FLASHCARD FOLDER
   const handleEditFolder = (folderId: string) => {
-    router.replace({
+    router.push({
       pathname: "/flashcard/updateFlashcardFolder",
       params: { editId: folderId },
     });
