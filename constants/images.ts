@@ -35,6 +35,9 @@ import ToDoBg from "../assets/images/todoBg.png";
 import ProfileBg from "../assets/images/profileBg.png";
 import DefaultProfile from "../assets/images/defaultProfile.png"
 
+import YellowWaveIntro from "../assets/images/yellowWaveIntro.png"
+import StubyLogo from "../assets/images/stubylogo.png"
+
 const Images = {
   Slide1,
   Slide2,
@@ -63,7 +66,9 @@ const Images = {
   ToDoBg,
   FlashcardBg,
   ProfileBg,
-  DefaultProfile
+  DefaultProfile,
+  YellowWaveIntro,
+  StubyLogo
 };
 
 export default Images;

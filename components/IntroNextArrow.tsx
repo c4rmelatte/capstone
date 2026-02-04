@@ -1,5 +1,6 @@
 import { Pressable, ScrollView } from "react-native";
 import { Animated, Dimensions } from "react-native";
+import { router } from "expo-router"; // <- import router
 
 type IntroNextArrowProps = {
   scrollRef: React.RefObject<ScrollView>;
@@ -14,7 +15,11 @@ export default function IntroNextArrow({ scrollRef, page, totalPages }: IntroNex
     <Pressable
       onPress={() => {
         if (page + 1 < totalPages) {
+          // scroll to next page
           scrollRef.current?.scrollTo({ x: width * (page + 1), animated: true });
+        } else {
+          // last page → navigate to dashboard
+          router.push("/(tabs)/dashboard");
         }
       }}
       style={{

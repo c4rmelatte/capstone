@@ -53,7 +53,7 @@ const VerifyEmailScreen = () => {
     console.log("Entered OTP:", enteredOtp);
 
     alert("Verification successful!");
-    router.push("/login");
+    router.push("/(intro)/welcomeIntroduction");
 
     // Add verification logic here
 };

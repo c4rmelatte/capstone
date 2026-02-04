@@ -15,7 +15,7 @@ const ForgotPasswordScreen = () => {
       className="flex-1 items-center justify-center px-6"
     >
       {/* Card */}
-      <View
+      <View className="flex justify-center items-center"
         style={{
           width: "100%",
           backgroundColor: "#FFF9E5",
@@ -57,11 +57,13 @@ const ForgotPasswordScreen = () => {
 
         {/* Email Label */}
         <Text
+        className="flex w-full pl-4 "
           style={{
             color: "black",
             fontWeight: "600",
             marginBottom: 8,
-            fontSize: 14,
+            fontSize: 14
+            ,
           }}
         >
           Email
