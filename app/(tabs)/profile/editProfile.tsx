@@ -25,7 +25,7 @@ const EditProfile = () => {
   const [password, setPassword] = useState(defaultPassword);
 
   const changePassword = () => {
-    router.push("/profile/otpPassword");
+    router.push("/profile/changePasswordForm");
   };
 
   const pickImage = async () => {

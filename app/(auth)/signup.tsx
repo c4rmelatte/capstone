@@ -4,7 +4,10 @@ import CustomTextInput from "@/components/CustomTextInput";
 import Images from "@/constants/images";
 import { useRouter } from "expo-router";
 import React from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View, Dimensions } from "react-native";
+
+
+const { height } = Dimensions.get("window");
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -16,7 +19,10 @@ const LoginScreen = () => {
           className="flex-1 items-center"
         >
 
-        <View className="items-center mt-10">
+        <View
+          className="items-center"
+          style={{ marginTop: height * 0.1 }}
+        >
           {/* Back Arrow */}
           {/* <TouchableOpacity onPress={() => router.back()} className="absolute left-6 top-20">
             <Ionicons name="arrow-back" size={28} color="#38BDF8" />
