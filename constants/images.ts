@@ -38,6 +38,8 @@ import DefaultProfile from "../assets/images/defaultProfile.png"
 import YellowWaveIntro from "../assets/images/yellowWaveIntro.png"
 import StubyLogo from "../assets/images/stubylogo.png"
 
+import MusicBg from "../assets/images/musicBg.png"
+
 const Images = {
   Slide1,
   Slide2,
@@ -68,7 +70,8 @@ const Images = {
   ProfileBg,
   DefaultProfile,
   YellowWaveIntro,
-  StubyLogo
+  StubyLogo,
+  MusicBg
 };
 
 export default Images;
