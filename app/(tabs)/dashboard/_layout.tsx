@@ -15,6 +15,7 @@ export default function DashboardLayout() {
       <Drawer.Screen name="notepad" />
       <Drawer.Screen name="music" />
       <Drawer.Screen name="todolist" />
+      <Drawer.Screen name="reportBug"/>
     </Drawer>
   );
 }

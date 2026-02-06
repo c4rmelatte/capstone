@@ -67,11 +67,7 @@
     );
 
     return (
-      <ImageBackground
-        source={Images.MusicWaveBg} // use same bg style as screenshot
-        className="flex-1"
-        resizeMode="cover"
-      >
+      <ImageBackground source={Images.MusicWaveBg} className="flex-1" resizeMode="cover">
         <AppHeader />
 
         <SafeAreaView className="flex-1">
