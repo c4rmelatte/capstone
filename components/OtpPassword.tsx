@@ -76,8 +76,8 @@ const OtpPassword: React.FC<OtpPasswordProps> = ({ otp, inputsRef, onChange, onV
                         placeholderTextColor="#9CA3AF"
                         style={{
                             width: `${inputWidthPercent}%`,
-                            height: 50,
-                            marginHorizontal: `${inputMarginPercent / 2}%`,
+                            height: 45,
+                            marginHorizontal: `${inputMarginPercent / 1}%`,
                             borderRadius: 12,
                             borderWidth: 1,
                             borderColor: "#9CA3AF",

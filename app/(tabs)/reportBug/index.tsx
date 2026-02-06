@@ -12,14 +12,13 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-
+import { router } from "expo-router";
 import Images from "@/constants/images";
 import CustomButton from "@/components/CustomButton";
-
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-
 const { height } = Dimensions.get("window");
 const FIELD_GAP = 16;
+
 
 const ReportBug = () => {
   const [message, setMessage] = useState("");
@@ -35,6 +34,10 @@ const ReportBug = () => {
       setCoverPhoto(result.assets[0].uri);
     }
   };
+
+  const submitReport = () => router.push("/reportBug/doneReport")
+
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -144,9 +147,7 @@ const ReportBug = () => {
           <View style={{ width: "100%", marginTop: FIELD_GAP }}>
             <CustomButton
               title="Submit"
-              onPress={() => {
-                // submit logic
-              }}
+              onPress={submitReport}
             />
           </View>
         </View>
