@@ -53,7 +53,7 @@ const VerifyEmailScreen = () => {
     console.log("Entered OTP:", enteredOtp);
 
     alert("Verification successful!");
-    router.push("/login");
+    router.push("/(intro)/welcomeIntroduction");
 
     // Add verification logic here
 };
@@ -137,12 +137,14 @@ const VerifyEmailScreen = () => {
                         ))}
                     </View>
 
-                    {/* Verify OTP Button */}
-                    <CustomButton
+                  <View className="flex justify-center items-center">
+                     <CustomButton
                         title="VERIFY OTP"
                         onPress={handleVerify}
                         containerStyle="mb-4" // margin-bottom: 16 in Tailwind
                     />
+                  </View>
+                   
                 </View>
             </ImageBackground>
         </TouchableWithoutFeedback>

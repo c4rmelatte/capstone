@@ -53,7 +53,7 @@ export default function FlashcardFolder() {
 
   // EDIT FLASHCARD FOLDER
   const handleEditFolder = (folderId: string) => {
-    router.replace({
+    router.push({
       pathname: "/flashcard/updateFlashcardFolder",
       params: { editId: folderId },
     });
@@ -97,7 +97,7 @@ export default function FlashcardFolder() {
       </ScrollView>
 
       <AddFloatingButton
-        onPress={() => router.replace("/flashcard/createFlashcardFolder")}
+        onPress={() => router.push("/flashcard/createFlashcardFolder")}
       />
     </ImageBackground>
   );

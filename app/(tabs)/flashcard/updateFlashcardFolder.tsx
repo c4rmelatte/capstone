@@ -72,24 +72,31 @@ const UpdateFlashcardFolder = () => {
   };
 
   return (
-    <ImageBackground source={Images.FlashcardBg} className="flex-1" resizeMode="cover">
+    <ImageBackground
+      source={Images.FlashcardBg}
+      resizeMode="cover"
+      className="flex-1"
+     
+    >
       <AppHeader />
 
       
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        className="flex-1"
-        style={{
-          paddingHorizontal: width * 0.06,
-          paddingTop: height * 0.1,
-        }}
-      >
+              behavior={Platform.OS === "ios" ? "padding" : undefined}
+              className="flex-1"
+              style={{
+                paddingHorizontal: width * 0.06,
+              }}
+             
+        >
+
         <View className="flex-row items-center mt-8 justify-center mb-12 relative">
-          <TouchableOpacity onPress={() => router.back()} className="absolute left-0 p-2">
-            <ChevronLeft size={28} color="#ffffff" />
-          </TouchableOpacity>
-          <Text className="text-2xl font-bold text-[#FDE6B1]">Update Flashcard Deck</Text>
-        </View>
+                 <TouchableOpacity onPress={() => router.back()} className="absolute left-0 p-2">
+                  <ChevronLeft size={28} color="#ffffff" />
+                 </TouchableOpacity>
+                 <Text className="text-2xl font-bold text-[#FDE6B1]">Update Flashcard Deck</Text>
+            </View>
+       
 
         {/* COVER PHOTO */}
         <TouchableOpacity
