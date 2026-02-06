@@ -67,8 +67,9 @@ export default function AppHeader() {
         </View>
 
         {/* Music Circle */}
-        <TouchableOpacity className="w-9 h-9 rounded-full bg-[#DED4C1] justify-center items-center">
+        <TouchableOpacity className="w-9 h-9 rounded-full bg-[#DED4C1] justify-center items-center" onPress={() => router.push("/music")} >
           <Ionicons name="musical-notes-outline" size={18} color="#502707" />
+          
         </TouchableOpacity>
       </View>
     </View>
