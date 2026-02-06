@@ -32,7 +32,7 @@ export default function CustomDrawer(props: any) {
           icon="home-outline"
           label="Dashboard"
           // Navigate using the 'name' from your _layout.tsx
-          onPress={() => props.navigation.navigate("index")}
+         onPress={() => router.push("/dashboard")}
         />
 
         {/* --------FLASHCARD----------- */}

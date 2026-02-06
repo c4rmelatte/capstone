@@ -7,7 +7,7 @@ export default function DashboardLayout() {
     <Drawer
       screenOptions={{ headerShown: false }}
       drawerContent={(props) => <CustomDrawer {...props} />}
-    ><div className=""></div>
+    >
       {/* Name must match the relative file path */}
       <Drawer.Screen name="index" />
       <Drawer.Screen name="flashcard" />.
