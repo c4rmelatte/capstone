@@ -1,18 +1,11 @@
+import AddFloatingButton from "@/components/AddFloatingButton";
 import Images from "@/constants/images";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import AppHeader from "../../../components/AppHeader";
 
-import {
-  FlatList,
-  ImageBackground,
-  SafeAreaView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const NOTES_DATA = [
   {
@@ -35,6 +28,12 @@ const NOTES_DATA = [
     title: "ENGLISH",
     content: "Parts of Speech – Noun, Pronoun, Verb, Adjective, Adverb, Preposition....",
   },
+  {
+    id: "5",
+    title: "SOCIAL STUDIES",
+    content:
+      "Philippine History – Pre-colonial, Spanish colonization, American period, Japanese occupation, Post-independence....",
+  },
 ];
 
 export default function NotepadScreen() {
@@ -47,7 +46,7 @@ export default function NotepadScreen() {
       note.content.toLowerCase().includes(search.toLowerCase())
   );
 
-  // This is where the navigation magic happens
+  // This is where the add note navigation
   const renderNote = ({ item, index }: { item: any; index: number }) => (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -76,7 +75,7 @@ export default function NotepadScreen() {
   return (
     <ImageBackground source={Images.notepadBg} className="flex-1" resizeMode="cover">
       <AppHeader />
-      <SafeAreaView className="flex-1">
+      <View className="flex-1">
         {/* Section Title */}
         <View className="mt-6 mb-4">
           <Text
@@ -117,14 +116,8 @@ export default function NotepadScreen() {
         </View>
 
         {/* Floating Action Button (FAB) */}
-        <TouchableOpacity
-          activeOpacity={0.9}
-          className="absolute bottom-8 right-8 w-[65px] h-[65px] bg-[#F7D08A] rounded-full justify-center items-center shadow-lg elevation-5"
-          onPress={() => router.push("/(tabs)/notepad/addnote")}
-        >
-          <Ionicons name="add" size={45} color="#4A3421" />
-        </TouchableOpacity>
-      </SafeAreaView>
+        <AddFloatingButton onPress={() => router.push("/(tabs)/notepad/addnote")} />
+      </View>
     </ImageBackground>
   );
 }
