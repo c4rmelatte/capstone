@@ -31,6 +31,14 @@ import FlashcardBg from "../assets/images/flashcardBg.png";
 
 import ToDoBg from "../assets/images/todoBg.png";
 
+import ProfileBg from "../assets/images/profileBg.png";
+import DefaultProfile from "../assets/images/defaultProfile.png"
+
+import YellowWaveIntro from "../assets/images/yellowWaveIntro.png"
+import StubyLogo from "../assets/images/stubylogo.png"
+
+import MusicBg from "../assets/images/musicBg.png"
+
 const Images = {
   Slide1,
   Slide2,
@@ -58,7 +66,11 @@ const Images = {
   TaskReady,
   ToDoBg,
   FlashcardBg,
-  notepadBg,
+  ProfileBg,
+  DefaultProfile,
+  YellowWaveIntro,
+  StubyLogo,
+  MusicBg
 };
 
 export default Images;

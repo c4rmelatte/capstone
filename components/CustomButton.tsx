@@ -20,7 +20,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   onPress,
   backgroundColor = "#FFEF9A",
   textColor = "text-black",
-  width = 300, // number in pixels
+  width = "100%", // number in pixels
   height = 50,
   borderRadius = 16,
   fontSize = 18,
@@ -37,7 +37,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       activeOpacity={0.8}
       className={`items-center justify-center border-2 border-black ${!isHex ? backgroundColor : ''} ${containerStyle || ''}`}
       style={{
-        width,
         height,
         borderRadius,
         backgroundColor: isHex ? backgroundColor : undefined,
