@@ -1,12 +1,13 @@
 import { AuthProvider } from "@/context/AuthContext";
 import { WaterProvider } from "@/context/WaterContext";
+import { PomodoroProvider } from "@/context/PomodoroContext";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "./global.css";
 
-SplashScreen.preventAutoHideAsync(); // 👈 Keeps splash visible
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -14,9 +15,10 @@ export default function RootLayout() {
     RubicItalic: require("../assets/fonts/Rubik-Italic-VariableFont_wght.ttf"),
     RubicVarient: require("../assets/fonts/Rubik-VariableFont_wght.ttf"),
   });
+
   useEffect(() => {
     if (fontsLoaded) {
-      SplashScreen.hideAsync(); // hide when fonts are ready
+      SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
@@ -25,7 +27,9 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <WaterProvider>
-        <Stack screenOptions={{ headerShown: false }}> </Stack>
+        <PomodoroProvider>
+          <Stack screenOptions={{ headerShown: false }} />
+        </PomodoroProvider>
       </WaterProvider>
     </AuthProvider>
   );

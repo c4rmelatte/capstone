@@ -4,18 +4,9 @@ import Images from "@/constants/images";
 import { useAuth } from "@/hooks/useAuth";
 import { router } from "expo-router";
 import React, { useState } from "react";
-import {
-  Alert,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from "react-native";
+import { Alert, ImageBackground, Text, TouchableOpacity, View, Dimensions } from "react-native";
 
 const { width } = Dimensions.get("window");
-const FORM_WIDTH = Math.min(width * 0.9, 420); // responsive + tablet-safe
-
 const LoginScreen = () => {
   const { login, loading } = useAuth();
   const [username, setUsername] = useState("");
@@ -31,19 +22,15 @@ const LoginScreen = () => {
   };
 
   return (
-    <ImageBackground
-      source={Images.Loginbg}
-      resizeMode="cover"
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    paddingHorizontal: "5%",
-                }}
-            >
-      {/* Content Wrapper */}
-      <View  className="Flex justify-center items-center" style={{ width: FORM_WIDTH, marginTop: 100 }}>
-        
+    <ImageBackground source={Images.Loginbg} className="flex-1" resizeMode="cover">
+      <View
+        style={{
+          width: "100%",
+          paddingVertical: "35%",
+          paddingHorizontal: "6%",
+          marginTop: "30%",
+        }}
+      >
         {/* Header (LEFT, aligned with inputs) */}
         <View className="mb-10">
           <Text
@@ -98,16 +85,20 @@ const LoginScreen = () => {
             className="self-end mt-3 mb-8"
             onPress={() => router.push("/forgetpass")}
           >
-            <Text className="text-white font-bold">
-              Forgot Password?
-            </Text>
+            <Text className="text-white font-bold">Forgot Password?</Text>
           </TouchableOpacity>
 
-          {/* Login Button */}
-          <CustomButton
-            title={loading ? "Logging in..." : "Sign In"}
-            onPress={() => router.push("/(tabs)/dashboard")}
-          />
+          <View
+            style={{
+              width: "100%",
+            }}
+          >
+            {/* Login Button */}
+            <CustomButton
+              title={loading ? "Logging in..." : "Sign In"}
+              onPress={() => router.push("/(tabs)/dashboard")}
+            />
+          </View>
         </View>
 
         {/* Sign Up */}

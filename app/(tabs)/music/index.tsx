@@ -67,14 +67,10 @@
     );
 
     return (
-      <ImageBackground
-        source={Images.MusicWaveBg} // use same bg style as screenshot
-        className="flex-1"
-        resizeMode="cover"
-      >
+      <ImageBackground source={Images.MusicBg} className="flex-1" resizeMode="cover">
         <AppHeader />
 
-        <SafeAreaView className="flex-1">
+        {/* <SafeAreaView className="flex-1"> */}
           {/* Title */}
           <View className="mt-6 mb-6">
             <Text
@@ -108,7 +104,8 @@
           >
             <Ionicons name="add" size={40} color="#2E2A25" />
           </TouchableOpacity>
-        </SafeAreaView>
+          
+        {/* </SafeAreaView> */}
       </ImageBackground>
     );
   }

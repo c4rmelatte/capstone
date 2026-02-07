@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import AppHeader from "@/components/AppHeader";
 import Images from "@/constants/images";
 import { router } from "expo-router";
+import DeleteAccPopOut from "@/components/DeleteAccPopOut";
 
 
 // constants
@@ -23,20 +24,32 @@ const username = "ninacarmela";
 const profileImage = Images.DefaultProfile; 
 const memberSince = "August 2025";
 
-// console log functions
-  const editProfile = () => {
+const Profile = () => {
+
+  const [isPopupVisible, setIsPopupVisible] = useState(false); 
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const editProfile = () => {
   router.push("/profile/editProfile")
 };
 
   const deleteProfile = () => {
-    console.log("Delete profile clicked!");
-  };
-
-
-const Profile = () => {
-  const [isPopupVisible, setIsPopupVisible] = useState(false); // added state
+  setIsPopupVisible(false); // close 3-dot menu
+  setShowDeleteModal(true); // open delete modal
+};
 
   return (
+     <>
+    <DeleteAccPopOut
+      visible={showDeleteModal}
+      onCancel={() => setShowDeleteModal(false)}
+      onDelete={() => {
+        setShowDeleteModal(false);
+        console.log("Account deleted");
+      }}
+    />
+    
   <ImageBackground source={Images.ProfileBg} className="flex-1">
     <StatusBar style="light" />
     <AppHeader />
@@ -106,6 +119,7 @@ const Profile = () => {
 
     <View className="flex-1" />
   </ImageBackground>
+  </>
   );
 };
 
