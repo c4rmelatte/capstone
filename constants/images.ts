@@ -13,20 +13,19 @@ import Puset from "../assets/images/puset.png";
 import Slide1 from "../assets/images/slide1.png";
 import Slide2 from "../assets/images/slide2.png";
 import Slide3 from "../assets/images/slide3.png";
-import TodoBg from "../assets/images/todoBg.png";
 
 //accept changes add ni nina cute pasama
 
-import TimeFocus from "../assets/images/timeFocus.png";
-import PomodoroWaveBg from "../assets/images/pomodoroWaveBg.png";
 import FlashcardWaveBg from "../assets/images/flashcardWaveBg.png";
 import FlashLearn from "../assets/images/flashLearn.png";
-import MusicWaveBg from "../assets/images/musicWaveBg.png";
 import FocusBeats from "../assets/images/focusBeats.png";
+import MusicWaveBg from "../assets/images/musicWaveBg.png";
 import NotesWaveBg from "../assets/images/notesWaveBg.png";
+import PomodoroWaveBg from "../assets/images/pomodoroWaveBg.png";
 import QuickNotes from "../assets/images/quickNotes.png";
-import ToDoWaveBg from "../assets/images/toDoWaveBg.png";
 import TaskReady from "../assets/images/taskReady.png";
+import TimeFocus from "../assets/images/timeFocus.png";
+import ToDoWaveBg from "../assets/images/toDoWaveBg.png";
 
 import FlashcardBg from "../assets/images/flashcardBg.png";
 

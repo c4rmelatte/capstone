@@ -3,16 +3,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
-    ImageBackground,
-    Modal,
-    Pressable,
-    SafeAreaView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ImageBackground,
+  Modal,
+  Pressable,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import AppHeader from "../../../components/AppHeader";
+import EditDeletePopUp from "../../../components/EditDeletePopUp";
 
 export default function AddNoteScreen() {
   const router = useRouter();
@@ -38,7 +38,7 @@ export default function AddNoteScreen() {
     <ImageBackground source={Images.notepadBg} className="flex-1" resizeMode="cover">
       <AppHeader />
 
-      <SafeAreaView className="flex-1">
+      <View className="flex-1">
         {/* Header Row */}
         <View className="flex-row items-center justify-between px-5 mt-4 mb-4">
           <View className="flex-row items-center flex-1">
@@ -47,7 +47,7 @@ export default function AddNoteScreen() {
             </TouchableOpacity>
 
             <TextInput
-              placeholder="ENTER TITLE"
+              placeholder="Enter Title"
               placeholderTextColor="rgba(253, 230, 177, 0.5)"
               value={title}
               onChangeText={setTitle}
@@ -70,6 +70,7 @@ export default function AddNoteScreen() {
               className="bg-[#7ED992] px-5 py-1.5 rounded-2xl shadow-md"
               onPress={() => router.back()}
             >
+              {/* SAVE BUTTON */}
               <Text className="text-[#1D1D1D] font-black">Save</Text>
             </TouchableOpacity>
           )}
@@ -77,22 +78,24 @@ export default function AddNoteScreen() {
 
         {/* Dropdown Menu */}
         {showMenu && (
-          <View className="absolute right-6 top-16 bg-white rounded-2xl p-2 z-50 shadow-xl w-32 border border-gray-200">
-            <TouchableOpacity className="flex-row items-center p-2 border-b border-gray-100">
-              <Ionicons name="create-outline" size={18} color="#4A90E2" />
-              <Text className="ml-2 font-bold text-gray-800">Edit</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="flex-row items-center p-2"
-              onPress={() => {
-                setShowMenu(false);
-                setShowDeleteModal(true);
-              }}
-            >
-              <Ionicons name="trash-outline" size={18} color="#FF5A5F" />
-              <Text className="ml-2 font-bold text-gray-800">Delete</Text>
-            </TouchableOpacity>
-          </View>
+          <EditDeletePopUp
+            onEdit={() => {
+              setShowMenu(false);
+              // Navigate to the dedicated edit page using the current state values
+              router.push({
+                pathname: "/(tabs)/notepad/editNote",
+                params: {
+                  id: params.id, // Use params from useLocalSearchParams
+                  title: title, // Pass the current state title
+                  content: content, // Pass the current state content
+                },
+              });
+            }}
+            onDelete={() => {
+              setShowMenu(false);
+              setShowDeleteModal(true);
+            }}
+          />
         )}
 
         {/* Delete Modal */}
@@ -143,7 +146,7 @@ export default function AddNoteScreen() {
             className="flex-1 text-[#502707] text-[18px] font-medium leading-7"
           />
         </View>
-      </SafeAreaView>
+      </View>
     </ImageBackground>
   );
 }
