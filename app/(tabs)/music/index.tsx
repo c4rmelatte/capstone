@@ -15,6 +15,7 @@ import {
   View,
 } from "react-native";
 import AppHeader from "../../../components/AppHeader";
+import DeletePlaylistModal from "../../../components/DeletePlaylistModal"; // <-- import modal
 
 const { width } = Dimensions.get("window");
 
@@ -26,7 +27,6 @@ export default function Music() {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
-  // ORIGINAL MUSIC FOLDERS LIST (WITHOUT HEART HART, USED FOR ORDERING PARA PAG HINART TAS INUNHART ETO UNG ORIGNAL NA ORDER)
   const [originalFolders, setOriginalFolders] = useState([
     {
       id: "1",
@@ -51,12 +51,12 @@ export default function Music() {
     },
   ]);
 
-  // MUSIC FOLDERS STATE WITH HEART INFO
   const [musicFolders, setMusicFolders] = useState(
     originalFolders.map((f) => ({ ...f, isHearted: false }))
   );
 
   const [popupVisibleFolderId, setPopupVisibleFolderId] = useState<string | null>(null);
+  const [folderToDelete, setFolderToDelete] = useState<string | null>(null); // <-- folder pending deletion
 
   const handleFolderPress = (musicFolderId: string) => {
     console.log("Folder pressed:", musicFolderId);
@@ -102,7 +102,13 @@ export default function Music() {
   const handleDeleteFolder = (musicFolderId: string) => {
     setMusicFolders((prev) => prev.filter((f) => f.id !== musicFolderId));
     setOriginalFolders((prev) => prev.filter((f) => f.id !== musicFolderId));
+    setFolderToDelete(null);
     if (popupVisibleFolderId === musicFolderId) setPopupVisibleFolderId(null);
+  };
+
+  // Open modal for folder deletion
+  const confirmDeleteFolder = (musicFolderId: string) => {
+    setFolderToDelete(musicFolderId);
   };
 
   // EDIT MUSIC FOLDER
@@ -165,7 +171,7 @@ export default function Music() {
               isPopupVisible={popupVisibleFolderId === folder.id}
               setPopupVisibleFolder={setPopupVisibleFolderId}
               onFolderEdit={handleEditFolder}
-              onFolderDelete={handleDeleteFolder}
+              onFolderDelete={() => confirmDeleteFolder(folder.id)} // <-- open modal
               onFolderPress={handleFolderPress}
               isHearted={folder.isHearted}
               onHeartToggle={() => toggleHeartFolder(folder.id)}
@@ -181,6 +187,15 @@ export default function Music() {
       >
         <Ionicons name="add" size={40} color="#2E2A25" />
       </TouchableOpacity>
+
+      {/* Delete Playlist Modal */}
+      <DeletePlaylistModal
+        visible={!!folderToDelete}
+        onCancel={() => setFolderToDelete(null)}
+        onConfirm={() => {
+          if (folderToDelete) handleDeleteFolder(folderToDelete);
+        }}
+      />
     </ImageBackground>
   );
 }
