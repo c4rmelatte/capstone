@@ -73,7 +73,7 @@ const MusicFolderCard: React.FC<MusicFolderProps> = ({
             {musicImage && <View className="absolute inset-0 bg-black/30" />}
 
             {/* TOP BLUE BAR */}
-            <View className="absolute top-0 left-0 right-0 h-[20%] bg-[#5867A3] z-10 flex-row justify-end items-center px-2">
+            <View className="absolute top-0 left-0 right-0 h-[22%] bg-[#5867A3] z-10 flex-row justify-end items-center px-2">
               {[0, 1, 2].map((i) => (
                 <TouchableWithoutFeedback
                   key={i}

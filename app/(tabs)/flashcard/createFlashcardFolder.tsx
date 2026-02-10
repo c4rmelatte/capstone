@@ -131,7 +131,7 @@ const CreateFlashcardFolder = () => {
           className="text-base font-semibold text-black"
           key={`label-Flashcard-${Date.now()}`}
         >
-          Flashcard Title
+          Flashcard Deck Title
         </Text>
 
         {/* TEXT INPUT */}

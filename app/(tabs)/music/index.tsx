@@ -30,22 +30,37 @@ export default function Music() {
   const [originalFolders, setOriginalFolders] = useState([
     {
       id: "1",
-      musicFolderTitle: "Justin Bieber",
-      musicImage: Images.Slide1,
-      totalSongs: 20,
-      totalStreamingMinutes: "45 min 15 s",
-    },
-    {
-      id: "2",
-      musicFolderTitle: "Taylor Swift",
-      musicImage: null,
+      musicFolderTitle: "Upbeat",
+      musicImage: Images.MusicUpbeat,
       totalSongs: 10,
       totalStreamingMinutes: "32 min",
     },
     {
+      id: "2",
+      musicFolderTitle: "Classical",
+      musicImage: Images.MusicClassical,
+      totalSongs: 20,
+      totalStreamingMinutes: "45 min 15 s",
+      
+    },
+    {
       id: "3",
-      musicFolderTitle: "IV of Spades",
-      musicImage: null,
+      musicFolderTitle: "Pop",
+      musicImage: Images.MusicPop,
+      totalSongs: 10,
+      totalStreamingMinutes: "31 min",
+    },
+    {
+      id: "4",
+      musicFolderTitle: "Nature",
+      musicImage: Images.MusicNature,
+      totalSongs: 10,
+      totalStreamingMinutes: "31 min",
+    },
+    {
+      id: "5",
+      musicFolderTitle: "Lofi",
+      musicImage: Images.MusicLofi,
       totalSongs: 10,
       totalStreamingMinutes: "31 min",
     },

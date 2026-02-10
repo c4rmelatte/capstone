@@ -128,7 +128,7 @@ const UpdateMusicFolder = () => {
           style={{ marginBottom: height * 0.01 }}
           className="text-base font-semibold text-black"
         >
-          Music Folder Title
+          Playlist Title
         </Text>
 
         {/* INPUT */}

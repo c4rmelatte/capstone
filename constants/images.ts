@@ -39,6 +39,12 @@ import StubyLogo from "../assets/images/stubylogo.png"
 
 import MusicBg from "../assets/images/musicBg.png"
 
+import MusicNature from "../assets/images/musicNature.png";
+import MusicUpbeat from "../assets/images/musicUpbeat.png";
+import MusicPop from "../assets/images/musicPop.png";
+import MusicClassical from "../assets/images/musicClassical.png";
+import MusicLofi from "../assets/images/musicLofi.png";
+
 const Images = {
   Slide1,
   Slide2,
@@ -70,7 +76,12 @@ const Images = {
   DefaultProfile,
   YellowWaveIntro,
   StubyLogo,
-  MusicBg
+  MusicBg,
+  MusicNature,
+  MusicUpbeat,
+  MusicPop,
+  MusicClassical,
+  MusicLofi,
 };
 
 export default Images;

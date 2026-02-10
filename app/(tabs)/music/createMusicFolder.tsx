@@ -129,7 +129,7 @@ const CreateMusicFolder = () => {
           className="text-base font-semibold text-black"
           key={`label-Music-${Date.now()}`}
         >
-          Music Folder Title
+          Playlist Title
         </Text>
 
         {/* TEXT INPUT */}
