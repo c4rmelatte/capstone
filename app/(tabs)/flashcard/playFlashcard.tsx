@@ -11,7 +11,7 @@ import {
 import AppHeader from "../../../components/AppHeader";
 import Images from "@/constants/images";
 import { Ionicons } from "@expo/vector-icons";
-
+import { router } from "expo-router";
 export default function PlayFlashcard() {
   const { height, width } = useWindowDimensions();
 
@@ -35,8 +35,7 @@ export default function PlayFlashcard() {
   const completedCards =
     initialCards.length - cards.length - (cards[0]?.front === "instruction" ? 0 : 1);
 
-  const progress =
-    cards[0]?.front === "instruction" ? 0 : completedCards + 1;
+  const progress = cards[0]?.front === "instruction" ? 0 : completedCards + 1;
 
   const cardsLeft =
     cards[0]?.front === "instruction" ? realCardsCount : realCardsCount - completedCards;
@@ -70,10 +69,9 @@ export default function PlayFlashcard() {
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gesture) => Math.abs(gesture.dx) > 20,
-      onPanResponderMove: Animated.event(
-        [null, { dx: pan.x, dy: pan.y }],
-        { useNativeDriver: false }
-      ),
+      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
+        useNativeDriver: false,
+      }),
       onPanResponderRelease: (_, gesture) => {
         if (Math.abs(gesture.dx) > 100) {
           Animated.timing(pan, {
@@ -102,7 +100,10 @@ export default function PlayFlashcard() {
 
       {/* Header */}
       <View className="flex-row items-center justify-between px-4 mt-4">
-        <TouchableOpacity className="mr-2">
+        <TouchableOpacity
+          className="mr-2"
+           onPress={() => router.push("/flashcard/flashcardItems")}
+        >
           <Ionicons name="chevron-back" size={28} color="#ffffff" />
         </TouchableOpacity>
 
@@ -123,25 +124,28 @@ export default function PlayFlashcard() {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {cards.length > 0 ? (
           <View style={{ height: cardHeight, width: cardWidth }}>
-            {cards.slice(1).reverse().map((card, index) => (
-              <View
-                key={card.id}
-                style={{
-                  position: "absolute",
-                  top: index * 5,
-                  left: index * 5,
-                  height: cardHeight,
-                  width: cardWidth,
-                  backgroundColor: "#FFF9EC",
-                  borderRadius: 20,
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 5 },
-                  shadowOpacity: 0.2,
-                  shadowRadius: 10,
-                  elevation: 3,
-                }}
-              />
-            ))}
+            {cards
+              .slice(1)
+              .reverse()
+              .map((card, index) => (
+                <View
+                  key={card.id}
+                  style={{
+                    position: "absolute",
+                    top: index * 5,
+                    left: index * 5,
+                    height: cardHeight,
+                    width: cardWidth,
+                    backgroundColor: "#FFF9EC",
+                    borderRadius: 20,
+                    shadowColor: "#000",
+                    shadowOffset: { width: 0, height: 5 },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 10,
+                    elevation: 3,
+                  }}
+                />
+              ))}
 
             <Animated.View
               {...panResponder.panHandlers}
@@ -188,15 +192,11 @@ export default function PlayFlashcard() {
                         Swipe left or right to move to the next one!
                       </Text>
                       {"\n\n\n\n\n\n"}
-                      <Text className="text-xl font-extrabold text-[#39675F]">
-                        Swipe to start!
-                      </Text>
+                      <Text className="text-xl font-extrabold text-[#39675F]">Swipe to start!</Text>
                     </Text>
                   ) : (
                     <>
-                      <Text className="text-2xl font-bold text-[#39675F] mb-2">
-                        Question
-                      </Text>
+                      <Text className="text-2xl font-bold text-[#39675F] mb-2">Question</Text>
                       <Text className="text-xl font-semibold text-center text-[#502707]">
                         {cards[0].front}
                       </Text>
@@ -226,9 +226,7 @@ export default function PlayFlashcard() {
                 >
                   {cards[0].front !== "instruction" && (
                     <>
-                      <Text className="text-2xl font-bold text-[#39675F] mb-2">
-                        Answer
-                      </Text>
+                      <Text className="text-2xl font-bold text-[#39675F] mb-2">Answer</Text>
                       <Text className="text-xl font-semibold text-center text-[#502707]">
                         {cards[0].back}
                       </Text>
@@ -239,9 +237,7 @@ export default function PlayFlashcard() {
             </Animated.View>
           </View>
         ) : (
-          <Text className="text-3xl font-bold text-[#FDE6B1] mt-10">
-            No more cards!
-          </Text>
+          <Text className="text-3xl font-bold text-[#FDE6B1] mt-10">No more cards!</Text>
         )}
       </View>
 

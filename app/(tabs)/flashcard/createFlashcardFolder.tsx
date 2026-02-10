@@ -53,7 +53,7 @@ const CreateFlashcardFolder = () => {
     // Generate a unique ID for this folder
     const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000);
   router.push({
-  pathname: "/flashcard",
+  pathname: "/flashcard/flashcardItems",
   params: {
     id: uniqueId,
     title: title,
