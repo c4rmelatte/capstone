@@ -15,7 +15,7 @@ import {
   View,
 } from "react-native";
 import AppHeader from "../../../components/AppHeader";
-import DeletePlaylistModal from "../../../components/DeletePlaylistModal"; // <-- import modal
+import DeletePlaylistModal from "../../../components/DeletePlaylistModal";
 
 const { width } = Dimensions.get("window");
 
@@ -41,7 +41,6 @@ export default function Music() {
       musicImage: Images.MusicClassical,
       totalSongs: 20,
       totalStreamingMinutes: "45 min 15 s",
-      
     },
     {
       id: "3",
@@ -71,46 +70,31 @@ export default function Music() {
   );
 
   const [popupVisibleFolderId, setPopupVisibleFolderId] = useState<string | null>(null);
-  const [folderToDelete, setFolderToDelete] = useState<string | null>(null); // <-- folder pending deletion
+  const [folderToDelete, setFolderToDelete] = useState<string | null>(null);
 
-  const handleFolderPress = (musicFolderId: string) => {
-    console.log("Folder pressed:", musicFolderId);
+  // Navigate to Playlist page
+  const handleFolderPress = (musicFolderId: string, musicFolderTitle: string) => {
+    // router.push({
+    //   pathname: "/music/playlist",
+    //   params: { id: musicFolderId, title: musicFolderTitle },
+    // });
   };
 
   // ADD NEW MUSIC FOLDER ON TOP IF PARAMS ID EXISTS
   useEffect(() => {
     if (!params?.id) return;
 
-    setOriginalFolders((prev) => {
-      if (prev.some((f) => f.id === params.id)) return prev;
-
-      return [
-        {
-          id: params.id as string,
-          musicFolderTitle: params.title as string,
-          musicImage: params.coverPhoto ? { uri: params.coverPhoto as string } : null,
-          totalSongs: 0,
-          totalStreamingMinutes: "0 min",
-        },
-        ...prev,
-      ];
-    });
-
-    setMusicFolders((prev) => {
-      if (prev.some((f) => f.id === params.id)) return prev;
-
-      return [
-        {
-          id: params.id as string,
-          musicFolderTitle: params.title as string,
-          musicImage: params.coverPhoto ? { uri: params.coverPhoto as string } : null,
-          totalSongs: 0,
-          totalStreamingMinutes: "0 min",
-          isHearted: false,
-        },
-        ...prev,
-      ];
-    });
+    if (!originalFolders.some((f) => f.id === params.id)) {
+      const newFolder = {
+        id: params.id as string,
+        musicFolderTitle: params.title as string,
+        musicImage: params.coverPhoto ? { uri: params.coverPhoto as string } : null,
+        totalSongs: 0,
+        totalStreamingMinutes: "0 min",
+      };
+      setOriginalFolders((prev) => [newFolder, ...prev]);
+      setMusicFolders((prev) => [{ ...newFolder, isHearted: false }, ...prev]);
+    }
   }, [params?.id]);
 
   // DELETE MUSIC FOLDER
@@ -186,8 +170,8 @@ export default function Music() {
               isPopupVisible={popupVisibleFolderId === folder.id}
               setPopupVisibleFolder={setPopupVisibleFolderId}
               onFolderEdit={handleEditFolder}
-              onFolderDelete={() => confirmDeleteFolder(folder.id)} // <-- open modal
-              onFolderPress={handleFolderPress}
+              onFolderDelete={() => confirmDeleteFolder(folder.id)}
+              onFolderPress={() => handleFolderPress(folder.id, folder.musicFolderTitle)}
               isHearted={folder.isHearted}
               onHeartToggle={() => toggleHeartFolder(folder.id)}
             />
@@ -203,7 +187,6 @@ export default function Music() {
         <Ionicons name="add" size={40} color="#2E2A25" />
       </TouchableOpacity>
 
-      {/* Delete Playlist Modal */}
       <DeletePlaylistModal
         visible={!!folderToDelete}
         onCancel={() => setFolderToDelete(null)}
