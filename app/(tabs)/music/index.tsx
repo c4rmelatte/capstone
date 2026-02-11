@@ -74,10 +74,10 @@ export default function Music() {
 
   // Navigate to Playlist page
   const handleFolderPress = (musicFolderId: string, musicFolderTitle: string) => {
-    // router.push({
-    //   pathname: "/music/playlist",
-    //   params: { id: musicFolderId, title: musicFolderTitle },
-    // });
+    router.push({
+      pathname: "/music/playlist",
+      params: { id: musicFolderId, title: musicFolderTitle },
+    });
   };
 
   // ADD NEW MUSIC FOLDER ON TOP IF PARAMS ID EXISTS
