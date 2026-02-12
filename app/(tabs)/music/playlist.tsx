@@ -10,18 +10,42 @@ import SongList from "../../../components/SongList";
 
 export default function Playlist() {
   const params = useLocalSearchParams();
+
   const folderId = Array.isArray(params?.id) ? params.id[0] : params?.id;
   const folderTitle = Array.isArray(params?.title)
     ? params.title[0]
-    : (params?.title ?? "Playlist");
+    : params?.title ?? "Playlist";
 
-  /* ---------------- SONG DATA ---------------- */
-  const songs = [
-    { id: "1", title: "Moonlight Sonata", file: require("../../../assets/music/pop1.mp3") },
-    { id: "2", title: "Nocturne Op.9", file: require("../../../assets/music/pop2.mp3") },
-  ];
+  /* ================= SONG DATABASE ================= */
 
-  /* ---------------- PLAYER STATE ---------------- */
+  const songsByFolder: Record<string, any[]> = {
+    "1": [
+      { id: "u1", title: "Energy Boost", file: require("../../../assets/music/pop1.mp3") },
+      { id: "u2", title: "Morning Run", file: require("../../../assets/music/pop2.mp3") },
+    ],
+    "2": [
+      { id: "c1", title: "Moonlight Sonata", file: require("../../../assets/music/pop1.mp3") },
+      { id: "c2", title: "Nocturne Op.9", file: require("../../../assets/music/pop2.mp3") },
+    ],
+    "3": [
+      { id: "p1", title: "Pop Hit 1", file: require("../../../assets/music/pop1.mp3") },
+      { id: "p2", title: "Pop Hit 2", file: require("../../../assets/music/pop2.mp3") },
+    ],
+    "4": [
+      { id: "n1", title: "Rain Sounds", file: require("../../../assets/music/pop1.mp3") },
+      { id: "n2", title: "Forest Ambience", file: require("../../../assets/music/pop2.mp3") },
+    ],
+    "5": [
+      { id: "l1", title: "Lofi Chill", file: require("../../../assets/music/pop1.mp3") },
+    ],
+  };
+
+  const songs = folderId && songsByFolder[folderId]
+    ? songsByFolder[folderId]
+    : [];
+
+  /* ================= PLAYER STATE ================= */
+
   const soundRef = useRef<Audio.Sound | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -33,21 +57,37 @@ export default function Playlist() {
 
   const repeatRef = useRef(isRepeat);
   useEffect(() => {
-    repeatRef.current = isRepeat; // always up-to-date
+    repeatRef.current = isRepeat;
   }, [isRepeat]);
 
-  const handleSeek = async (millis: number) => {
-    if (!soundRef.current) return;
-    await soundRef.current.setPositionAsync(millis);
+  /* ================= FORMAT TOTAL TIME ================= */
+
+  const formatTotalDuration = (ms: number) => {
+    if (!ms) return "0 min";
+
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    if (minutes === 0) return `${seconds} sec`;
+    if (seconds === 0) return `${minutes} min`;
+
+    return `${minutes} min ${seconds} sec`;
   };
 
-  /* ---------------- LOAD SONG ---------------- */
+  const totalDurationMillis = songDurations.reduce((a, b) => a + b, 0);
+  const formattedTotalDuration = formatTotalDuration(totalDurationMillis);
+
+  /* ================= LOAD SONG ================= */
+
   const loadSong = async (index: number, autoPlay = true) => {
+    if (songs.length === 0) return;
+
     if (soundRef.current) await soundRef.current.unloadAsync();
 
     const { sound } = await Audio.Sound.createAsync(
       songs[index].file,
-      { shouldPlay: autoPlay }, // <-- control auto-play
+      { shouldPlay: autoPlay },
       (status: any) => {
         if (!status.isLoaded) return;
 
@@ -57,7 +97,7 @@ export default function Playlist() {
 
         if (status.didJustFinish) {
           if (repeatRef.current) {
-            loadSong(index); // repeat current song
+            loadSong(index);
           } else {
             autoNext(index);
           }
@@ -69,16 +109,17 @@ export default function Playlist() {
     setCurrentIndex(index);
   };
 
-  /* ---------------- AUTO NEXT ---------------- */
+  /* ================= AUTO NEXT ================= */
+
   const autoNext = (index: number) => {
+    if (songs.length === 0) return;
+
     let nextIndex = index;
 
-    if (isShuffle) {
-      if (songs.length > 1) {
-        do {
-          nextIndex = Math.floor(Math.random() * songs.length);
-        } while (nextIndex === index);
-      }
+    if (isShuffle && songs.length > 1) {
+      do {
+        nextIndex = Math.floor(Math.random() * songs.length);
+      } while (nextIndex === index);
     } else {
       nextIndex = index + 1;
       if (nextIndex >= songs.length) nextIndex = 0;
@@ -87,77 +128,79 @@ export default function Playlist() {
     loadSong(nextIndex);
   };
 
-  /* ---------------- MANUAL CONTROLS ---------------- */
+  /* ================= CONTROLS ================= */
+
   const handlePlayPause = async () => {
-    if (!soundRef.current) return;
+    if (!soundRef.current || songs.length === 0) return;
+
     if (isPlaying) await soundRef.current.pauseAsync();
     else await soundRef.current.playAsync();
   };
 
-  const handleNext = () => {
-    let nextIndex = currentIndex;
-    if (isShuffle) {
-      if (songs.length > 1) {
-        do {
-          nextIndex = Math.floor(Math.random() * songs.length);
-        } while (nextIndex === currentIndex);
-      }
-    } else {
-      nextIndex = currentIndex + 1;
-      if (nextIndex >= songs.length) nextIndex = 0;
-    }
-    loadSong(nextIndex);
-  };
+  const handleNext = () => autoNext(currentIndex);
 
   const handlePrev = () => {
-    let prevIndex = currentIndex;
-    if (isShuffle) {
-      if (songs.length > 1) {
-        do {
-          prevIndex = Math.floor(Math.random() * songs.length);
-        } while (prevIndex === currentIndex);
-      }
-    } else {
-      prevIndex = currentIndex === 0 ? songs.length - 1 : currentIndex - 1;
-    }
+    if (songs.length === 0) return;
+
+    const prevIndex =
+      currentIndex === 0 ? songs.length - 1 : currentIndex - 1;
+
     loadSong(prevIndex);
   };
 
-  /* ---------------- PRELOAD DURATIONS ---------------- */
+  const handleSeek = async (millis: number) => {
+    if (!soundRef.current) return;
+    await soundRef.current.setPositionAsync(millis);
+  };
+
+  /* ================= PRELOAD DURATIONS ================= */
+
   useEffect(() => {
+    if (songs.length === 0) {
+      setSongDurations([]);
+      return;
+    }
+
     const preloadDurations = async () => {
       const durations: number[] = [];
+
       for (const song of songs) {
         const { sound, status } = await Audio.Sound.createAsync(song.file);
-        durations.push(status.isLoaded ? (status.durationMillis ?? 0) : 0);
+        durations.push(status.isLoaded ? status.durationMillis ?? 0 : 0);
         await sound.unloadAsync();
       }
+
       setSongDurations(durations);
     };
 
     preloadDurations();
-    loadSong(0, false); // <-- pass false to start paused
+    loadSong(0, false);
 
     return () => {
       if (soundRef.current) soundRef.current.unloadAsync();
     };
-  }, []);
+  }, [folderId]);
 
-  /* ---------------- UI ---------------- */
+  /* ================= UI ================= */
+
   return (
     <ImageBackground source={Images.MusicBg} className="flex-1" resizeMode="cover">
       <AppHeader />
 
       {/* HEADER */}
       <View className="flex-row items-center justify-between px-6 mt-7 mb-6">
-        <TouchableOpacity onPress={() => router.push("/(tabs)/music")}>
+        <TouchableOpacity onPress={() => router.back()}>
           <ChevronLeft size={28} color="#ffffff" />
         </TouchableOpacity>
 
-        <Text className="text-4xl font-bold text-[#FDE6B1] text-center flex-1">Music</Text>
+        <Text className="text-4xl font-bold text-[#FDE6B1] text-center flex-1">
+          {folderTitle}
+        </Text>
 
         <TouchableOpacity
-          onPress={() => router.push(`/music/updateMusicFolder?editId=${folderId}`)}
+          onPress={() =>
+            router.push(`/music/updateMusicFolder?editId=${folderId}`)
+          }
         >
           <Pencil size={28} color="white" />
         </TouchableOpacity>
@@ -168,8 +211,12 @@ export default function Playlist() {
           image={Images.MusicClassical}
           folderTitle={folderTitle}
           totalSongs={songs.length}
-          totalDuration={songDurations.reduce((a, b) => a + b, 0)}
-          currentTitle={songs[currentIndex].title}
+          totalDuration={formattedTotalDuration}
+          currentTitle={
+            songs.length === 0
+              ? "No songs yet"
+              : songs[currentIndex]?.title
+          }
           duration={duration}
           position={position}
           isPlaying={isPlaying}
@@ -184,11 +231,14 @@ export default function Playlist() {
         />
 
         <SongList
-          songs={songs.map((s, i) => ({ ...s, duration: songDurations[i] }))}
-          currentId={songs[currentIndex].id}
+          songs={songs.map((s, i) => ({
+            ...s,
+            duration: songDurations[i],
+          }))}
+          currentId={songs[currentIndex]?.id || ""}
           onSelect={(id) => {
             const index = songs.findIndex((s) => s.id === id);
-            loadSong(index);
+            if (index !== -1) loadSong(index);
           }}
         />
       </View>

@@ -12,7 +12,7 @@ interface PlayerCardProps {
   image: any;
   folderTitle: string;
   totalSongs: number;
-  totalDuration: number;
+  totalDuration: string;
   currentTitle: string;
   duration: number;
   position: number;
@@ -25,6 +25,7 @@ interface PlayerCardProps {
   onToggleShuffle: () => void;
   onToggleRepeat: () => void;
   onSeek: (millis: number) => void;
+  
 }
 
 export default function PlayerCard({
@@ -110,8 +111,8 @@ export default function PlayerCard({
         </Text>
 
         <Text className="text-gray-200 mt-1">
-          {totalSongs} songs · {formatTime(totalDuration)}
-        </Text>
+  {totalSongs} songs · {totalDuration}
+</Text>
 
         <View className="flex-row justify-between mt-6">
 

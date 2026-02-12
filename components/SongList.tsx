@@ -22,9 +22,18 @@ export default function SongList({ songs, currentId, onSelect }: Props) {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
+  if (songs.length === 0) {
+    return (
+      <View className="bg-[#E6DFC9] rounded-b-3xl px-6 pb-8 flex-1 justify-center items-center">
+        <Text className="text-lg font-semibold text-black/60">
+          🎵 Add songs in this playlist
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View className="bg-[#E6DFC9] rounded-b-3xl px-6 pb-8" style={{ flex: 1 }}>
-      {/* Scrollable inner list */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 24 }}

@@ -44,6 +44,7 @@ import MusicUpbeat from "../assets/images/musicUpbeat.png";
 import MusicPop from "../assets/images/musicPop.png";
 import MusicClassical from "../assets/images/musicClassical.png";
 import MusicLofi from "../assets/images/musicLofi.png";
+import MusicDefault from "../assets/images/musicDefault.png";
 
 const Images = {
   Slide1,
@@ -82,6 +83,7 @@ const Images = {
   MusicPop,
   MusicClassical,
   MusicLofi,
+  MusicDefault,
 };
 
 export default Images;

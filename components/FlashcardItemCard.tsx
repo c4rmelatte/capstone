@@ -35,7 +35,7 @@ const FlashcardItemCard: React.FC<FlashcardItemProps> = ({
       {/* Top 70% Green */}
       <View className="h-[70%] w-full bg-[#39675F] flex flex-col justify-center items-start px-4">
         <Text className="text-white text-2xl font-bold">
-          Question {questionNumber}.
+          Question {questionNumber}:
         </Text>
         <Text className="text-white text-xl font-bold mt-1">{question}</Text>
       </View>
