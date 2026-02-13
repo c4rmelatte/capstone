@@ -25,6 +25,8 @@ interface PlayerCardProps {
   onToggleShuffle: () => void;
   onToggleRepeat: () => void;
   onSeek: (millis: number) => void;
+  onAddSong: () => void;
+
   
 }
 
@@ -45,6 +47,7 @@ export default function PlayerCard({
   onToggleShuffle,
   onToggleRepeat,
   onSeek,
+  onAddSong,
 }: PlayerCardProps) {
   const barWidth = useRef(0);
 
@@ -103,6 +106,22 @@ export default function PlayerCard({
       resizeMode="cover"
       className="rounded-t-3xl overflow-hidden"
     >
+      {/* ADD SONG BUTTON */}
+<View className="absolute top-4 right-4 z-10">
+  <TouchableOpacity
+    onPress={onAddSong}
+    className="flex-row items-center px-4 py-2 rounded-full bg-black/50"
+  >
+    <View className="w-6 h-6 bg-white rounded-full items-center justify-center mr-2">
+      <Ionicons name="add" size={16} color="black" />
+    </View>
+
+    <Text className="text-white font-semibold text-sm">
+      Add a song
+    </Text>
+  </TouchableOpacity>
+</View>
+
       <View className="bg-black/60 px-6 py-6">
 
         {/* HEADER */}
@@ -217,5 +236,8 @@ export default function PlayerCard({
         </View>
       </View>
     </ImageBackground>
+
+    
+    
   );
 }

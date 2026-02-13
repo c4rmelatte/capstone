@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { Trash2 } from "lucide-react-native";
 
 interface Song {
   id: string;
@@ -10,10 +11,18 @@ interface Song {
 interface Props {
   songs: Song[];
   currentId: string;
+  isEditing: boolean;
   onSelect: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
-export default function SongList({ songs, currentId, onSelect }: Props) {
+export default function SongList({
+  songs,
+  currentId,
+  isEditing,
+  onSelect,
+  onDelete,
+}: Props) {
   const formatDuration = (ms?: number) => {
     if (!ms) return "0:00";
     const totalSeconds = Math.floor(ms / 1000);
@@ -64,6 +73,16 @@ export default function SongList({ songs, currentId, onSelect }: Props) {
                   {formatDuration(song.duration)}
                 </Text>
               </View>
+
+{isEditing && (
+  <TouchableOpacity
+    onPress={() => onDelete(song.id)}
+    className="p-2"
+  >
+    <Trash2 size={22} color="#EF4444" />
+  </TouchableOpacity>
+)}
+
             </TouchableOpacity>
           );
         })}

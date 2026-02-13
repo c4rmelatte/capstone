@@ -1,4 +1,4 @@
-import React, { useRef } from "react"; 
+import React, { useRef } from "react";
 import {
   ImageBackground,
   Text,
@@ -21,8 +21,9 @@ interface MusicFolderProps {
   onFolderEdit?: (id: string) => void;
   onFolderDelete: (id: string) => void;
   onFolderPress: (id: string) => void;
-  isHearted: boolean; // NEW
-  onHeartToggle: () => void; // NEW
+  isHearted: boolean;
+  onHeartToggle: () => void;
+  hideHeart?: boolean; // ✅ key prop
 }
 
 const MusicFolderCard: React.FC<MusicFolderProps> = ({
@@ -38,25 +39,37 @@ const MusicFolderCard: React.FC<MusicFolderProps> = ({
   onFolderPress,
   isHearted,
   onHeartToggle,
+  hideHeart,
 }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
-    Animated.spring(scaleAnim, { toValue: 0.95, useNativeDriver: true, friction: 4 }).start();
+    Animated.spring(scaleAnim, {
+      toValue: 0.95,
+      useNativeDriver: true,
+      friction: 4,
+    }).start();
   };
 
   const handlePressOut = () => {
-    Animated.spring(scaleAnim, { toValue: 1, useNativeDriver: true, friction: 4 }).start();
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      useNativeDriver: true,
+      friction: 4,
+    }).start();
   };
 
   const containerProps: any = {
-    className: "flex-1 bg-[#1D173A] rounded-2xl justify-between overflow-hidden p-4",
+    className:
+      "flex-1 bg-[#1D173A] rounded-2xl justify-between overflow-hidden p-4",
   };
 
   if (musicImage) {
     containerProps.source = musicImage;
     containerProps.resizeMode = "cover";
   }
+
+  
 
   return (
     <TouchableWithoutFeedback
@@ -65,7 +78,10 @@ const MusicFolderCard: React.FC<MusicFolderProps> = ({
       onPress={() => onFolderPress(musicFolderId)}
       disabled={isPopupVisible}
     >
-      <Animated.View style={{ transform: [{ scale: scaleAnim }] }} className="flex-1">
+      <Animated.View
+        style={{ transform: [{ scale: scaleAnim }] }}
+        className="flex-1"
+      >
         {React.createElement(
           musicImage ? ImageBackground : View,
           containerProps,
@@ -73,21 +89,28 @@ const MusicFolderCard: React.FC<MusicFolderProps> = ({
             {musicImage && <View className="absolute inset-0 bg-black/30" />}
 
             {/* TOP BLUE BAR */}
-            <View className="absolute top-0 left-0 right-0 h-[22%] bg-[#5867A3] z-10 flex-row justify-end items-center px-2">
-              {[0, 1, 2].map((i) => (
-                <TouchableWithoutFeedback
-                  key={i}
-                  onPress={() =>
-                    setPopupVisibleFolder(isPopupVisible ? null : musicFolderId)
-                  }
-                >
-                  <View
-                    className="w-2 h-2 rounded-full bg-white mx-[2px]"
-                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                  />
-                </TouchableWithoutFeedback>
-              ))}
-            </View>
+            
+{/* TOP BLUE BAR */}
+{/* TOP BLUE BAR */}
+<View className="absolute top-0 left-0 right-0 h-[22%] bg-[#5867A3] z-10 flex-row justify-end items-center px-2">
+  {musicFolderId !== "all" &&
+    [0, 1, 2].map((i) => (
+      <TouchableWithoutFeedback
+        key={i}
+        onPress={() =>
+          setPopupVisibleFolder(isPopupVisible ? null : musicFolderId)
+        }
+      >
+        <View
+          className="w-2 h-2 rounded-full bg-white mx-[2px]"
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        />
+      </TouchableWithoutFeedback>
+    ))}
+</View>
+
+
+
 
             {/* EDIT/DELETE POPUP */}
             {isPopupVisible && (
@@ -117,17 +140,23 @@ const MusicFolderCard: React.FC<MusicFolderProps> = ({
 
             {/* ACTION ROW */}
             <View className="flex-row items-center justify-end mt-3 gap-2">
-              <TouchableOpacity onPress={onHeartToggle}>
-                <Ionicons
-                  name={isHearted ? "heart" : "heart-outline"}
-                  size={28}
-                  color={isHearted ? "#FF6B6B" : "white"}
-                />
-              </TouchableOpacity>
 
+              {/* ✅ HEART: hide only for All Songs */}
+              {!hideHeart && (
+                <TouchableOpacity onPress={onHeartToggle}>
+                  <Ionicons
+                    name={isHearted ? "heart" : "heart-outline"}
+                    size={28}
+                    color={isHearted ? "#FF6B6B" : "white"}
+                  />
+                </TouchableOpacity>
+              )}
+
+              {/* PLAY BUTTON */}
               <TouchableOpacity className="bg-white rounded-full p-2">
                 <Ionicons name="play" size={18} color="#4C5C8A" />
               </TouchableOpacity>
+
             </View>
           </>
         )}
