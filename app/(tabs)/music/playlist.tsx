@@ -8,6 +8,9 @@ import AppHeader from "../../../components/AppHeader";
 import PlayerCard from "../../../components/PlayerCard";
 import SongList from "../../../components/SongList";
 
+import { Modal, TextInput, Alert } from "react-native";
+import * as DocumentPicker from "expo-document-picker";
+
 // ================= SONG DATABASE =================
 export const songsByFolder: Record<string, any[]> = {
   "1": [
@@ -38,6 +41,13 @@ export default function Playlist() {
     ? params.title[0]
     : params?.title ?? "Playlist";
 
+    /* ================= ADD SONG MODAL ================= */
+
+const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+const [newSongTitle, setNewSongTitle] = useState("");
+const [newSongFile, setNewSongFile] = useState<any>(null);
+
+
   /* ================= INITIAL SONG LIST ================= */
   const initialSongs =
     folderId === "all"
@@ -64,6 +74,62 @@ export default function Playlist() {
     repeatRef.current = isRepeat;
   }, [isRepeat]);
 
+
+
+  /* ================= IMPORT MP4 ================= */
+
+
+  const handleImportMusic = async () => {
+  try {
+    const result = await DocumentPicker.getDocumentAsync({
+      type: "video/mp4", // STRICT MP4
+      copyToCacheDirectory: true,
+    });
+
+    if (result.canceled) return;
+
+    const file = result.assets[0];
+
+    if (!file.name.toLowerCase().endsWith(".mp4")) {
+      Alert.alert("Only MP4 files are allowed!");
+      return;
+    }
+
+    setNewSongFile(file);
+
+    // Auto fill title
+    const nameWithoutExt = file.name.replace(".mp4", "");
+    setNewSongTitle(nameWithoutExt);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+ /* ================= ADD SONG================= */
+
+const handleAddSong = () => {
+  if (!newSongTitle || !newSongFile) {
+    Alert.alert("Please enter title and import MP4 file");
+    return;
+  }
+
+  const newSong = {
+    id: Date.now().toString(),
+    title: newSongTitle,
+    file: { uri: newSongFile.uri },
+  };
+
+  setPlaylistSongs((prev) => [...prev, newSong]);
+
+  setNewSongTitle("");
+  setNewSongFile(null);
+  setIsAddModalVisible(false);
+};
+
+
+
+
   /* ================= FORMAT TOTAL TIME ================= */
   const formatTotalDuration = (ms: number) => {
     if (!ms) return "0 min";
@@ -83,8 +149,16 @@ export default function Playlist() {
     if (playlistSongs.length === 0) return;
     if (soundRef.current) await soundRef.current.unloadAsync();
 
-    const { sound } = await Audio.Sound.createAsync(
-      playlistSongs[index].file,
+    const selected = playlistSongs[index];
+
+const fileSource =
+  selected.file?.uri
+    ? { uri: selected.file.uri }
+    : selected.file;
+
+const { sound } = await Audio.Sound.createAsync(
+  fileSource,
+
       { shouldPlay: autoPlay },
       (status: any) => {
         if (!status.isLoaded) return;
@@ -222,7 +296,9 @@ export default function Playlist() {
           onSeek={handleSeek}
           onToggleShuffle={() => setIsShuffle(!isShuffle)}
           onToggleRepeat={() => setIsRepeat(!isRepeat)}
-          onAddSong={() => router.push("/(tabs)/music")}
+          onAddSong={() => setIsAddModalVisible(true)}
+
+
         />
 
         <SongList
@@ -237,6 +313,85 @@ export default function Playlist() {
           onDelete={handleDelete}
         />
       </View>
+
+      <Modal
+  transparent
+  visible={isAddModalVisible}
+  animationType="fade"
+>
+  <View className="flex-1 justify-center items-center bg-black/40">
+    <View
+      style={{
+        width: 300,
+        backgroundColor: "#EED9B6",
+        borderRadius: 20,
+        padding: 20,
+        borderWidth: 2,
+        borderColor: "black",
+      }}
+    >
+      <Text className="text-black font-bold mb-2">
+        Song Title
+      </Text>
+
+      <TextInput
+        value={newSongTitle}
+        onChangeText={setNewSongTitle}
+        placeholder="Enter song title"
+        style={{
+          backgroundColor: "#E5E5E5",
+          borderRadius: 15,
+          padding: 10,
+          borderWidth: 2,
+          borderColor: "black",
+          marginBottom: 15,
+        }}
+      />
+
+      <TouchableOpacity
+        onPress={handleImportMusic}
+        style={{ marginBottom: 20 }}
+      >
+        <Text style={{ fontWeight: "600" }}>
+          + Import Music {newSongFile ? "| File Uploaded!" : ""}
+        </Text>
+      </TouchableOpacity>
+
+      <View className="flex-row justify-between">
+        <TouchableOpacity
+          onPress={handleAddSong}
+          style={{
+            backgroundColor: "#6FCF97",
+            paddingVertical: 8,
+            paddingHorizontal: 20,
+            borderRadius: 15,
+            borderWidth: 2,
+            borderColor: "black",
+          }}
+        >
+          <Text style={{ fontWeight: "bold" }}>+ Add</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => setIsAddModalVisible(false)}
+          style={{
+            backgroundColor: "#EB5757",
+            paddingVertical: 8,
+            paddingHorizontal: 20,
+            borderRadius: 15,
+            borderWidth: 2,
+            borderColor: "black",
+          }}
+        >
+          <Text style={{ fontWeight: "bold", color: "white" }}>
+            Cancel
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </View>
+</Modal>
+
     </ImageBackground>
   );
 }
