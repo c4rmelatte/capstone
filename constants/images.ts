@@ -6,7 +6,7 @@ import Item1 from "../assets/images/item1.png";
 import Item2 from "../assets/images/item2.png";
 import Item3 from "../assets/images/item3.png";
 import Item4 from "../assets/images/item4.png";
-import notepadBg from "../assets/images/notepadBg.png";
+import NotepadBg from "../assets/images/notepadBg.png";
 import Image_BG from "../assets/images/pageuno.png";
 import PomodoroBg from "../assets/images/pomodoro.png";
 import Puset from "../assets/images/puset.png";
@@ -39,6 +39,13 @@ import StubyLogo from "../assets/images/stubylogo.png"
 
 import MusicBg from "../assets/images/musicBg.png"
 
+import MusicNature from "../assets/images/musicNature.png";
+import MusicUpbeat from "../assets/images/musicUpbeat.png";
+import MusicPop from "../assets/images/musicPop.png";
+import MusicClassical from "../assets/images/musicClassical.png";
+import MusicLofi from "../assets/images/musicLofi.png";
+import MusicDefault from "../assets/images/musicDefault.png";
+
 const Images = {
   Slide1,
   Slide2,
@@ -70,7 +77,14 @@ const Images = {
   DefaultProfile,
   YellowWaveIntro,
   StubyLogo,
-  MusicBg
+  MusicBg,
+  MusicNature,
+  MusicUpbeat,
+  MusicPop,
+  MusicClassical,
+  MusicLofi,
+  MusicDefault,
+  NotepadBg
 };
 
 export default Images;

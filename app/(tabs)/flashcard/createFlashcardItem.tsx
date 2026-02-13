@@ -1,38 +1,47 @@
 import AddFloatingButton from "@/components/AddFloatingButton";
 import AppHeader from "@/components/AppHeader";
-import GreenButton from "@/components/GreenButton";
 import Images from "@/constants/images";
 import { router } from "expo-router";
 
 import { ChevronLeft } from "lucide-react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Alert,
   ImageBackground,
   Keyboard,
-  KeyboardAvoidingView,
   Platform,
   Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  Animated,
 } from "react-native";
 
 const CreateFlashcardItem = () => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
-  const handleSave = () => {
-    console.log("Saved Flashcard:", { question, answer });
-    Alert.alert("Saved", "Flashcard saved successfully!");
-  };
+  const [showToast, setShowToast] = useState(false);
+  const toastOpacity = useState(new Animated.Value(0))[0];
 
   const handleAddFlashcardItem = () => {
     console.log("Flashcard Added:", { question, answer });
-    Alert.alert("Added", "Flashcard added successfully!");
     setQuestion("");
     setAnswer("");
+    // Show toast
+    setShowToast(true);
+    Animated.timing(toastOpacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      setTimeout(() => {
+        Animated.timing(toastOpacity, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start(() => setShowToast(false));
+      }, 2000); // Toast visible for 2 seconds
+    });
   };
 
   return (
@@ -40,28 +49,18 @@ const CreateFlashcardItem = () => {
       <AppHeader />
 
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View className="flex-1">
-          <View className="absolute top-10 left-0 right-0 z-10 px-4">
-            {/* BACK BUTTON */}
+        <View className="flex-1 mt-4">
+          {/* TOP CONTROLS */}
+          <View className="flex flex-row items-center justify-between left-0 right-0 z-10 px-4" style={{ marginBottom: "40%" }}>
+            {/* Back button */}
             <TouchableOpacity onPress={() => router.back()}>
               <ChevronLeft size={28} color="#ffffff" />
             </TouchableOpacity>
-
-            {/* SAVE BUTTON */}
-            <View className="mt-3 flex-row justify-end">
-              <GreenButton
-                title="Save"
-                onPress={handleSave}
-                widthPercent={0.25}
-                heightPercent={0.05}
-              />
-            </View>
           </View>
 
           {/* MAIN CONTENT */}
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            className="flex-1 justify-center items-center"
+          <View
+            className="flex-1 items-center"
           >
             {/* FLASHCARD */}
             <View className="h-[50%] w-[90%] rounded-2xl overflow-hidden shadow-lg">
@@ -110,10 +109,28 @@ const CreateFlashcardItem = () => {
                 />
               </View>
             </View>
-          </KeyboardAvoidingView>
+          </View>
 
           {/* FLOATING ADD BUTTON */}
           <AddFloatingButton onPress={handleAddFlashcardItem} />
+
+          {/* TOAST */}
+          {showToast && (
+            <Animated.View
+              style={{
+                position: "absolute",
+                bottom: 50,
+                alignSelf: "center",
+                backgroundColor: "#39675F",
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                borderRadius: 25,
+                opacity: toastOpacity,
+              }}
+            >
+              <Text className="text-white font-semibold">Flashcard added!</Text>
+            </Animated.View>
+          )}
         </View>
       </TouchableWithoutFeedback>
     </ImageBackground>

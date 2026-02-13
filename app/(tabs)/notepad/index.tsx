@@ -73,7 +73,7 @@ export default function NotepadScreen() {
   );
 
   return (
-    <ImageBackground source={Images.notepadBg} className="flex-1" resizeMode="cover">
+    <ImageBackground source={Images.NotepadBg} className="flex-1" resizeMode="cover">
       <AppHeader />
       <View className="flex-1">
         {/* Section Title */}
