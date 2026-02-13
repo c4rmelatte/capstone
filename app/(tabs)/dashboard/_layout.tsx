@@ -10,11 +10,12 @@ export default function DashboardLayout() {
     >
       {/* Name must match the relative file path */}
       <Drawer.Screen name="index" />
-      <Drawer.Screen name="flashcard" />
+      <Drawer.Screen name="flashcard" />.
       <Drawer.Screen name="pomodoro" />
       <Drawer.Screen name="notepad" />
       <Drawer.Screen name="music" />
       <Drawer.Screen name="todolist" />
+      <Drawer.Screen name="reportBug"/>
     </Drawer>
   );
 }

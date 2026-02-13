@@ -1,11 +1,4 @@
-import AppHeader from "@/components/AppHeader";
-import GreenButton from "@/components/GreenButton";
-import Images from "@/constants/images";
-import { Feather } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
-import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { ChevronLeft } from "lucide-react-native";
 import {
   Dimensions,
   Image,
@@ -17,21 +10,29 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { router, useLocalSearchParams } from "expo-router";
+import { Feather } from "@expo/vector-icons";
+import { ChevronLeft } from "lucide-react-native";
+
+import AppHeader from "@/components/AppHeader";
+import GreenButton from "@/components/GreenButton";
+import Images from "@/constants/images";
 
 const { width, height } = Dimensions.get("window");
 
-const UpdateFlashcardFolder = () => {
+const UpdateMusicFolder = () => {
   const params = useLocalSearchParams<{
     id: string;
     title?: string;
     coverPhoto?: string;
   }>();
 
-  const [title, setTitle] = useState("");
+  const [musicTitle, setMusicTitle] = useState("");
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
 
   useEffect(() => {
-    if (params?.title) setTitle(params.title);
+    if (params?.title) setMusicTitle(params.title);
     if (params?.coverPhoto) setCoverPhoto(params.coverPhoto);
   }, [params?.id]);
 
@@ -53,18 +54,18 @@ const UpdateFlashcardFolder = () => {
     }
   };
 
-  // ✅ UPDATE + GO BACK (NO STACKING)
+  // ✅ UPDATE MUSIC FOLDER AND GO BACK TO MUSIC SCREEN
   const handleUpdate = () => {
-    if (!title.trim()) {
-      alert("Please enter a flashcard title.");
+    if (!musicTitle.trim()) {
+      alert("Please enter a music folder title.");
       return;
     }
 
     router.push({
-      pathname: "/flashcard",
+      pathname: "/(tabs)/music",
       params: {
         id: params.id,
-        title,
+        title: musicTitle,
         coverPhoto: coverPhoto ?? "",
         updated: "true",
       },
@@ -73,73 +74,79 @@ const UpdateFlashcardFolder = () => {
 
   return (
     <ImageBackground
-      source={Images.FlashcardBg}
+      source={Images.MusicBg}
       resizeMode="cover"
       className="flex-1"
-     
     >
       <AppHeader />
 
-      
       <KeyboardAvoidingView
-              behavior={Platform.OS === "ios" ? "padding" : undefined}
-              className="flex-1"
-              style={{
-                paddingHorizontal: width * 0.06,
-              }}
-             
-        >
-
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        className="flex-1"
+        style={{ paddingHorizontal: width * 0.06 }}
+      >
+        {/* HEADER */}
         <View className="flex-row items-center mt-8 justify-center mb-12 relative">
-                 <TouchableOpacity onPress={() => router.back()} className="absolute left-0 p-2">
-                  <ChevronLeft size={28} color="#ffffff" />
-                 </TouchableOpacity>
-                 <Text className="text-2xl font-bold text-[#FDE6B1]">Update Flashcard Deck</Text>
-            </View>
-       
+          <TouchableOpacity
+            onPress={() => router.back()}
+            className="absolute left-0 p-2"
+          >
+            <ChevronLeft size={28} color="#ffffff" />
+          </TouchableOpacity>
+          <Text className="text-2xl font-bold text-[#FDE6B1]">
+            Update Music Folder
+          </Text>
+        </View>
 
         {/* COVER PHOTO */}
         <TouchableOpacity
           activeOpacity={0.85}
           onPress={pickImage}
-          style={{
-            height: height * 0.24,
-            marginBottom: height * 0.04,
-          }}
+          style={{ height: height * 0.14, marginBottom: height * 0.04 }}
           className="w-full rounded-2xl bg-gray-400/80 overflow-hidden items-center justify-center"
         >
           {coverPhoto ? (
-            <Image source={{ uri: coverPhoto }} resizeMode="cover" className="w-full h-full" />
+            <Image
+              source={{ uri: coverPhoto }}
+              resizeMode="cover"
+              className="w-full h-full"
+            />
           ) : (
             <>
               <View className="w-12 h-12 rounded-full bg-gray-300 items-center justify-center">
                 <Feather name="plus" size={24} color="#555" />
               </View>
-              <Text className="mt-3 font-semibold text-white">Add Cover Photo</Text>
+              <Text className="mt-3 font-semibold text-white">
+                Add Cover Photo
+              </Text>
             </>
           )}
         </TouchableOpacity>
 
-        {/* TITLE LABEL */}
+        {/* MUSIC TITLE LABEL */}
         <Text
           style={{ marginBottom: height * 0.01 }}
           className="text-base font-semibold text-black"
         >
-          Flashcard Deck Title
+          Playlist Title
         </Text>
 
         {/* INPUT */}
         <View
-          style={{ height: height * 0.06,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 5 },
-              shadowOpacity: 0.3,
-              shadowRadius: 10,
-              
-            }}
+          style={{
+            height: height * 0.06,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 5 },
+            shadowOpacity: 0.3,
+            shadowRadius: 10,
+          }}
           className="bg-white rounded-full border-2 border-black px-4 justify-center"
         >
-          <TextInput value={title} onChangeText={setTitle} className="font-bold text-black" />
+          <TextInput
+            value={musicTitle}
+            onChangeText={setMusicTitle}
+            className="font-bold text-black"
+          />
         </View>
 
         {/* UPDATE BUTTON */}
@@ -156,4 +163,4 @@ const UpdateFlashcardFolder = () => {
   );
 };
 
-export default UpdateFlashcardFolder;
+export default UpdateMusicFolder;

@@ -32,7 +32,7 @@ export default function CustomDrawer(props: any) {
           icon="home-outline"
           label="Dashboard"
           // Navigate using the 'name' from your _layout.tsx
-          onPress={() => props.navigation.navigate("index")}
+         onPress={() => router.push("/dashboard")}
         />
 
         {/* --------FLASHCARD----------- */}
@@ -78,7 +78,7 @@ export default function CustomDrawer(props: any) {
       <View
         style={{ marginTop: "auto", padding: 20, borderTopWidth: 1, borderTopColor: "#f0f0f0" }}
       >
-        <DrawerItem icon="bug-outline" label="Report a Bug" onPress={() => {}} />
+        <DrawerItem icon="bug-outline" label="Report a Bug" onPress={() => router.push("/reportBug")} />
         <DrawerItem
           icon="person-outline"
           label="Profile"

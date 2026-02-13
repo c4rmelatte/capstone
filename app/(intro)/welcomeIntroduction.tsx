@@ -12,12 +12,11 @@ export default function WelcomeIntroduction() {
   const router = useRouter();
 
   const handleNextPage = () => {
-    router.push("/introduction/introductionFlow");
+    router.push("/(intro)/introductionFlow");
   };
 
   return (
     <View className="flex-1 bg-[#7abbaf]">
-
       {/* Top Section */}
       <View className="w-full relative" style={{ height: height * 0.7 }}>
         <Image
@@ -26,7 +25,10 @@ export default function WelcomeIntroduction() {
           className="absolute top-0 left-0 w-full h-full"
         />
 
-        <View className="flex-1 justify-center items-center z-10" style={{ marginBottom: height * 0.1 }}>
+        <View
+          className="flex-1 justify-center items-center z-10"
+          style={{ marginBottom: height * 0.1 }}
+        >
           <Image
             source={Images.StubyLogo}
             resizeMode="contain"
@@ -41,10 +43,7 @@ export default function WelcomeIntroduction() {
         style={{ height: height * 0.29, paddingBottom: height * 0.05 }}
       >
         <View className="mb-6">
-          <Text
-            className="text-white font-semibold mb-3"
-            style={{ fontSize: scaleFont(30) }}
-          >
+          <Text className="text-white font-semibold mb-3" style={{ fontSize: scaleFont(30) }}>
             WELCOME
           </Text>
 
@@ -55,19 +54,16 @@ export default function WelcomeIntroduction() {
               lineHeight: scaleFont(24),
             }}
           >
-            Welcome to STUBY – your smart study buddy for better learning.
-            Whether you're prepping for exams, organizing notes, or exploring
-            new techniques, STUBY brings it all together in one simple app.
-            Let’s start your journey to better study habits today!
+            Welcome to STUBY – your smart study buddy for better learning. Whether you're prepping
+            for exams, organizing notes, or exploring new techniques, STUBY brings it all together
+            in one simple app. Let’s start your journey to better study habits today!
           </Text>
         </View>
 
-        <CustomButton
-          title="Go to Next"
-          onPress={handleNextPage}
-        />
+        <View className="flex ">
+          <CustomButton title="Go to Next" onPress={handleNextPage} />
+        </View>
       </View>
-
     </View>
   );
 }
