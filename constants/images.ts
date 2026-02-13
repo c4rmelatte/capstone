@@ -31,13 +31,13 @@ import FlashcardBg from "../assets/images/flashcardBg.png";
 
 import ToDoBg from "../assets/images/todoBg.png";
 
+import DefaultProfile from "../assets/images/defaultProfile.png";
 import ProfileBg from "../assets/images/profileBg.png";
-import DefaultProfile from "../assets/images/defaultProfile.png"
 
 import YellowWaveIntro from "../assets/images/YellowWaveIntro.png"
 import StubyLogo from "../assets/images/stubylogo.png"
 
-import MusicBg from "../assets/images/musicBg.png"
+import MusicBg from "../assets/images/musicBg.png";
 
 import MusicNature from "../assets/images/musicNature.png";
 import MusicUpbeat from "../assets/images/musicUpbeat.png";
