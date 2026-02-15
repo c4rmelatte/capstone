@@ -45,6 +45,48 @@ export const songsByFolder: Record<string, any[]> = {
       file: require("../../../assets/music/nature/nature2.mp3"),
     },
     { id: "n3", title: "Ocean Waves", file: require("../../../assets/music/nature/nature3.mp3") },
+    {
+      id: "n4",
+      title: "Sounds of Nature",
+      artist: "Aylex",
+      file: require("../../../assets/music/nature/nature4.mp3"),
+    }, //
+    {
+      id: "n5",
+      title: "Whistle",
+      artist: "Pufino",
+      file: require("../../../assets/music/nature/nature5.mp3"),
+    }, //
+    {
+      id: "n6",
+      title: "Tranquility",
+      artist: "Project Ex",
+      file: require("../../../assets/music/nature/nature6.mp3"),
+    }, //
+    {
+      id: "n7",
+      title: "We Are",
+      artist: "Moavii",
+      file: require("../../../assets/music/nature/nature7.mp3"),
+    }, //
+    {
+      id: "n8",
+      title: "Dawn",
+      artist: "Alegend",
+      file: require("../../../assets/music/nature/nature8.mp3"),
+    }, //
+    {
+      id: "n9",
+      title: "Soaked",
+      artist: "Pufino",
+      file: require("../../../assets/music/nature/nature9.mp3"),
+    }, //
+    {
+      id: "n10",
+      title: "Wallflower",
+      artist: "Epic Spectrum",
+      file: require("../../../assets/music/nature/nature10.mp3"),
+    }, //
   ],
   // LOFI
   "5": [{ id: "l1", title: "Lofi Chill", file: require("../../../assets/music/pop1.mp3") }],
