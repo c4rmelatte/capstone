@@ -15,13 +15,25 @@ import { Alert, Modal, TextInput } from "react-native";
 export const songsByFolder: Record<string, any[]> = {
   // UPBEAT
   "1": [
-    { id: "u1", title: "Energy Boost", file: require("../../../assets/music/pop1.mp3") },
-    { id: "u2", title: "Morning Run", file: require("../../../assets/music/pop2.mp3") },
+    { id: "u1", title: "Chances", file: require("../../../assets/music/upbeat1.mp3") },
+    { id: "u2", title: "Joy", file: require("../../../assets/music/upbeat2.mp3") },
+    { id: "u3", title: "Energizer", file: require("../../../assets/music/upbeat3.mp3") },
+    { id: "u4", title: "Summer Sound", file: require("../../../assets/music/upbeat4.mp3") },
+    { id: "u5", title: "Funky", file: require("../../../assets/music/upbeat5.mp3") },
+    { id: "u6", title: "Carnival", file: require("../../../assets/music/upbeat6.mp3") },
+    { id: "u7", title: "Donut", file: require("../../../assets/music/upbeat7.mp3") },
+    { id: "u8", title: "Follow the Sun", file: require("../../../assets/music/upbeat8.mp3") },
+    { id: "u9", title: "Sweet Talks", file: require("../../../assets/music/upbeat9.mp3") },
+    { id: "u10", title: "Last Summer", file: require("../../../assets/music/upbeat10.mp3") },
+
   ],
   // CLASSICAL
   "2": [
-    { id: "c1", title: "Moonlight Sonata", file: require("../../../assets/music/pop1.mp3") },
-    { id: "c2", title: "Nocturne Op.9", file: require("../../../assets/music/pop2.mp3") },
+    { id: "c1", title: "Gymnopédie No.1 4", file: require("../../../assets/music/classical1.mp3") },
+    { id: "c2", title: "Ballet Suite_ 1.Waltz 4", file: require("../../../assets/music/classical2.mp3") },
+    { id: "c3", title: "The Nutcraker", file: require("../../../assets/music/classical3.mp3") },
+    { id: "c4", title: "Hungarian Dance 5", file: require("../../../assets/music/classical4.mp3") },
+    { id: "c5", title: "Pure Dream", file: require("../../../assets/music/classical5.mp3") },
   ],
   // POP
   "3": [
