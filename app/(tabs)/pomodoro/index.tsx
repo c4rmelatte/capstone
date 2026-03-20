@@ -1,9 +1,10 @@
-import React from "react";
-import { View, Text, TouchableOpacity, Image, ImageBackground, Dimensions } from "react-native";
-import Svg, { Circle } from "react-native-svg";
-import Images from "@/constants/images";
 import AppHeader from "@/components/AppHeader";
+import Images from "@/constants/images";
 import { usePomodoro } from "@/context/PomodoroContext";
+import LottieView from "lottie-react-native";
+import React from "react";
+import { Dimensions, ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import Svg, { Circle } from "react-native-svg";
 
 const { width } = Dimensions.get("window");
 const circleSize = width * 0.6;
@@ -119,7 +120,21 @@ export default function Pomodoro() {
             </Svg>
 
             {/* Image inside circle */}
-            <Image source={Images.Puset} className="w-[60%] h-[60%]" resizeMode="contain" />
+            <LottieView
+              source={
+                mode === MODE.POMODORO
+                  ? require("../../../assets/animations/Stuby.json")
+                  : require("../../../assets/animations/stuby-eating.json")
+              }
+              style={
+                mode === MODE.POMODORO
+                  ? { width: "80%", aspectRatio: 1 }
+                  : { width: "90%", aspectRatio: 1 }
+              }
+              resizeMode="contain"
+              autoPlay
+              loop
+            />
           </View>
 
           {/* Timer text */}
