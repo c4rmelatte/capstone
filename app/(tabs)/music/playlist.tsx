@@ -1,37 +1,107 @@
 import Images from "@/constants/images";
 import { Audio } from "expo-av";
 import { router, useLocalSearchParams } from "expo-router";
-import { ChevronLeft, Pencil, Check } from "lucide-react-native";
+import { Check, ChevronLeft, Pencil } from "lucide-react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import AppHeader from "../../../components/AppHeader";
 import PlayerCard from "../../../components/PlayerCard";
 import SongList from "../../../components/SongList";
 
-import { Modal, TextInput, Alert } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
+import { Alert, Modal, TextInput } from "react-native";
 
 // ================= SONG DATABASE =================
 export const songsByFolder: Record<string, any[]> = {
+  // UPBEAT
   "1": [
-    { id: "u1", title: "Energy Boost", file: require("../../../assets/music/pop1.mp3") },
-    { id: "u2", title: "Morning Run", file: require("../../../assets/music/pop2.mp3") },
+    { id: "u1", title: "Chances", file: require("../../../assets/music/upbeat1.mp3") },
+    { id: "u2", title: "Joy", file: require("../../../assets/music/upbeat2.mp3") },
+    { id: "u3", title: "Energizer", file: require("../../../assets/music/upbeat3.mp3") },
+    { id: "u4", title: "Summer Sound", file: require("../../../assets/music/upbeat4.mp3") },
+    { id: "u5", title: "Funky", file: require("../../../assets/music/upbeat5.mp3") },
+    { id: "u6", title: "Carnival", file: require("../../../assets/music/upbeat6.mp3") },
+    { id: "u7", title: "Donut", file: require("../../../assets/music/upbeat7.mp3") },
+    { id: "u8", title: "Follow the Sun", file: require("../../../assets/music/upbeat8.mp3") },
+    { id: "u9", title: "Sweet Talks", file: require("../../../assets/music/upbeat9.mp3") },
+    { id: "u10", title: "Last Summer", file: require("../../../assets/music/upbeat10.mp3") },
+
   ],
+  // CLASSICAL
   "2": [
-    { id: "c1", title: "Moonlight Sonata", file: require("../../../assets/music/pop1.mp3") },
-    { id: "c2", title: "Nocturne Op.9", file: require("../../../assets/music/pop2.mp3") },
+    { id: "c1", title: "Gymnopédie No.1 4", file: require("../../../assets/music/classical1.mp3") },
+    { id: "c2", title: "Ballet Suite_ 1.Waltz 4", file: require("../../../assets/music/classical2.mp3") },
+    { id: "c3", title: "The Nutcraker", file: require("../../../assets/music/classical3.mp3") },
+    { id: "c4", title: "Hungarian Dance 5", file: require("../../../assets/music/classical4.mp3") },
+    { id: "c5", title: "Pure Dream", file: require("../../../assets/music/classical5.mp3") },
   ],
+  // POP
   "3": [
-    { id: "p1", title: "Pop Hit 1", file: require("../../../assets/music/pop1.mp3") },
-    { id: "p2", title: "Pop Hit 2", file: require("../../../assets/music/pop2.mp3") },
+    { id: "p1", title: "Espresso", file: require("../../../assets/music/pop/pop1.mp3") },
+    { id: "p2", title: "Birds of a Feather", file: require("../../../assets/music/pop/pop2.mp3") },
+    { id: "p3", title: "Die With A Smile", file: require("../../../assets/music/pop/pop3.mp3") },
+    { id: "p4", title: "Golden", file: require("../../../assets/music/pop/pop4.mp3") },
+    { id: "p5", title: "Cruel Summer", file: require("../../../assets/music/pop/pop5.mp3") },
+    { id: "p6", title: "Levitating", file: require("../../../assets/music/pop/pop6.mp3") },
+    { id: "p7", title: "Flowers", file: require("../../../assets/music/pop/pop7.mp3") },
+    { id: "p8", title: "As It Was", file: require("../../../assets/music/pop/pop8.mp3") },
+    { id: "p9", title: "Anti-Hero", file: require("../../../assets/music/pop/pop9.mp3") },
+    { id: "p10", title: "Greedy", file: require("../../../assets/music/pop/pop10.mp3") },
   ],
+  // NATURE
   "4": [
-    { id: "n1", title: "Rain Sounds", file: require("../../../assets/music/pop1.mp3") },
-    { id: "n2", title: "Forest Ambience", file: require("../../../assets/music/pop2.mp3") },
+    { id: "n1", title: "Rain Sounds", file: require("../../../assets/music/nature/nature1.mp3") },
+    {
+      id: "n2",
+      title: "Forest Ambience",
+      file: require("../../../assets/music/nature/nature2.mp3"),
+    },
+    { id: "n3", title: "Ocean Waves", file: require("../../../assets/music/nature/nature3.mp3") },
+    {
+      id: "n4",
+      title: "Sounds of Nature",
+      artist: "Aylex",
+      file: require("../../../assets/music/nature/nature4.mp3"),
+    }, //
+    {
+      id: "n5",
+      title: "Whistle",
+      artist: "Pufino",
+      file: require("../../../assets/music/nature/nature5.mp3"),
+    }, //
+    {
+      id: "n6",
+      title: "Tranquility",
+      artist: "Project Ex",
+      file: require("../../../assets/music/nature/nature6.mp3"),
+    }, //
+    {
+      id: "n7",
+      title: "We Are",
+      artist: "Moavii",
+      file: require("../../../assets/music/nature/nature7.mp3"),
+    }, //
+    {
+      id: "n8",
+      title: "Dawn",
+      artist: "Alegend",
+      file: require("../../../assets/music/nature/nature8.mp3"),
+    }, //
+    {
+      id: "n9",
+      title: "Soaked",
+      artist: "Pufino",
+      file: require("../../../assets/music/nature/nature9.mp3"),
+    }, //
+    {
+      id: "n10",
+      title: "Wallflower",
+      artist: "Epic Spectrum",
+      file: require("../../../assets/music/nature/nature10.mp3"),
+    }, //
   ],
-  "5": [
-    { id: "l1", title: "Lofi Chill", file: require("../../../assets/music/pop1.mp3") },
-  ],
+  // LOFI
+  "5": [{ id: "l1", title: "Lofi Chill", file: require("../../../assets/music/pop1.mp3") }],
 };
 
 export default function Playlist() {
@@ -39,22 +109,21 @@ export default function Playlist() {
   const folderId = Array.isArray(params?.id) ? params.id[0] : params?.id;
   const folderTitle = Array.isArray(params?.title)
     ? params.title[0]
-    : params?.title ?? "Playlist";
+    : (params?.title ?? "Playlist");
 
-    /* ================= ADD SONG MODAL ================= */
+  /* ================= ADD SONG MODAL ================= */
 
-const [isAddModalVisible, setIsAddModalVisible] = useState(false);
-const [newSongTitle, setNewSongTitle] = useState("");
-const [newSongFile, setNewSongFile] = useState<any>(null);
-
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [newSongTitle, setNewSongTitle] = useState("");
+  const [newSongFile, setNewSongFile] = useState<any>(null);
 
   /* ================= INITIAL SONG LIST ================= */
   const initialSongs =
     folderId === "all"
       ? Object.values(songsByFolder).flat() // ✅ Compile all songs from all folders
       : folderId && songsByFolder[folderId]
-      ? songsByFolder[folderId]
-      : [];
+        ? songsByFolder[folderId]
+        : [];
 
   const [playlistSongs, setPlaylistSongs] = useState(initialSongs);
   const [isEditing, setIsEditing] = useState(false);
@@ -74,61 +143,54 @@ const [newSongFile, setNewSongFile] = useState<any>(null);
     repeatRef.current = isRepeat;
   }, [isRepeat]);
 
-
-
   /* ================= IMPORT MP4 ================= */
 
-
   const handleImportMusic = async () => {
-  try {
-    const result = await DocumentPicker.getDocumentAsync({
-      type: "video/mp4", // STRICT MP4
-      copyToCacheDirectory: true,
-    });
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: "video/mp4", // STRICT MP4
+        copyToCacheDirectory: true,
+      });
 
-    if (result.canceled) return;
+      if (result.canceled) return;
 
-    const file = result.assets[0];
+      const file = result.assets[0];
 
-    if (!file.name.toLowerCase().endsWith(".mp4")) {
-      Alert.alert("Only MP4 files are allowed!");
+      if (!file.name.toLowerCase().endsWith(".mp4")) {
+        Alert.alert("Only MP4 files are allowed!");
+        return;
+      }
+
+      setNewSongFile(file);
+
+      // Auto fill title
+      const nameWithoutExt = file.name.replace(".mp4", "");
+      setNewSongTitle(nameWithoutExt);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  /* ================= ADD SONG================= */
+
+  const handleAddSong = () => {
+    if (!newSongTitle || !newSongFile) {
+      Alert.alert("Please enter title and import MP4 file");
       return;
     }
 
-    setNewSongFile(file);
+    const newSong = {
+      id: Date.now().toString(),
+      title: newSongTitle,
+      file: { uri: newSongFile.uri },
+    };
 
-    // Auto fill title
-    const nameWithoutExt = file.name.replace(".mp4", "");
-    setNewSongTitle(nameWithoutExt);
-  } catch (error) {
-    console.log(error);
-  }
-};
+    setPlaylistSongs((prev) => [...prev, newSong]);
 
-
- /* ================= ADD SONG================= */
-
-const handleAddSong = () => {
-  if (!newSongTitle || !newSongFile) {
-    Alert.alert("Please enter title and import MP4 file");
-    return;
-  }
-
-  const newSong = {
-    id: Date.now().toString(),
-    title: newSongTitle,
-    file: { uri: newSongFile.uri },
+    setNewSongTitle("");
+    setNewSongFile(null);
+    setIsAddModalVisible(false);
   };
-
-  setPlaylistSongs((prev) => [...prev, newSong]);
-
-  setNewSongTitle("");
-  setNewSongFile(null);
-  setIsAddModalVisible(false);
-};
-
-
-
 
   /* ================= FORMAT TOTAL TIME ================= */
   const formatTotalDuration = (ms: number) => {
@@ -151,13 +213,10 @@ const handleAddSong = () => {
 
     const selected = playlistSongs[index];
 
-const fileSource =
-  selected.file?.uri
-    ? { uri: selected.file.uri }
-    : selected.file;
+    const fileSource = selected.file?.uri ? { uri: selected.file.uri } : selected.file;
 
-const { sound } = await Audio.Sound.createAsync(
-  fileSource,
+    const { sound } = await Audio.Sound.createAsync(
+      fileSource,
 
       { shouldPlay: autoPlay },
       (status: any) => {
@@ -204,8 +263,7 @@ const { sound } = await Audio.Sound.createAsync(
 
   const handlePrev = () => {
     if (playlistSongs.length === 0) return;
-    const prevIndex =
-      currentIndex === 0 ? playlistSongs.length - 1 : currentIndex - 1;
+    const prevIndex = currentIndex === 0 ? playlistSongs.length - 1 : currentIndex - 1;
     loadSong(prevIndex);
   };
 
@@ -225,7 +283,7 @@ const { sound } = await Audio.Sound.createAsync(
       const durations: number[] = [];
       for (const song of playlistSongs) {
         const { sound, status } = await Audio.Sound.createAsync(song.file);
-        durations.push(status.isLoaded ? status.durationMillis ?? 0 : 0);
+        durations.push(status.isLoaded ? (status.durationMillis ?? 0) : 0);
         await sound.unloadAsync();
       }
       setSongDurations(durations);
@@ -257,9 +315,7 @@ const { sound } = await Audio.Sound.createAsync(
           <ChevronLeft size={28} color="#ffffff" />
         </TouchableOpacity>
 
-        <Text className="text-4xl font-bold text-[#FDE6B1] text-center flex-1">
-          {folderTitle}
-        </Text>
+        <Text className="text-4xl font-bold text-[#FDE6B1] text-center flex-1">{folderTitle}</Text>
 
         <View>
           {!isEditing ? (
@@ -281,9 +337,7 @@ const { sound } = await Audio.Sound.createAsync(
           totalSongs={playlistSongs.length}
           totalDuration={formattedTotalDuration}
           currentTitle={
-            playlistSongs.length === 0
-              ? "No songs yet"
-              : playlistSongs[currentIndex]?.title
+            playlistSongs.length === 0 ? "No songs yet" : playlistSongs[currentIndex]?.title
           }
           duration={duration}
           position={position}
@@ -297,8 +351,6 @@ const { sound } = await Audio.Sound.createAsync(
           onToggleShuffle={() => setIsShuffle(!isShuffle)}
           onToggleRepeat={() => setIsRepeat(!isRepeat)}
           onAddSong={() => setIsAddModalVisible(true)}
-
-
         />
 
         <SongList
@@ -314,84 +366,72 @@ const { sound } = await Audio.Sound.createAsync(
         />
       </View>
 
-      <Modal
-  transparent
-  visible={isAddModalVisible}
-  animationType="fade"
->
-  <View className="flex-1 justify-center items-center bg-black/40">
-    <View
-      style={{
-        width: 300,
-        backgroundColor: "#EED9B6",
-        borderRadius: 20,
-        padding: 20,
-        borderWidth: 2,
-        borderColor: "black",
-      }}
-    >
-      <Text className="text-black font-bold mb-2">
-        Song Title
-      </Text>
+      <Modal transparent visible={isAddModalVisible} animationType="fade">
+        <View className="flex-1 justify-center items-center bg-black/40">
+          <View
+            style={{
+              width: 300,
+              backgroundColor: "#EED9B6",
+              borderRadius: 20,
+              padding: 20,
+              borderWidth: 2,
+              borderColor: "black",
+            }}
+          >
+            <Text className="text-black font-bold mb-2">Song Title</Text>
 
-      <TextInput
-        value={newSongTitle}
-        onChangeText={setNewSongTitle}
-        placeholder="Enter song title"
-        style={{
-          backgroundColor: "#E5E5E5",
-          borderRadius: 15,
-          padding: 10,
-          borderWidth: 2,
-          borderColor: "black",
-          marginBottom: 15,
-        }}
-      />
+            <TextInput
+              value={newSongTitle}
+              onChangeText={setNewSongTitle}
+              placeholder="Enter song title"
+              style={{
+                backgroundColor: "#E5E5E5",
+                borderRadius: 15,
+                padding: 10,
+                borderWidth: 2,
+                borderColor: "black",
+                marginBottom: 15,
+              }}
+            />
 
-      <TouchableOpacity
-        onPress={handleImportMusic}
-        style={{ marginBottom: 20 }}
-      >
-        <Text style={{ fontWeight: "600" }}>
-          + Import Music {newSongFile ? "| File Uploaded!" : ""}
-        </Text>
-      </TouchableOpacity>
+            <TouchableOpacity onPress={handleImportMusic} style={{ marginBottom: 20 }}>
+              <Text style={{ fontWeight: "600" }}>
+                + Import Music {newSongFile ? "| File Uploaded!" : ""}
+              </Text>
+            </TouchableOpacity>
 
-      <View className="flex-row justify-between">
-        <TouchableOpacity
-          onPress={handleAddSong}
-          style={{
-            backgroundColor: "#6FCF97",
-            paddingVertical: 8,
-            paddingHorizontal: 20,
-            borderRadius: 15,
-            borderWidth: 2,
-            borderColor: "black",
-          }}
-        >
-          <Text style={{ fontWeight: "bold" }}>+ Add</Text>
-        </TouchableOpacity>
+            <View className="flex-row justify-between">
+              <TouchableOpacity
+                onPress={handleAddSong}
+                style={{
+                  backgroundColor: "#6FCF97",
+                  paddingVertical: 8,
+                  paddingHorizontal: 20,
+                  borderRadius: 15,
+                  borderWidth: 2,
+                  borderColor: "black",
+                }}
+              >
+                <Text style={{ fontWeight: "bold" }}>+ Add</Text>
+              </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => setIsAddModalVisible(false)}
-          style={{
-            backgroundColor: "#EB5757",
-            paddingVertical: 8,
-            paddingHorizontal: 20,
-            borderRadius: 15,
-            borderWidth: 2,
-            borderColor: "black",
-          }}
-        >
-          <Text style={{ fontWeight: "bold", color: "white" }}>
-            Cancel
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  </View>
-</Modal>
-
+              <TouchableOpacity
+                onPress={() => setIsAddModalVisible(false)}
+                style={{
+                  backgroundColor: "#EB5757",
+                  paddingVertical: 8,
+                  paddingHorizontal: 20,
+                  borderRadius: 15,
+                  borderWidth: 2,
+                  borderColor: "black",
+                }}
+              >
+                <Text style={{ fontWeight: "bold", color: "white" }}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ImageBackground>
   );
 }
