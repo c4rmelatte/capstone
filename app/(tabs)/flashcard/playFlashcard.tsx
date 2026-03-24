@@ -1,17 +1,17 @@
-import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  ImageBackground,
-  useWindowDimensions,
-  Animated,
-  PanResponder,
-  TouchableOpacity,
-} from "react-native";
-import AppHeader from "../../../components/AppHeader";
 import Images from "@/constants/images";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useRef, useState } from "react";
+import {
+  Animated,
+  ImageBackground,
+  PanResponder,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from "react-native";
+import AppHeader from "../../../components/AppHeader";
 export default function PlayFlashcard() {
   const { height, width } = useWindowDimensions();
 

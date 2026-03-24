@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import { Feather } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
+import { router } from "expo-router";
+import { useState } from "react";
 import {
+  Dimensions,
+  Image,
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
@@ -7,15 +12,10 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Dimensions,
-  Image,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import { Feather } from "@expo/vector-icons";
-import { router } from "expo-router";
 
-import GreenButton from "@/components/GreenButton";
 import AppHeader from "@/components/AppHeader";
+import GreenButton from "@/components/GreenButton";
 import Images from "@/constants/images";
 import { ChevronLeft } from "lucide-react-native";
 
@@ -85,7 +85,7 @@ const CreateMusicFolder = () => {
           >
             <ChevronLeft size={28} color="#ffffff" />
           </TouchableOpacity>
-          <Text className="text-2xl font-bold text-[#FDE6B1]">
+          <Text className="text-2xl font-bold text-[#2B324C]">
             Create Music Folder
           </Text>
         </View>
