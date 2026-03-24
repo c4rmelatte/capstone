@@ -34,17 +34,21 @@ import ToDoBg from "../assets/images/todoBg.png";
 import DefaultProfile from "../assets/images/defaultProfile.png";
 import ProfileBg from "../assets/images/profileBg.png";
 
-import YellowWaveIntro from "../assets/images/YellowWaveIntro.png"
-import StubyLogo from "../assets/images/stubylogo.png"
+import StubyLogo from "../assets/images/stubylogo.png";
+import YellowWaveIntro from "../assets/images/YellowWaveIntro.png";
 
 import MusicBg from "../assets/images/musicBg.png";
 
-import MusicNature from "../assets/images/musicNature.png";
-import MusicUpbeat from "../assets/images/musicUpbeat.png";
-import MusicPop from "../assets/images/musicPop.png";
 import MusicClassical from "../assets/images/musicClassical.png";
-import MusicLofi from "../assets/images/musicLofi.png";
 import MusicDefault from "../assets/images/musicDefault.png";
+import MusicLofi from "../assets/images/musicLofi.png";
+import MusicNature from "../assets/images/musicNature.png";
+import MusicPop from "../assets/images/musicPop.png";
+import MusicUpbeat from "../assets/images/musicUpbeat.png";
+
+import English from "../assets/images/english.png";
+import Math from "../assets/images/math.png";
+import Science from "../assets/images/science.png";
 
 const Images = {
   Slide1,
@@ -84,7 +88,10 @@ const Images = {
   MusicClassical,
   MusicLofi,
   MusicDefault,
-  NotepadBg
+  NotepadBg,
+  Science,
+  English,
+  Math,
 };
 
 export default Images;

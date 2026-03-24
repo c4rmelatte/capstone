@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, Dimensions, ImageBackground, ScrollView } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Dimensions, ImageBackground, ScrollView, Text, View } from "react-native";
 
-import AppHeader from "../../../components/AppHeader";
 import AddFloatingButton from "@/components/AddFloatingButton";
-import FlashcardFolderCard from "@/components/FlashcardFolderCard";
 import DeleteFlashcardFolderModal from "@/components/DeleteFlashcardFolderModal";
+import FlashcardFolderCard from "@/components/FlashcardFolderCard";
 import Images from "@/constants/images";
+import AppHeader from "../../../components/AppHeader";
 
 const { width } = Dimensions.get("window");
 
@@ -14,8 +14,9 @@ export default function FlashcardFolder() {
   const params = useLocalSearchParams();
 
   const [flashcardFolders, setFlashcardFolders] = useState([
-    { id: "1", text: "FlashCard Content 1", image: Images.Slide1 },
-    { id: "2", text: "FlashCard Content 2", image: null },
+    { id: "1", text: "SCIENCE", image: Images.Science },
+    { id: "2", text: "FILIPINO", image: Images.English },
+    { id: "3", text: "MATH", image: Images.Math },
   ]);
 
   const [popupVisibleFolderId, setPopupVisibleFolderId] = useState<string | null>(null);
@@ -87,7 +88,7 @@ export default function FlashcardFolder() {
           <View
             key={folder.id}
             className="overflow-hidden rounded-2xl shadow-md mb-4"
-            style={{ width: width * 0.9, height: 180 }}
+            style={{ width: width * 0.9, height: 150 }}
           >
             <FlashcardFolderCard
               folderId={folder.id}

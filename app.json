@@ -7,7 +7,6 @@
     "icon": "./assets/images/stubylogo.png",
     "scheme": "puredrip",
     "userInterfaceStyle": "automatic",
-  
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
@@ -33,10 +32,8 @@
       [
         "expo-splash-screen",
         {
-         
           "imageWidth": 200,
           "resizeMode": "contain",
-        
           "images": {
             "light": "./assets/images/splash.png",
             "dark": "./assets/images/splash.png"
@@ -50,6 +47,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "3b4cbbcc-2a39-4f71-ac4e-2de443ae4192"
+      }
+    },
+    "owner": "snoopie0110"
   }
 }
