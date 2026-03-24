@@ -1,8 +1,9 @@
 import MusicFolderCard from "@/components/MusicFolderCard";
 import Images from "@/constants/images";
 import { Ionicons } from "@expo/vector-icons";
+import { Audio } from "expo-av";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dimensions,
   ImageBackground,
@@ -16,7 +17,6 @@ import {
 } from "react-native";
 import AppHeader from "../../../components/AppHeader";
 import DeletePlaylistModal from "../../../components/DeletePlaylistModal";
-import { Audio } from "expo-av";
 
 // Import the single source of truth
 import { songsByFolder } from "./playlist";
@@ -127,7 +127,7 @@ export default function Music() {
     <ImageBackground source={Images.MusicBg} className="flex-1" resizeMode="cover">
       <AppHeader />
 
-      <Text className="text-[#FDE6B1] mt-8 mb-8 text-4xl font-[900] text-center tracking-[4px]">
+      <Text className="text-[#2B324C] mt-8 mb-8 text-4xl font-[900] text-center tracking-[4px]">
         Music
       </Text>
 

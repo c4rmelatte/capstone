@@ -2,7 +2,6 @@ import AppHeader from "@/components/AppHeader";
 import Images from "@/constants/images";
 import { usePomodoro } from "@/context/PomodoroContext";
 import LottieView from "lottie-react-native";
-import React from "react";
 import { Dimensions, ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 
@@ -44,7 +43,7 @@ export default function Pomodoro() {
 
       <View className="flex-1 items-center pt-[10%] ">
         {/* Title */}
-        <Text className="text-[36px] font-extrabold text-[#1D1D1D] mb-[5%] tracking-[2px]">
+        <Text className="text-[36px] font-extrabold text-[#73311D] mb-[5%] tracking-[2px]">
           POMODORO
         </Text>
 

@@ -2,7 +2,7 @@ import Images from "@/constants/images";
 import { Audio } from "expo-av";
 import { router, useLocalSearchParams } from "expo-router";
 import { Check, ChevronLeft, Pencil } from "lucide-react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import AppHeader from "../../../components/AppHeader";
 import PlayerCard from "../../../components/PlayerCard";
@@ -16,19 +16,7 @@ export const songsByFolder: Record<string, any[]> = {
   // UPBEAT
   "1": [
     { id: "u1", title: "Chances", file: require("../../../assets/music/upbeat/upbeat1.mp3") },
-    { id: "u2", title: "Joy", file: require("../../../assets/music/upbeat/upbeat2.mp3") },
-    { id: "u3", title: "Energizer", file: require("../../../assets/music/upbeat/upbeat3.mp3") },
-    { id: "u4", title: "Summer Sound", file: require("../../../assets/music/upbeat/upbeat4.mp3") },
-    { id: "u5", title: "Funky", file: require("../../../assets/music/upbeat/upbeat5.mp3") },
-    { id: "u6", title: "Carnival", file: require("../../../assets/music/upbeat/upbeat6.mp3") },
-    { id: "u7", title: "Donut", file: require("../../../assets/music/upbeat/upbeat7.mp3") },
-    {
-      id: "u8",
-      title: "Follow the Sun",
-      file: require("../../../assets/music/upbeat/upbeat8.mp3"),
-    },
-    { id: "u9", title: "Sweet Talks", file: require("../../../assets/music/upbeat/upbeat9.mp3") },
-    { id: "u10", title: "Last Summer", file: require("../../../assets/music/upbeat/upbeat10.mp3") },
+    { id: "u2", title: "Joy", file: require("../../../assets/music/upbeat/upbeat2.mp3") }
   ],
   // CLASSICAL
   "2": [
@@ -42,34 +30,12 @@ export const songsByFolder: Record<string, any[]> = {
       title: "Ballet Suite_ 1.Waltz 4",
       file: require("../../../assets/music/classical/classical2.mp3"),
     },
-    {
-      id: "c3",
-      title: "The Nutcraker",
-      file: require("../../../assets/music/classical/classical3.mp3"),
-    },
-    {
-      id: "c4",
-      title: "Hungarian Dance 5",
-      file: require("../../../assets/music/classical/classical4.mp3"),
-    },
-    {
-      id: "c5",
-      title: "Pure Dream",
-      file: require("../../../assets/music/classical/classical5.mp3"),
-    },
+  
   ],
   // POP
   "3": [
     { id: "p1", title: "Espresso", file: require("../../../assets/music/pop/pop1.mp3") },
-    { id: "p2", title: "Birds of a Feather", file: require("../../../assets/music/pop/pop2.mp3") },
-    { id: "p3", title: "Die With A Smile", file: require("../../../assets/music/pop/pop3.mp3") },
-    { id: "p4", title: "Golden", file: require("../../../assets/music/pop/pop4.mp3") },
-    { id: "p5", title: "Cruel Summer", file: require("../../../assets/music/pop/pop5.mp3") },
-    { id: "p6", title: "Levitating", file: require("../../../assets/music/pop/pop6.mp3") },
-    { id: "p7", title: "Flowers", file: require("../../../assets/music/pop/pop7.mp3") },
-    { id: "p8", title: "As It Was", file: require("../../../assets/music/pop/pop8.mp3") },
-    { id: "p9", title: "Anti-Hero", file: require("../../../assets/music/pop/pop9.mp3") },
-    { id: "p10", title: "Greedy", file: require("../../../assets/music/pop/pop10.mp3") },
+    { id: "p2", title: "Birds of a Feather", file: require("../../../assets/music/pop/pop2.mp3") }
   ],
   // NATURE
   "4": [
@@ -78,53 +44,10 @@ export const songsByFolder: Record<string, any[]> = {
       id: "n2",
       title: "Forest Ambience",
       file: require("../../../assets/music/nature/nature2.mp3"),
-    },
-    { id: "n3", title: "Ocean Waves", file: require("../../../assets/music/nature/nature3.mp3") },
-    {
-      id: "n4",
-      title: "Sounds of Nature",
-      artist: "Aylex",
-      file: require("../../../assets/music/nature/nature4.mp3"),
-    }, //
-    {
-      id: "n5",
-      title: "Whistle",
-      artist: "Pufino",
-      file: require("../../../assets/music/nature/nature5.mp3"),
-    }, //
-    {
-      id: "n6",
-      title: "Tranquility",
-      artist: "Project Ex",
-      file: require("../../../assets/music/nature/nature6.mp3"),
-    }, //
-    {
-      id: "n7",
-      title: "We Are",
-      artist: "Moavii",
-      file: require("../../../assets/music/nature/nature7.mp3"),
-    }, //
-    {
-      id: "n8",
-      title: "Dawn",
-      artist: "Alegend",
-      file: require("../../../assets/music/nature/nature8.mp3"),
-    }, //
-    {
-      id: "n9",
-      title: "Soaked",
-      artist: "Pufino",
-      file: require("../../../assets/music/nature/nature9.mp3"),
-    }, //
-    {
-      id: "n10",
-      title: "Wallflower",
-      artist: "Epic Spectrum",
-      file: require("../../../assets/music/nature/nature10.mp3"),
-    }, //
+    }
   ],
   // // LOFI
-  // "5": [{ id: "l1", title: "Lofi Chill", file: require("../../../assets/music/pop1.mp3") }],
+  "5": [{ id: "l1", title: "Lofi Chill", file: require("../../../assets/music/pop1.mp3") }],
 };
 
 export default function Playlist() {
@@ -338,7 +261,7 @@ export default function Playlist() {
           <ChevronLeft size={28} color="#ffffff" />
         </TouchableOpacity>
 
-        <Text className="text-4xl font-bold text-[#FDE6B1] text-center flex-1">{folderTitle}</Text>
+        <Text className="text-4xl font-bold text-[#2B324C] text-center flex-1">{folderTitle}</Text>
 
         <View>
           {!isEditing ? (
