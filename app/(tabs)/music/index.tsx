@@ -1,114 +1,179 @@
-  import Images from "@/constants/images";
-  import { Ionicons } from "@expo/vector-icons";
-  import { useRouter } from "expo-router";
-  import React, { useState } from "react";
-  import AppHeader from "../../../components/AppHeader";
+import MusicFolderCard from "@/components/MusicFolderCard";
+import Images from "@/constants/images";
+import { Ionicons } from "@expo/vector-icons";
+import { Audio } from "expo-av";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import {
+  Dimensions,
+  ImageBackground,
+  LayoutAnimation,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  UIManager,
+  View,
+} from "react-native";
+import AppHeader from "../../../components/AppHeader";
+import DeletePlaylistModal from "../../../components/DeletePlaylistModal";
 
-  import {
-    FlatList,
-    ImageBackground,
-    SafeAreaView,
-    Text,
-    TouchableOpacity,
-    View,
-  } from "react-native";
+// Import the single source of truth
+import { songsByFolder } from "./playlist";
 
-  const MUSIC_DATA = [
-    { id: "1", title: "Classical", liked: true },
-    { id: "2", title: "Upbeat", liked: false },
-    { id: "3", title: "Pop", liked: false },
-    { id: "4", title: "Nature", liked: false },
-    { id: "5", title: "Lofi", liked: false },
-  ];
+const { width } = Dimensions.get("window");
 
-  export default function MusicScreen() {
-    const router = useRouter();
-    const [music, setMusic] = useState(MUSIC_DATA);
+export default function Music() {
+  if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
 
-    const toggleLike = (id: string) => {
-      setMusic((prev) =>
-        prev.map((item) =>
-          item.id === id ? { ...item, liked: !item.liked } : item
-        )
-      );
+  const [musicFolders, setMusicFolders] = useState<any[]>([]);
+  const [popupVisibleFolderId, setPopupVisibleFolderId] = useState<string | null>(null);
+  const [folderToDelete, setFolderToDelete] = useState<string | null>(null);
+
+  /* ---------------- HELPER TO COMPUTE DURATION ---------------- */
+  const getTotalDuration = async (songs: any[]) => {
+    let totalDuration = 0;
+    for (const song of songs) {
+      const { sound, status } = await Audio.Sound.createAsync(song.file);
+      totalDuration += status.isLoaded ? status.durationMillis ?? 0 : 0;
+      await sound.unloadAsync();
+    }
+    const minutes = Math.floor(totalDuration / 1000 / 60);
+    return `${minutes} min`;
+  };
+
+  const computeFolderStats = async (folderId: string) => {
+    const songs = folderId === "all" ? Object.values(songsByFolder).flat() : songsByFolder[folderId] || [];
+    const totalStreamingMinutes = await getTotalDuration(songs);
+    return { totalSongs: songs.length, totalStreamingMinutes };
+  };
+
+  /* ---------------- INITIALIZE FOLDERS ---------------- */
+  useEffect(() => {
+    const initFolders = async () => {
+      const folderIds = ["1", "2", "3", "4", "5"];
+      const folderTitles = ["Upbeat", "Classical", "Pop", "Nature", "Lofi"];
+      const folderImages = [
+        Images.MusicUpbeat,
+        Images.MusicClassical,
+        Images.MusicPop,
+        Images.MusicNature,
+        Images.MusicLofi,
+      ];
+
+      const folders: any[] = [];
+
+      for (let i = 0; i < folderIds.length; i++) {
+        const stats = await computeFolderStats(folderIds[i]);
+        folders.push({
+          id: folderIds[i],
+          musicFolderTitle: folderTitles[i],
+          musicImage: folderImages[i],
+          totalSongs: stats.totalSongs,
+          totalStreamingMinutes: stats.totalStreamingMinutes,
+          isHearted: false,
+        });
+      }
+
+      // All Songs folder
+      const allStats = await computeFolderStats("all");
+      const allSongsFolder = {
+        id: "all",
+        musicFolderTitle: "All Songs",
+        musicImage: Images.MusicDefault,
+        totalSongs: allStats.totalSongs,
+        totalStreamingMinutes: allStats.totalStreamingMinutes,
+        isHearted: false,
+      };
+
+      setMusicFolders([allSongsFolder, ...folders]);
     };
 
-    const renderItem = ({ item }: { item: any }) => (
-      <View className="mb-4 rounded-2xl bg-[#4C5C8A]/90 px-5 py-4 shadow-lg">
-        {/* Top Row */}
-        <View className="flex-row justify-between items-center">
-          <Text className="text-white text-xl font-extrabold tracking-wide">
-            {item.title}
-          </Text>
+    initFolders();
+  }, []);
 
-          <Ionicons name="ellipsis-horizontal" size={20} color="white" />
-        </View>
+  
 
-        {/* Sub text */}
-        <Text className="text-white/70 text-xs mt-1">
-          20 songs · 45 min 15 s
-        </Text>
+  /* ---------------- DELETE ---------------- */
+  const handleDeleteFolder = (id: string) => {
+    if (id === "all") return; // cannot delete All Songs
+    setMusicFolders((prev) => prev.filter((f) => f.id !== id));
+    setFolderToDelete(null);
+  };
 
-        {/* Action Row */}
-        <View className="flex-row items-center justify-end mt-3 space-x-4">
-          <TouchableOpacity onPress={() => toggleLike(item.id)}>
-            <Ionicons
-              name={item.liked ? "heart" : "heart-outline"}
-              size={22}
-              color={item.liked ? "#FF6B6B" : "white"}
-            />
-          </TouchableOpacity>
+  /* ---------------- HEART ---------------- */
+  const toggleHeartFolder = (id: string) => {
+    if (id === "all") return; // All Songs has no heart
 
-          <TouchableOpacity className="bg-white rounded-full p-2">
-            <Ionicons name="play" size={18} color="#4C5C8A" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
-    return (
-      <ImageBackground
-        source={Images.MusicWaveBg} // use same bg style as screenshot
-        className="flex-1"
-        resizeMode="cover"
-      >
-        <AppHeader />
+    setMusicFolders((prev) => {
+      const updated = prev.map((f) =>
+        f.id === id ? { ...f, isHearted: !f.isHearted } : f
+      );
 
-        <SafeAreaView className="flex-1">
-          {/* Title */}
-          <View className="mt-6 mb-6">
-            <Text
-              className="text-[#2E2A25] text-4xl font-[900] text-center tracking-[4px]"
-              style={{
-                textShadowColor: "rgba(0,0,0,0.25)",
-                textShadowOffset: { width: 2, height: 2 },
-                textShadowRadius: 4,
-              }}
-            >
-              MUSIC
-            </Text>
-          </View>
+      const allSongs = updated.find((f) => f.id === "all");
+      const hearted = updated.filter((f) => f.isHearted);
+      const unhearted = updated.filter((f) => !f.isHearted && f.id !== "all");
 
-          {/* List */}
-          <View className="flex-1 mx-6">
-            <FlatList
-              data={music}
-              keyExtractor={(item) => item.id}
-              renderItem={renderItem}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: 120 }}
-            />
-          </View>
+      return [allSongs!, ...hearted, ...unhearted];
+    });
+  };
 
-          {/* FAB */}
-          <TouchableOpacity
-            activeOpacity={0.9}
-            className="absolute bottom-8 right-8 w-[65px] h-[65px] bg-[#EFE2B6] rounded-full justify-center items-center shadow-xl"
-            onPress={() => router.push("/(tabs)/music/addmusic")}
+  /* ---------------- RENDER ---------------- */
+  return (
+    <ImageBackground source={Images.MusicBg} className="flex-1" resizeMode="cover">
+      <AppHeader />
+
+      <Text className="text-[#2B324C] mt-8 mb-8 text-4xl font-[900] text-center tracking-[4px]">
+        Music
+      </Text>
+
+      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+        {musicFolders.map((folder) => (
+          <View
+            key={folder.id}
+            className="overflow-hidden rounded-2xl shadow-md mb-4"
+            style={{ width: width * 0.9, height: 130 }}
           >
-            <Ionicons name="add" size={40} color="#2E2A25" />
-          </TouchableOpacity>
-        </SafeAreaView>
-      </ImageBackground>
-    );
+            <MusicFolderCard
+  musicFolderId={folder.id}
+  musicFolderTitle={folder.musicFolderTitle}
+  musicImage={folder.musicImage}
+  totalSongs={folder.totalSongs}
+  totalStreamingMinutes={folder.totalStreamingMinutes}
+  isPopupVisible={popupVisibleFolderId === folder.id}
+  setPopupVisibleFolder={folder.id === "all" ? () => {} : setPopupVisibleFolderId} 
+  onFolderDelete={() => setFolderToDelete(folder.id)}
+  onFolderPress={() =>
+    router.push({
+      pathname: "/music/playlist",
+      params: { id: folder.id, title: folder.musicFolderTitle },
+    })
   }
+  isHearted={folder.isHearted}
+  onHeartToggle={() => toggleHeartFolder(folder.id)}
+  hideHeart={folder.id === "all"} // hide heart for All Songs
+/>
+
+          </View>
+        ))}
+      </ScrollView>
+
+      <TouchableOpacity
+        className="absolute bottom-8 right-8 w-[65px] h-[65px] bg-[#EFE2B6] rounded-full justify-center items-center"
+        onPress={() => router.push("/(tabs)/music/createMusicFolder")}
+      >
+        <Ionicons name="add" size={40} color="#2E2A25" />
+      </TouchableOpacity>
+
+      <DeletePlaylistModal
+        visible={!!folderToDelete}
+        onCancel={() => setFolderToDelete(null)}
+        onConfirm={() => folderToDelete && handleDeleteFolder(folderToDelete)}
+      />
+    </ImageBackground>
+  );
+}

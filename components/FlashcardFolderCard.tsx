@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import {
+  Animated,
   ImageBackground,
   Text,
   TouchableWithoutFeedback,
   View,
-  Animated,
 } from "react-native";
 import EditDeletePopUp from "./EditDeletePopUp";
 

@@ -1,12 +1,11 @@
-import { useNavigation } from "expo-router";
 import Images from "@/constants/images";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import LottieView from "lottie-react-native";
 import React, { useState } from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
-import { DrawerActions } from "@react-navigation/native";
-import Ionicons from "@expo/vector-icons/build/Ionicons";
-
+import { Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
 /* ---------------- MOCK DATA ---------------- */
 const initialTodos = [
   { id: "1", title: "Read chapter 3", completed: false },
@@ -17,11 +16,11 @@ const initialTodos = [
 ];
 
 const quickAccess = [
-  { id: "1", label: "Flashcard", bgColor: "#4E9C8F" },
-  { id: "2", label: "Notes", bgColor: "#5971C0" },
-  { id: "3", label: "Music", bgColor: "#EBC176" },
-  { id: "4", label: "Pomodoro", bgColor: "#EE8D8D" },
-  { id: "5", label: "Todo", bgColor: "#B5A6E4" },
+  { id: "1", label: "Flashcard", bgColor: "#4E9C8F", route: "flashcard", icon: require("../../../assets/images/flashLearn.png") },
+  { id: "2", label: "Notes", bgColor: "#5971C0", route: "notepad", icon: require("../../../assets/images/quickNotes.png") },
+  { id: "3", label: "Music", bgColor: "#EBC176", route: "music", icon: require("../../../assets/images/focusBeats.png") },
+  { id: "4", label: "Pomodoro", bgColor: "#EE8D8D", route: "pomodoro", icon: require("../../../assets/images/timeFocus.png") },
+  { id: "5", label: "Todo", bgColor: "#B5A6E4", route: "todolist", icon: require("../../../assets/images/taskReady.png") },
 ];
 
 const recents = [
@@ -32,7 +31,8 @@ const recents = [
 
 /* ---------------- DASHBOARD ---------------- */
 const Dashboard = () => {
-  const navigation = useNavigation(); // ✅ PUT IT HERE
+  const router = useRouter();
+  const navigation = useNavigation();
   const [todos, setTodos] = useState(initialTodos);
 
   const toggleTodo = (id: string) => {
@@ -170,7 +170,7 @@ const Dashboard = () => {
           </View>
         </View>
 
-        {/* ---------------- QUICK ACCESS ---------------- */}
+       {/* ---------------- QUICK ACCESS ---------------- */}
         <View style={{ marginTop: "5%" }}>
           <Text className="font-bold mb-3 text-black text-lg">Quick Access</Text>
 
@@ -186,8 +186,13 @@ const Dashboard = () => {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
+                onPress={() => router.push(item.route as any)} 
               >
-                <Text className="text-white font-bold text-lg">{item.label[0]}</Text>
+                        {/* Icon/Image */}
+              <Image
+                source={item.icon} // make sure item.icon exists
+                style={{ width: "80%", height: "80%", resizeMode: "contain" }}
+              />
               </TouchableOpacity>
             ))}
           </View>

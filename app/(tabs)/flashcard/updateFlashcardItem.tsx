@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import {
-  View,
   Text,
   TextInput,
   TouchableOpacity,
   ImageBackground,
   Alert,
-  KeyboardAvoidingView,
+  View,
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
@@ -15,6 +14,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import Images from "@/constants/images";
 import { ChevronLeft } from "lucide-react-native";
 import GreenButton from "@/components/GreenButton";
+import AppHeader from "@/components/AppHeader";
 
 const UpdateFlashcardItem = () => {
   const { id } = useLocalSearchParams();
@@ -29,44 +29,37 @@ const UpdateFlashcardItem = () => {
   };
 
   return (
-    <ImageBackground
-      source={Images.FlashcardBg}
-      resizeMode="cover"
-      className="flex-1"
-    >
+    <ImageBackground source={Images.FlashcardBg} resizeMode="cover" className="flex-1">
+      <AppHeader />
       {/* DISMISS KEYBOARD ON TAP */}
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View className="flex-1">
+        <View className="flex-1 mt-4">
           {/* TOP CONTROLS */}
-          <View className="absolute top-10 left-0 right-0 z-10 px-4">
-            {/* BACK BUTTON */}
+          <View className="flex flex-row items-center justify-between left-0 right-0 z-10 px-4">
+            {/* Back button */}
             <TouchableOpacity onPress={() => router.back()}>
               <ChevronLeft size={28} color="#ffffff" />
             </TouchableOpacity>
 
-            {/* UPDATE BUTTON */}
-            <View className="mt-3 flex-row justify-end">
-              <GreenButton
-                title="Update"
-                onPress={handleUpdate}
-                widthPercent={0.25}
-                heightPercent={0.05}
-              />
-            </View>
+            {/* Update button */}
+            <GreenButton
+              title="Update"
+              onPress={handleUpdate}
+              widthPercent={0.25}
+              heightPercent={0.05}
+            />
           </View>
 
           {/* MAIN CONTENT */}
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            className="flex-1 justify-center items-center"
+          <View 
+            className="flex-1 items-center"
+            style={{ marginTop: "40%" }}
           >
             {/* FLASHCARD */}
             <View className="h-[50%] w-[90%] rounded-2xl overflow-hidden shadow-lg">
               {/* QUESTION */}
               <View className="h-[65%] bg-[#39675F] px-4 py-4">
-                <Text className="text-white text-3xl font-bold mb-2">
-                  Question
-                </Text>
+                <Text className="text-white text-3xl font-bold mb-2">Question</Text>
                 <TextInput
                   value={question}
                   onChangeText={setQuestion}
@@ -88,9 +81,7 @@ const UpdateFlashcardItem = () => {
 
               {/* ANSWER */}
               <View className="h-[35%] bg-[#FFF9E5] px-4 py-3">
-                <Text className="text-[#39675F] text-3xl font-bold mb-1">
-                  Answer
-                </Text>
+                <Text className="text-[#39675F] text-3xl font-bold mb-1">Answer</Text>
                 <TextInput
                   value={answer}
                   onChangeText={setAnswer}
@@ -110,7 +101,7 @@ const UpdateFlashcardItem = () => {
                 />
               </View>
             </View>
-          </KeyboardAvoidingView>
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </ImageBackground>

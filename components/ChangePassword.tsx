@@ -54,8 +54,8 @@ const ChangePassword: React.FC<ChangePasswordFormProps> = ({
         Please check your email for the OTP to verify your account.
       </Text>
 
-      <View>
         <View style={{ width: "100%" }}>
+        <View>
           {/* Password */}
           <Text
             style={{
@@ -63,6 +63,7 @@ const ChangePassword: React.FC<ChangePasswordFormProps> = ({
               marginBottom: "2%",
               textAlign: "left",
               color: "#4B3A00",
+              
             }}
           >
             Password

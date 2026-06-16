@@ -89,7 +89,8 @@ const saveProfile = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="gap-2 mt-5">
+      <View className="mt-5 px-4 gap-2" style={{width:"100%"}}>
+
           <Text className="pl-3">Name:</Text>
           <CustomTextInput
             iconName="user"

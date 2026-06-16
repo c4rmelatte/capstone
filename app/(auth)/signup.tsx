@@ -20,16 +20,19 @@ const LoginScreen = () => {
         >
 
         <View
-          className="items-center"
-          style={{ marginTop: height * 0.1 }}
-        >
+        style={{
+          width: "100%",
+          paddingHorizontal: "6%",
+          marginTop: height * 0.1 
+        }}
+      >
           {/* Back Arrow */}
           {/* <TouchableOpacity onPress={() => router.back()} className="absolute left-6 top-20">
             <Ionicons name="arrow-back" size={28} color="#38BDF8" />
           </TouchableOpacity> */}
 
           {/* Title */}
-          <View className="pb-5 items-center">
+          <View className="pb-10 ">
             <Text className="mt-44 text-[70px] font-black text-[#FFEF9A]"
             style={{
             // Mimicking the thick black outline and shadow
@@ -42,7 +45,7 @@ const LoginScreen = () => {
           >
               REGISTER
             </Text>
-            <Text className="text-[#553A00] text-center text-[17px]"
+            <Text className="text-[#553A00] text-[17px]"
                       style={{
             fontFamily: 'Poppins-Bold', 
             fontWeight: '700',          
@@ -68,7 +71,7 @@ const LoginScreen = () => {
           <CustomButton title="Sign Up" onPress={() => router.push("/verifyemail")} />
 
           {/* Sign Up Link */}
-          <View className="flex-row mt-4">
+          <View className="flex-row justify-center mt-4">
             <Text className="text-white">Already a buddy? </Text>
             <TouchableOpacity onPress={() => router.push("/login")}>
               <Text className="text-white font-bold">Sign In</Text>

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, Dimensions, ImageBackground, ScrollView } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Dimensions, ImageBackground, ScrollView, Text, View } from "react-native";
 
-import AppHeader from "../../../components/AppHeader";
 import AddFloatingButton from "@/components/AddFloatingButton";
+import DeleteFlashcardFolderModal from "@/components/DeleteFlashcardFolderModal";
 import FlashcardFolderCard from "@/components/FlashcardFolderCard";
 import Images from "@/constants/images";
+import AppHeader from "../../../components/AppHeader";
 
 const { width } = Dimensions.get("window");
 
@@ -13,19 +14,22 @@ export default function FlashcardFolder() {
   const params = useLocalSearchParams();
 
   const [flashcardFolders, setFlashcardFolders] = useState([
-    { id: "1", text: "FlashCard Content 1", image: Images.Slide1 },
-    { id: "2", text: "FlashCard Content 2", image: null },
+    { id: "1", text: "SCIENCE", image: Images.Science },
+    { id: "2", text: "FILIPINO", image: Images.English },
+    { id: "3", text: "MATH", image: Images.Math },
   ]);
 
-  // Which folder's popup is currently open
   const [popupVisibleFolderId, setPopupVisibleFolderId] = useState<string | null>(null);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [folderToDelete, setFolderToDelete] = useState<string | null>(null);
 
   const handleFolderPress = (folderId: string) => {
-    console.log("Folder pressed:", folderId);
-    // navigate to folder cards
+    router.push({
+      pathname: "/flashcard/flashcardItems",
+      params: { folderId },
+    });
   };
 
-  // ADD NEW FLASHCARD FOLDER ON TOP
   useEffect(() => {
     if (!params?.id) return;
 
@@ -36,22 +40,26 @@ export default function FlashcardFolder() {
         {
           id: params.id as string,
           text: params.title as string,
-          image: params.coverPhoto
-            ? { uri: params.coverPhoto as string }
-            : null,
+          image: params.coverPhoto ? { uri: params.coverPhoto as string } : null,
         },
         ...prev,
       ];
     });
   }, [params?.id]);
 
-  // DELETE FLASHCARD FOLDER
-  const handleDeleteFolder = (folderId: string) => {
-    setFlashcardFolders((prev) => prev.filter((folder) => folder.id !== folderId));
-    if (popupVisibleFolderId === folderId) setPopupVisibleFolderId(null);
+  const confirmDeleteFolder = (folderId: string) => {
+    setFolderToDelete(folderId);
+    setDeleteModalVisible(true);
   };
 
-  // EDIT FLASHCARD FOLDER
+  const handleDeleteFolder = () => {
+    if (!folderToDelete) return;
+    setFlashcardFolders((prev) => prev.filter((folder) => folder.id !== folderToDelete));
+    if (popupVisibleFolderId === folderToDelete) setPopupVisibleFolderId(null);
+    setFolderToDelete(null);
+    setDeleteModalVisible(false);
+  };
+
   const handleEditFolder = (folderId: string) => {
     router.push({
       pathname: "/flashcard/updateFlashcardFolder",
@@ -80,7 +88,7 @@ export default function FlashcardFolder() {
           <View
             key={folder.id}
             className="overflow-hidden rounded-2xl shadow-md mb-4"
-            style={{ width: width * 0.9, height: 180 }}
+            style={{ width: width * 0.9, height: 150 }}
           >
             <FlashcardFolderCard
               folderId={folder.id}
@@ -89,7 +97,7 @@ export default function FlashcardFolder() {
               isPopupVisible={popupVisibleFolderId === folder.id}
               setPopupVisibleFolder={setPopupVisibleFolderId}
               onFolderEdit={handleEditFolder}
-              onFolderDelete={handleDeleteFolder}
+              onFolderDelete={() => confirmDeleteFolder(folder.id)}
               onFolderPress={handleFolderPress}
             />
           </View>
@@ -98,6 +106,13 @@ export default function FlashcardFolder() {
 
       <AddFloatingButton
         onPress={() => router.push("/flashcard/createFlashcardFolder")}
+      />
+
+      {/* DELETE CONFIRMATION MODAL */}
+      <DeleteFlashcardFolderModal
+        visible={deleteModalVisible}
+        onCancel={() => setDeleteModalVisible(false)}
+        onConfirm={handleDeleteFolder}
       />
     </ImageBackground>
   );

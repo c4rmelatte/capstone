@@ -23,7 +23,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   const shouldHideText = secureTextEntry ? !isPasswordVisible : false;
   
   // Responsive sizes
-  const inputWidth = SCREEN_WIDTH * 0.75; // 85% of screen width
+
   const inputHeight = SCREEN_WIDTH * 0.12; // roughly 12% of screen width for height
   const borderRadius = inputHeight / 2; // pill-shaped
   const iconSize = SCREEN_WIDTH * 0.05; // icon ~5% of screen width
@@ -39,7 +39,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
       ) : null}
 
       <View style={{
-        width: inputWidth,
+         width: '100%', 
         height: inputHeight,
         backgroundColor: 'white',
         borderWidth: 2,

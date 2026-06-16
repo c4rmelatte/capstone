@@ -30,7 +30,7 @@ const OkayPasswordScreen = () => {
             alignItems: "center",
           }}
         >
-             <ImageBackground
+          <ImageBackground
             source={Images.Check} // Make sure checked.png is imported in Images
             style={{ width: 80, height: 80, marginBottom: 16 }}
             resizeMode="contain"
@@ -61,11 +61,17 @@ const OkayPasswordScreen = () => {
           </Text>
 
           {/* Back to Login Button */}
-          <CustomButton
-            title="Back To Login"
-            onPress={() => router.push("/login")}
-            containerStyle="mt-6"
-          />
+          <View
+            style={{
+              width: "80%",
+            }}
+          >
+            <CustomButton
+              title="Back To Login"
+              onPress={() => router.push("/login")}
+              containerStyle="mt-6"
+            />
+          </View>
         </View>
       </View>
     </ImageBackground>

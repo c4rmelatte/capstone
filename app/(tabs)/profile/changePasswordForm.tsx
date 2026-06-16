@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { ImageBackground, TouchableWithoutFeedback, Keyboard, TextInput, Alert } from "react-native";
+import { ImageBackground, TouchableWithoutFeedback, Keyboard, TextInput, Alert , View} from "react-native";
 import Images from "@/constants/images";
 import OtpPassword from "@/components/OtpPassword";
 import ChangePassword from "@/components/ChangePassword";
@@ -75,6 +75,7 @@ const ChangePasswordForm = () => {
             <ImageBackground
                 source={Images.Loginbg}
                 resizeMode="cover"
+
                 style={{
                     flex: 1,
                     justifyContent: "center",
@@ -82,6 +83,8 @@ const ChangePasswordForm = () => {
                     paddingHorizontal: "5%",
                 }}
             >
+
+                
                 {isOtpVerified ? (
                     <ChangePassword
                         password={password}
@@ -91,12 +94,18 @@ const ChangePasswordForm = () => {
                         onSubmit={handleChangePassword}
                     />
                 ) : (
-                    <OtpPassword
+
+                   
+
+                        <OtpPassword
                         otp={otp}
                         inputsRef={inputsRef}
                         onChange={handleChange}
                         onVerify={handleVerify}
                     />
+
+                    
+                    
                 )}
             </ImageBackground>
         </TouchableWithoutFeedback>

@@ -60,7 +60,7 @@ export default function WelcomeIntroduction() {
           </Text>
         </View>
 
-        <View className="flex justify-center items-center">
+        <View className="flex ">
           <CustomButton title="Go to Next" onPress={handleNextPage} />
         </View>
       </View>
