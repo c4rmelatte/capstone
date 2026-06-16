@@ -16,6 +16,7 @@ const ForgotPasswordScreen = () => {
     >
       {/* Card */}
       <View
+        className="flex justify-center items-center"
         style={{
           width: "100%",
           backgroundColor: "#FFF9E5",
@@ -51,12 +52,12 @@ const ForgotPasswordScreen = () => {
             marginBottom: 24,
           }}
         >
-          Enter your e-mail address below, and we’ll send an OTP to your email to
-          verify it.
+          Enter your e-mail address below, and we’ll send an OTP to your email to verify it.
         </Text>
 
         {/* Email Label */}
         <Text
+          className="flex w-full pl-4 "
           style={{
             color: "black",
             fontWeight: "600",
@@ -75,13 +76,17 @@ const ForgotPasswordScreen = () => {
           onChangeText={setEmail}
         />
 
-        {/* Send OTP Button */}
-        <CustomButton
-          title="SEND EMAIL OTP"
-          onPress={() => router.push("/resetpass")}
-          containerStyle="mt-2" // Tailwind margin-top: 8
-        />
-
+        <View
+          style={{
+            width: "100%",
+          }}
+        >
+          <CustomButton
+            title="SEND EMAIL OTP"
+            onPress={() => router.push("/resetpass")}
+            containerStyle="mt-2" // Tailwind margin-top: 8
+          />
+        </View>
 
         {/* Back to Login */}
         <TouchableOpacity
